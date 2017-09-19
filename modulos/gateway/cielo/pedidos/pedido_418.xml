@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO88591"?>
+<transacao xmlns="http://ecommerce.cbmp.com.br" versao="1.1.0" id="6ad045ff78364333663406b4d05a57a7">
+  <tid>10558155940000A22006</tid>
+  <pan>7yRDWVUkDujncUBNvZ99KlzUSfkCtefURzwj8A1Zfdo=</pan>
+  <dadospedido>
+    <numero>418</numero>
+    <valor>500</valor>
+    <moeda>986</moeda>
+    <datahora>20150202T13:51:46.61602:00</datahora>
+    <idioma>PT</idioma>
+  </dadospedido>
+  <formapagamento>
+    <bandeira>visa</bandeira>
+    <produto>2</produto>
+    <parcelas>6</parcelas>
+  </formapagamento>
+  <status>3</status>
+  <autenticacao>
+    <codigo>3</codigo>
+    <mensagem>Transacao sem autenticacao</mensagem>
+    <datahora>20150202T13:51:56.90402:00</datahora>
+    <valor>500</valor>
+    <eci>6</eci>
+  </autenticacao>
+</transacao>

@@ -1,0 +1,104 @@
+.configFormasPagamentos{
+    min-width: 780px;
+}
+
+#produto-categoria h3.forma-pagamento { 
+    display: block;
+    width:100%;
+    float: left;
+    height:18px;
+    margin:20px  0 20px 5px;
+    font-size:18px;
+    font-weight: bold;
+}
+.produtos-plus-pagamento .ppp-centro { min-height:10px; margin:0 auto;}
+.produtos-plus-pagamento .ppp-item { 
+    padding:6px 10px 10px 5px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+.produtos-plus-pagamento p { 
+    display: block;
+    text-align: left;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid silver
+}
+.ppp-item ul { float: none;}
+.produtos-plus-pagamento p+ul li { 
+    display: block; 
+    float: left;
+    padding:5px;
+    text-align: center;
+
+}
+.produtos-plus-pagamento input[name="frmFormaPagamento"] { 
+    display: block; 
+    margin:0 auto;
+    *margin:0;
+    width:15px;
+    margin-bottom: 5px;
+}
+
+#parcelamento-cartao { 
+	margin-top: 10px;
+	float: left;
+	clear: left;
+	text-align: left;
+	display: block;
+	width:325px;
+}
+
+#parcelamento-cartao ul li {
+	float:left;
+	display: list-item;
+	text-align: left;
+	margin-left: 78px;
+}
+#parcelamento-cartao ul li p { 
+	font-size: 12px;	
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+.parcelamento-cartao-texto { 
+	display: block;
+	float: left;
+	width:100%;
+	font-size: 9px;
+	margin:10px 0 0 6px;
+
+}
+
+
+/************************************* Produtos - Formas de Pagamentos */
+
+.wrap h3{
+    border-radius: 3px;
+    border:1px solid #dfdfdf;
+    float:left;
+    clear:both;
+    width:99%;
+    line-height:30px;
+    font-family:Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;
+    font-size:15px; font-weight:normal;
+    background-image:-webkit-linear-gradient(#f8f8f8,#ececec);
+    background-image:-moz-linear-gradient(#f8f8f8,#ececec);
+    *background-color:#ececec;
+    margin: 0px;
+    margin-bottom: -4px;
+    padding-left: 10px;
+}
+.wrap form{
+    border-radius:3px;
+    border:1px solid #dfdfdf;
+    width:99%;
+    float:left;
+    min-height:50px;
+    padding: 10px 0 0 10px;
+    background-color: #f8f8f8;
+}
+
+

@@ -1,0 +1,218 @@
+# Translation of Network Admin in Portuguese (Brazil)
+# This file is distributed under the same license as the Network Admin package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Enquetes v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-08 11:00-0300\n"
+"PO-Revision-Date: 2013-03-08 11:02-0300\n"
+"Last-Translator: Interface1 <interface1@interface1.com.br>\n"
+"Language-Team: Evonline <interface1@interface1.com.br>\n"
+"Language: portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../functions.php:99 ../functions.php:108
+msgid "Payment"
+msgstr "Pagamento"
+
+#: ../functions.php:119
+msgid "Payment options"
+msgstr "Op&ccedil;&otilde;es de pagamento"
+
+#: ../functions.php:137
+msgid "Billet"
+msgstr "Boleto"
+
+#: ../pagamentos.php:9
+msgid "Products - Methods of Payments"
+msgstr "Produtos - Formas de Pagamentos"
+
+#: ../pagamentos.php:10
+msgid "Save Settings"
+msgstr "Salvar Configura&ccedil;&otilde;es"
+
+#: ../pagamentos.php:22
+msgid "BCash"
+msgstr ""
+
+#: ../pagamentos.php:28
+msgid "Bank Transfer"
+msgstr "Boleto Banc&aacute;rio"
+
+#: ../pagamentos.php:78
+msgid "Configure Bank Transfer"
+msgstr "Configurar Boleto Banc&aacute;rio"
+
+#: ../pagamentos.php:83
+msgid "Using Pay Per Boleto"
+msgstr "Utilizar o Pagamento por Boleto"
+
+#: ../pagamentos.php:84 ../pagamentos.php:124 ../pagamentos.php:185
+#: ../pagamentos.php:232 ../pagamentos.php:274 ../pagamentos.php:321
+#: ../pagamentos.php:384 ../pagamentos.php:408 ../pagamentos.php:448
+msgid "Not"
+msgstr "Não"
+
+#: ../pagamentos.php:86 ../pagamentos.php:126 ../pagamentos.php:187
+#: ../pagamentos.php:234 ../pagamentos.php:276 ../pagamentos.php:323
+#: ../pagamentos.php:386 ../pagamentos.php:414 ../pagamentos.php:454
+msgid "Yes"
+msgstr "Sim"
+
+#: ../pagamentos.php:90
+msgid "Bank"
+msgstr "Banco"
+
+#: ../pagamentos.php:93
+msgid "Select"
+msgstr "Selecione"
+
+#: ../pagamentos.php:105
+msgid "agency"
+msgstr "Ag&ecirc;ncia"
+
+#: ../pagamentos.php:107
+msgid "checking account"
+msgstr "Conta Corrente"
+
+#: ../pagamentos.php:109
+msgid "digit"
+msgstr "Dígito"
+
+#: ../pagamentos.php:111
+msgid "corporate name"
+msgstr "Raz&atilde;o Social"
+
+#: ../pagamentos.php:120
+msgid "Days to Maturity"
+msgstr "Dias para Vencimento"
+
+#: ../pagamentos.php:122
+msgid "Accept Winning Post"
+msgstr "Aceitar P&oacute;s Vencimento"
+
+#: ../pagamentos.php:127
+msgid "Maximum Term for Payment"
+msgstr "Prazo M&aacute;ximo para Pagamento"
+
+#: ../pagamentos.php:129
+msgid "Penalty Delay"
+msgstr "Multa Atraso"
+
+#: ../pagamentos.php:131
+msgid "interest Day"
+msgstr "Juros Dia"
+
+#: ../pagamentos.php:138
+msgid "Text of Note"
+msgstr "Observa&ccedil;&otilde;es"
+
+#: ../pagamentos.php:180 ../pagamentos.php:269 ../pagamentos.php:379
+msgid "Configure Payment"
+msgstr "Configurar Pagamento"
+
+#: ../pagamentos.php:184
+msgid "Pay per use"
+msgstr "Utilizar Pagamento por"
+
+#: ../pagamentos.php:191 ../pagamentos.php:238 ../pagamentos.php:280
+msgid "Email Address"
+msgstr "Endereço de Email"
+
+#: ../pagamentos.php:195
+msgid "Signature"
+msgstr "Assinatura"
+
+#: ../pagamentos.php:227
+#, fuzzy
+msgid "Configure BCash"
+msgstr "Configurar Pagamento"
+
+#: ../pagamentos.php:231
+msgid "Using Digital Payment Payment?"
+msgstr "Utilizar Pagamento por Pagamento Digital?"
+
+#: ../pagamentos.php:273
+msgid "Using Pay Per PagSeguro?"
+msgstr "Utilizar Pagamento por PagSeguro?"
+
+#: ../pagamentos.php:284
+msgid "Token Code"
+msgstr "C&oacute;digo do Token"
+
+#: ../pagamentos.php:316
+msgid "Configure Payment Itaú Bank Line"
+msgstr "Configurar Pagamento Ita&uacute; Bank Line"
+
+#: ../pagamentos.php:320
+msgid "Using Pay Per Itaú Bank Line?"
+msgstr "Utilizar Pagamento por Ita&uacute; Bank Line?"
+
+#: ../pagamentos.php:327
+msgid "Company Code"
+msgstr "C&oacute;digo da Empresa"
+
+#: ../pagamentos.php:331
+msgid "Key Itaú Bank Line"
+msgstr "Chave Ita&uacute; Bank Line"
+
+#: ../pagamentos.php:383
+msgid "Using Payment Cielo?"
+msgstr "Utilizar Pagamento Cielo?"
+
+#: ../pagamentos.php:390
+msgid "Key Store"
+msgstr "Chave da loja"
+
+#: ../pagamentos.php:394
+msgid "Key Cielo"
+msgstr "Chave Cielo"
+
+#: ../pagamentos.php:402
+msgid "Using Installment?"
+msgstr "Utilizar Parcelamento?"
+
+#: ../pagamentos.php:417
+msgid "Quantity Plots"
+msgstr "Quantidade de Parcelas"
+
+#: ../pagamentos.php:442
+msgid "Apply Interest?"
+msgstr "Aplicar Juros?"
+
+#: ../pagamentos.php:457
+msgid "Interest rate"
+msgstr "Taxa de Juros"
+
+#: ../pagamentos.php:463
+msgid "Apply after Portion"
+msgstr "Aplicar ap&oacute;s Parcela"
+
+#: ../cielo/pages/carrinho.php:63
+msgid "If your popup is blocked click here to open the Payment Cielo"
+msgstr ""
+"Se o seu pop-up &eacute; bloqueado clique aqui para abrir o pagamento Cielo"
+
+#: ../pagseguro/index.php:126
+msgid "Unauthorized Connection"
+msgstr "Conec&ccedil;&atilde;o n&atilde;o autorizada"
+
+#~ msgid "Digital Payment"
+#~ msgstr "Pagamento Digital"
+
+#~ msgid "Configure Digital Payment"
+#~ msgstr "Configurar Pagamento Digital"
+
+#~ msgid "Payment Gateway Settings"
+#~ msgstr "Configura&ccedil;&otilde;es do Gateway de Pagamento"
+
+#~ msgid "Modes accepted"
+#~ msgstr "Modos aceitos"

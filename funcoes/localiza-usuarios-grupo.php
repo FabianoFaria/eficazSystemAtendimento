@@ -1,0 +1,1 @@
+<?php	include("../config.php");	include("../includes/functions.gerais.php");	echo optionValueUsuarios("",$_GET["grupo-id"],"","&nbsp;");?>

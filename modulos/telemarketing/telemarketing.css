@@ -1,0 +1,7 @@
+#div-anexos .titulo{
+	border-left:1px solid #bcc4d3;
+}
+
+
+#tipo-cartao-pgto li{list-style: none;text-align:center;float:left;width:60px;}
+#tipo-cartao-pgto li input{width:100%;}

@@ -1,0 +1,192 @@
+**********************************************************
+2 WARNING - 2011-06-21 07:38:05 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\include.php(Linha 71)
+     MENSAGEM: 
+curl_error(): 11 is not a valid cURL handle resource
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:39:26 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="063df6fcdea30c8daef660c6943cd64d" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>R$ 23.00</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:39:26</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=V2&val=R$%2023.00</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:39:44 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="229b6f286c9b961e05a00fbaf4b56a93" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>R$ 23.00</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:39:44</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=M2&val=R$%2023.00</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:41:21 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="a91826593aa6d0e4bcf4758efb6de015" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>R$ 23.00</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:41:21</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=V2&val=R$%2023.00</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:41:55 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="f04811a19ba5d4f5f84f263cf8d657c6" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>R$ 23.00</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:41:55</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=V2&val=R$%2023.00</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:45:24 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="6fa59d6a7f06fc76d677c2105ad04084" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>R$ 23.00</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:45:24</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=M2&val=R$%2023.00</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2011-06-21 07:47:24 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\errorHandling.php(Linha 63)
+     MENSAGEM: 
+     Código do erro: 001
+     Mensagem: XML inválido: 'error: XML document structures must start and end within the same entity.'.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="5833af6e05fc1e5f6a084ae84c31fd28" versao="1.1.0">
+   <dados-ec>
+      <numero>1001734898</numero>
+      <chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1</numero>
+      <valor>23</valor>
+      <moeda>986</moeda>
+      <data-hora>2011-06-21T07:47:24</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>3</parcelas>
+   </forma-pagamento>
+   <url-retorno>http://servidor/seguroviagemfacil/areacliente/cielo/retorno.php?pedidoID=1&forma=M3&val=23</url-retorno>
+   <autorizar>1</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2011-06-21 08:19:27 (BRT)
+     ARQUIVO: C:\Inetpub\wwwApache\seguroviagemfacil\areacliente\cielo\fontes\antigo\pages\finalizaPedidoPagamento.php(Linha 9)
+     MENSAGEM: 
+Undefined index: pedidoID
+

@@ -1,0 +1,4 @@
+<?php	header("Content-type: text/html; charset=iso-8859-1");	$conexaoExterna  = mysql_connect("186.202.152.41","infom_fpinfo","fp@1209")or die("Nao foi possivel conectar o BD.");
+	mysql_select_db("infomare_fpinfo") or die("Não foi possivel selecionar o BD.");
+
+	$cep = str_replace('-','',$_GET['cep']);	$cepProduto = substr($cep, 0,5)."-".substr($cep, 5,8);	$cepInicio = substr($cepProduto, 0,5);	$rs = mysql_query("select Uf from `z_cep_index` where Cep5 = '$cepInicio'",$conexaoExterna);	if($row = mysql_fetch_row($rs))		$ufCep = $row[0];	if($ufCep != ""){		$rs = mysql_query("select * from `z_".$ufCep."` where Cep = '$cepProduto'",$conexaoExterna);		if($row = mysql_fetch_row($rs))			echo "$row[4],$row[5],$row[2],$row[3],$row[1],".strtoupper($ufCep);	}?>

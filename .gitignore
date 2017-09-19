@@ -1,0 +1,10 @@
+
+.htaccess
+/uploads
+/images/topo/logo.png
+/images/favicon/favicon.ico
+/images/documentos/cabecalho.jpg
+/images/documentos/cabecalho-rodape.jpg
+/includes/dompdf/lib/fonts/log.htm
+/images/documentos/rodape.jpg
+/teste

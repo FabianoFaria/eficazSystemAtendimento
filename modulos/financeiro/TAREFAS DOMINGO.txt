@@ -1,0 +1,7 @@
+1 - Finalizar onLoad - OK
+2 - Testes
+2 - Aplicar alterações para que não se altere nada após emitido
+3 - Aplicar jquery para trabalhar com alterações na tela de emissão de forma que ja va validando e calculando valores OK!!!
+4 - Verificar Impressão de DANFE - Deixar em anexo e talvez abrir em HTM 
+3 - Criar Listagem de NF-e
+4 - Iniciar NF - Servicos de Curitiba

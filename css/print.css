@@ -1,0 +1,95 @@
+html, body, form{
+	font-family:arial;
+	font-size:9px;
+	margin: 0 0 0 0;
+	height: 100%;
+}
+
+//@media print{
+//}
+/*
+table, tr, td, td p{ 
+	page-break-inside: avoid; 
+	page-break-after: avoid;
+	page-break-after: avoid;
+}
+*/
+
+.header {
+    background: url("../images/documentos/cabecalho.jpg") top no-repeat;
+    height: 80px;
+    background-position: center; 
+    margin: 0 auto;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    position: relative;
+    overflow: hidden;
+}
+.footer {
+    background: url("../images/documentos/rodape.jpg") bottom no-repeat;
+    background-position: center; 
+    margin: 0 auto;
+    width: 100%;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    position: relative;
+    overflow: hidden;
+}
+table {
+	margin: 0 0 0 0;
+	border: 0px;
+}
+.esconde{
+	display:none;
+}
+.tabela-fundo-escuro-titulo{
+	border:0px;
+	font-weight:bold;
+	background-color:#f1f1f1;
+}
+
+.tabela-fundo-escuro{
+	border:0px;
+	background-color:#f9f9f9;
+}
+.tabela-fundo-claro{
+	border:0px;
+	background-color:#ffffff;
+}
+
+.fundo-escuro-titulo{
+	border:0px;
+	font-weight:bold;
+	background-color:#f1f1f1;
+}
+
+.fundo-escuro{
+	border:0px;
+	background-color:#f9f9f9;
+}
+.fundo-claro{
+	border:0px;
+	background-color:#ffffff;
+}
+.destaque-tabela{
+	font-weight:bold;
+	background-color:#E5ECF1;
+	border:0px;
+	font-family:arial;
+	color:#000000;
+}
+
+
+.icone-entrada{
+	background: url(../images/geral/icone-entrada.png) no-repeat center;
+	width: 16px
+}
+.icone-saida{
+	background: url(../images/geral/icone-saida.png) no-repeat center;
+	width: 16px
+}
+.icone-entrada-saida{
+	background: url(../images/geral/icone-entrada-saida.png) no-repeat center;
+	width: 16px
+}

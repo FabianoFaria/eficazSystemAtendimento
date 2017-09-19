@@ -1,0 +1,3 @@
+		/*
+		http://sounoob.com.br/2011/11/09/criando-uma-requisicao-de-pagamento-do-pagseguro-via-parametros-http-usando-php-sem-utilizar-a-biblioteca-oficial/
+		*/

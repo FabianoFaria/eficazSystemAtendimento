@@ -1,0 +1,1642 @@
+[02-Feb-2015 18:33:10 America/Sao_Paulo] PHP Fatal error:  Call to undefined function get_bloginfo() in /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php on line 62
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:33:42 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:34:59 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 70)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:35:12 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 70)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:35:31 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 70)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:35:53 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 70)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:36:02 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 71)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:36:28 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 64)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:36:45 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 65)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:38:14 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 68)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:38:45 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 68)
+     MENSAGEM: 
+Undefined variable: imgRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:39:09 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Undefined variable: codigoRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:39:20 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 66)
+     MENSAGEM: 
+Undefined variable: codigoRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:39:29 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:40:21 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Undefined variable: codigoRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:40:25 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Undefined variable: codigoRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:42:07 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 73)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:42:27 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 73)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:43:40 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 72)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:43:53 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 74)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:44:11 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 74)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:44:29 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 74)
+     MENSAGEM: 
+Use of undefined constant autenticacao - assumed 'autenticacao'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:45:51 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 74)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:46:01 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 74)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:46:41 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 83)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:08 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 64)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:23 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 64)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:24 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 64)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:34 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 66)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:42 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 65)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:48:48 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 68)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:49:09 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 66)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:49:18 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 68)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:49:28 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 65)
+     MENSAGEM: 
+Use of undefined constant tid - assumed 'tid'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:49:36 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 65)
+     MENSAGEM: 
+Use of undefined constant tid - assumed 'tid'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:49:41 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 68)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:50:11 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 69)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:50:31 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 67)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:50:41 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 69)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:51:58 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 65)
+     MENSAGEM: 
+Undefined variable: codigoRetorno
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:52:14 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 69)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:52:23 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 66)
+     MENSAGEM: 
+Use of undefined constant bandeira - assumed 'bandeira'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:52:29 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 72)
+     MENSAGEM: 
+Use of undefined constant dadospedido - assumed 'dadospedido'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:52:48 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 73)
+     MENSAGEM: 
+Use of undefined constant formapagamento - assumed 'formapagamento'
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:53:17 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 96)
+     MENSAGEM: 
+Undefined variable: tid
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:53:50 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 96)
+     MENSAGEM: 
+Undefined variable: tid
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:54:01 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 95)
+     MENSAGEM: 
+Undefined variable: tid
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-02 18:54:40 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 79)
+     MENSAGEM: 
+Use of undefined constant tid - assumed 'tid'
+
+[03-Feb-2015 08:31:08 America/Sao_Paulo] PHP Fatal error:  Call to undefined function mpress_query() in /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php on line 83
+[03-Feb-2015 08:31:49 America/Sao_Paulo] PHP Fatal error:  Call to undefined function mpress_query() in /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php on line 83
+[03-Feb-2015 08:32:53 America/Sao_Paulo] PHP Fatal error:  Call to undefined function mpress_query() in /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php on line 83
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-10 10:55:22 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/homologacao/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-19 14:34:09 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-20 07:47:35 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-20 07:47:49 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-20 13:54:10 (BRST)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-02-24 14:16:54 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-03-02 14:53:15 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-03-06 17:22:56 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-03-06 17:24:17 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-03-09 17:21:38 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-03-16 15:29:09 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 095
+     Mensagem: Erro inesperado na integração da solução integrada.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="331373e6dc92b4f9e2af1a4b067d3ca9" versao="1.1.0">
+   <dados-ec>
+      <numero>1054529920</numero>
+      <chave>06491bec35dd9d08ab3030f85a39e8ebc0815fe662117c00720c13d12b761254</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>626</numero>
+      <valor>44900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-03-16T15:28:59</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>9</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-03-16 15:29:51 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 099
+     Mensagem: Erro inesperado
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="2ab46f7f09514730515ff3231331c920" versao="1.1.0">
+   <dados-ec>
+      <numero>1054529920</numero>
+      <chave>06491bec35dd9d08ab3030f85a39e8ebc0815fe662117c00720c13d12b761254</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>626</numero>
+      <valor>44900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-03-16T15:29:49</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>9</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-03-23 16:36:13 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 099
+     Mensagem: Erro inesperado
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="581b3b8f486bd190656ec0742a5fd5c1" versao="1.1.0">
+   <dados-ec>
+      <numero>1054529920</numero>
+      <chave>06491bec35dd9d08ab3030f85a39e8ebc0815fe662117c00720c13d12b761254</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>627</numero>
+      <valor>44900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-03-23T16:36:11</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-01 09:15:36 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-01 09:21:20 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-07 12:33:42 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-09 13:08:12 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-14 15:34:03 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-14 15:35:22 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-20 08:44:22 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-20 08:47:13 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-22 12:08:33 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-23 12:13:50 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-04-23 18:08:09 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-05-12 14:23:19 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-05-13 14:05:43 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-05-27 08:47:55 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-06-01 11:42:09 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-06-03 13:12:21 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-06-03 14:25:18 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-06-03 14:26:36 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 11:34:28 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="c707bf46f69d1842c410ef5c61b5d3ba" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T11:34:27</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 11:35:43 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="930df3ca35a25e6a4f40a8bd059126df" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T11:35:43</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 11:37:23 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="3182062322306c27d10cc87fabf712e4" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T11:37:23</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 11:41:47 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="166280544bf9e102172649d3a2c8d3c9" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T11:41:47</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 11:55:20 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="9ce7f1e7f50e358d82408ea5203f3d07" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T11:55:20</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 16:54:38 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="2c583406287f175081ce8c2577e108b1" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T16:54:38</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 16:55:02 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="bbdc522468469bbf046daa997b156f29" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T16:55:02</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-10 16:55:22 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="760c995fd1e8074f43afc79f4d53a4c0" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1031</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-10T16:55:22</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 07:44:23 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="bc97e5b72a88fa7874012ef86e09cf6a" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T07:44:23</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 07:44:29 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="5432811f2d9ce0070728b55ffb4387a8" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T07:44:29</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 07:44:33 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="9c4f2f315ed4437c52678232933880fe" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T07:44:32</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>elo</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 07:44:45 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="c1f6545be2b7b3df13bb8049780433b7" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T07:44:45</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 07:44:50 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="cbb1bfcf7a078d46dd8b2bdd725eb9e8" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T07:44:50</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>elo</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:16:48 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="43d358ec9f29ccc475e526fe73866b74" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:16:48</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>elo</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:17:35 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="d002ee25bba3d33b819fc525fcc78950" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:17:34</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:17:38 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="9c08b70015721b4b072927aa89770811" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:17:38</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:34:09 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="d3f4371d7783534c1332f3620dc0be16" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:34:09</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>2</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:40:59 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="fc3398c7cba70a1e8e84e9b1114624a6" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:40:59</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:41:20 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="6b3b22028d1788c4971ea3a1fcefbffa" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:41:20</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:42:05 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="eae67c061a9cb5b5548264fbd55b0e84" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:42:05</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:42:12 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="d1594553d63ca11ac09697d3deff12ae" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:42:11</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:42:21 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="8996ee84365bb0a7fd6a0a87a75d2ea0" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:42:21</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:42:29 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="e5491a9bc1297e217be40e46ff3f6011" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:42:29</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-06-11 08:42:45 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 001
+     Mensagem: 
+O XML informado não é valido:
+- string value '' does not match pattern for type of numero element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+- string length (0) is less than minLength facet (1) for type of chave element in DadosEc in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'
+
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="0e78f863240ea411564e987179d17f39" versao="1.1.0">
+   <dados-ec>
+      <numero></numero>
+      <chave></chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1032</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-06-11T08:42:45</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-06-12 16:47:57 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-07-08 10:41:16 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-07-24 14:07:20 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 095
+     Mensagem: Erro inesperado na integração da solução integrada.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="73475a49113c78ce69a7dc8391243369" versao="1.1.0">
+   <dados-ec>
+      <numero>1023076737</numero>
+      <chave>e3a849d3b5a0a3d4228e639276b46b1a60f4a06a7f5b02bf128698fc0d2814c9</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1266</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-07-24T14:07:04</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>mastercard</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-07-31 16:40:27 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 002
+     Mensagem: Credenciais inválidas.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="ac6e6c5bc77fa8d55c64f2c0df306659" versao="1.1.0">
+   <dados-ec>
+      <numero>1</numero>
+      <chave>1</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1301</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-07-31T16:40:27</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>1</produto>
+      <parcelas>1</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-12 11:46:51 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-13 11:02:02 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-19 19:01:05 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-20 10:59:39 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-24 12:57:08 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-08-28 11:04:57 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-02 18:35:54 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-09-04 18:07:47 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 002
+     Mensagem: Credenciais inválidas.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="f1059d605cc1a3f0e08d7b8bef5cb158" versao="1.1.0">
+   <dados-ec>
+      <numero>1</numero>
+      <chave>1</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1483</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-09-04T18:07:46</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-09-04 18:08:00 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 002
+     Mensagem: Credenciais inválidas.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="1f6be8759afa2ad6597ef5f81a5c7218" versao="1.1.0">
+   <dados-ec>
+      <numero>1</numero>
+      <chave>1</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1483</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-09-04T18:08:00</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-07 13:05:33 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-07 13:08:39 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-07 13:11:42 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-08 17:11:50 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-09 13:42:36 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-10 15:09:09 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/pages/retorno.php(Linha 63)
+     MENSAGEM: 
+Undefined index: autorizacao
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-09-14 19:31:35 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-09-29 09:08:20 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 002
+     Mensagem: Credenciais inválidas.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="bbdb497ad4ccff87703de3944129be52" versao="1.1.0">
+   <dados-ec>
+      <numero>1</numero>
+      <chave>1</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1483</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-09-29T09:08:20</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+256 ERRO NA TRANSACAO - 2015-09-29 09:10:08 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/errorHandling.php(Linha 64)
+     MENSAGEM: 
+     C&oacute;digo do erro: 002
+     Mensagem: Credenciais inválidas.
+     XML de envio: 
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<requisicao-transacao id="c01fba6b547739d215010a408629edea" versao="1.1.0">
+   <dados-ec>
+      <numero>1</numero>
+      <chave>1</chave>
+   </dados-ec>
+   <dados-pedido>
+      <numero>1483</numero>
+      <valor>39900</valor>
+      <moeda>986</moeda>
+      <data-hora>2015-09-29T09:10:07</data-hora>
+      <idioma>PT</idioma>
+   </dados-pedido>
+   <forma-pagamento>
+      <bandeira>visa</bandeira>
+      <produto>2</produto>
+      <parcelas>10</parcelas>
+   </forma-pagamento>
+   <url-retorno>https://clarotvlivre.brasilsat.com.br:443/sistema/modulos/gateway/cielo/pages/retorno.php</url-retorno>
+   <autorizar>2</autorizar>
+   <capturar>true</capturar>
+</requisicao-transacao>
+
+**********************************************************
+8 RUNTIME NOTICE - 2015-10-13 09:53:03 (BRT)
+     ARQUIVO: /home/httpd/htdocs/clar10br/sistema/modulos/gateway/cielo/includes/include.php(Linha 20)
+     MENSAGEM: 
+Undefined index: loja
+

@@ -1,0 +1,78 @@
+#topo-container {
+	width: 100%;
+	height: 53px;
+	background: url(../images/topo/topo-painel-adm.jpg);
+	float: left;
+	min-width: 900px;
+	font-size:12px;
+}
+#topo-esquerdo {
+	width: 36%;
+	margin: 0 auto;
+	float: left;
+}
+#topo-centro {
+	width: 28%;
+	margin: 0 auto;
+	float: right;
+	text-align:center;
+}
+#topo-direito {
+	width: 36%;
+	height:53px;
+	float: right;
+	text-align:left;
+	background: url('../images/topo/logo.png') right top no-repeat;
+}
+
+#topo-direito img{
+	margin-right:10px;
+	max-width:360px;
+}
+#btnhome {
+	min-width: 86px;
+	margin-left: 10px;
+	width: 5%;
+	height: 53px;
+	float: left;
+}
+#topo-login{
+	float:right;
+	width:100%;
+	font-family:arial;
+	color:#000000;
+	margin-top:9px;
+	margin-bottom:0px;
+}
+#topo-data{
+	height:18px;
+	float:right;
+	width:100%;
+	font-family:arial;
+	color:#000000;
+	margin-top:8px;
+	margin-bottom:0px;
+}
+
+#imgHome{
+	border: 0px;
+}
+#imgSair{
+	border: 0px;
+}
+
+#btnsair {
+	min-width: 86px;
+	margin-left: 10px;
+	width: 5%;
+	height: 53px;
+	float: left;
+}
+
+#btnhelp {
+	min-width: 86px;
+	margin-left: 10px;
+	width: 5%;
+	height: 53px;
+	float: left;
+}

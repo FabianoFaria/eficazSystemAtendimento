@@ -1,0 +1,52 @@
+.bordaLeft {
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+}
+
+.bordaRight {
+	border-right-style: solid;
+	border-right-color: #d3d1d1;
+	border-right-width: 1px;
+}
+
+.bordaLatlInf {
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+}
+
+.bordaSemanaLatlInf {
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+	background-color: #e7e7e7;
+}
+
+.DiaSelecionado-adm {
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+	background-color: #f0f0f0;
+	font-weight: bold;
+}
+
+.search-field input[type='text']{
+	height:20px !important;
+	min-height:20px !important;
+}
+
+.trocar-rep{
+	margin:2px 5px 0 5px;
+	float:left; 
+	cursor:pointer;
+    border: 1px solid #ccc;
+    padding: 6px;
+    border-radius: 10px;	
+}

@@ -1,0 +1,60 @@
+.coluna-titulo-vencimentos{
+	background-color: #F0F0F0;
+}
+.coluna-vencimentos{
+	border-bottom:3px solid #F0F0F0;
+}
+.coluna-vencimentos-destaque{
+	border-bottom:3px solid #F0F0F0;
+}
+
+
+.bordaLeft {
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+}
+
+.bordaRight {
+	border-right-style: solid;
+	border-right-color: #d3d1d1;
+	border-right-width: 1px;
+}
+
+.bordaLatlInf {
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+}
+
+.bordaSemanaLatlInf {
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+	background-color: #e7e7e7;
+}
+
+.DiaSelecionado-adm {
+	border-bottom-style: solid;
+	border-bottom-color: #d3d1d1;
+	border-bottom-width: 1px;
+	border-left-style: solid;
+	border-left-color: #d3d1d1;
+	border-left-width: 1px;
+	background-color: #f0f0f0;
+	font-weight: bold;
+}
+
+.check-tipo-grupo{
+	margin-top:2px;
+
+}
+
+
+
+.menu-relatorio-min{
+	font-size: 10px !important;
+}

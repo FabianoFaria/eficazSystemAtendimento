@@ -1,0 +1,1 @@
+<?php	ob_start();	setcookie($_POST['pagina-tabela-save'], serialize($_POST['gera-tabela-campos']), time()+3600000,"/",$_SERVER['HTTP_HOST']);?>

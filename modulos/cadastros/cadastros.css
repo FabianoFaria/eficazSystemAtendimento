@@ -1,0 +1,12 @@
+/*
+#mce_45 button {padding:2px 0px 2px 10px ;width:100px;}
+#mce_46 button {padding:2px;width:100px;}
+*/
+.sel-tag {
+	float:left;
+	white-space: nowrap;
+	font-weight: normal;
+	margin-right:8px;
+	cursor: pointer;
+}
+
