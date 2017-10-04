@@ -8,11 +8,20 @@
 	$condicaoSituacao = " and Tipo_ID != 111 ";
 	$textoDescricao = "Descri&ccedil;&atilde;o";
 	if ($workflowID!=""){
-		$sql = "Select w.Empresa_ID, w.Solicitante_ID, w.Representante_ID, w.Situacao_ID, w.Codigo, w.Titulo, w.Data_Abertura, w.Data_Finalizado,
-						w.Data_Cadastro, w.Usuario_Cadastro_ID, s.Descr_Tipo as Situacao
-					from orcamentos_workflows w
-					left join tipo s on s.Tipo_ID = w.Situacao_ID
-					where Workflow_ID = '$workflowID'";
+		$sql = "Select 
+					w.Empresa_ID, 
+					w.Solicitante_ID, 
+					w.Representante_ID, 
+					w.Situacao_ID, 
+					w.Codigo, w.Titulo, 
+					w.Data_Abertura, 
+					w.Data_Finalizado,
+					w.Data_Cadastro, 
+					w.Usuario_Cadastro_ID, 
+					s.Descr_Tipo as Situacao
+				from orcamentos_workflows w
+				left join tipo s on s.Tipo_ID = w.Situacao_ID
+				where Workflow_ID = '$workflowID'";
 		$query = mpress_query($sql);
 		if($rs = mpress_fetch_array($query)){
 			$cadastro 			= $rs['Cadastro'];
@@ -28,7 +37,14 @@
 			$usuarioCadastroID 	= $rs['Usuario_Cadastro_ID'];
 			$codigo 			= $rs['Codigo'];
 
-			$sql = "Select Follow_ID, Descricao, Dados, t.Descr_Tipo as Situacao, f.Situacao_ID as Situacao_ID, DATE_FORMAT(Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, cd.Nome as Usuario_Follow
+			$sql = "Select 
+						Follow_ID, 
+						Descricao, 
+						Dados, 
+						t.Descr_Tipo as Situacao, 
+						f.Situacao_ID as Situacao_ID, 
+						DATE_FORMAT(Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
+						cd.Nome as Usuario_Follow
 					from orcamentos_follows f
 					left join cadastros_dados cd on cd.Cadastro_ID = f.Usuario_Cadastro_ID
 					left join tipo t on t.Tipo_ID = f.Situacao_ID
@@ -99,12 +115,16 @@
 
 	$sql = "Select Email from cadastros_dados where Cadastro_ID = ".$dadosUserLogin['userID'];
 	$query = mpress_query($sql);
-	if($rs = mpress_fetch_array($query))
+	if($rs = mpress_fetch_array($query)){
+
 		$emailLogado = $rs[Email];
+	}
 
 
-	if (($dadosUserLogin['grupoID']==-3) || ($dadosUserLogin['grupoID']==-2))
+	if (($dadosUserLogin['grupoID']==-3) || ($dadosUserLogin['grupoID']==-2)){
+		
 		$condicoesRepresentante = " and cd.Cadastro_ID = ".$dadosUserLogin['userID'];
+	}
 
 ?>
 	<input type='hidden' id='workflow-id' name='workflow-id' value='<?php echo $workflowID;?>' class='dados-orc'/>

@@ -19,8 +19,12 @@
 	}
 
 	$resultado = mpress_query("select Cadastro_ID, Grupo_ID, Nome, Email, Ultimo_Login from cadastros_dados where email = '$login' and senha = '$senha' and Situacao_ID IN (1,-1) and Grupo_ID <> 0");
+
+	
+
 	echo "	<form action='$caminhoSistema/' method='post' name='retorno'>
 				$campoForm";
+
 	if($row = mpress_fetch_array($resultado)){
 		$dadosUserLogin['userID']		= $row['Cadastro_ID'];
 		$dadosUserLogin['grupoID']		= $row['Grupo_ID'];
@@ -38,6 +42,7 @@
 	else{
 		echo "	<input type='hidden' id='erro-login' name='erro-login' value='Login e/ou senha n&atilde;o conferem.'/>";
 	}
+
 	echo "
 				</form>
 				<script>

@@ -3,6 +3,8 @@
 	session_start();
 	global $conn, $caminhoSistema, $caminhoFisico, $tituloSistema, $descricaoSistema, $tipoBaseDados, $dadosUserLogin, $modulosAtivos;
 
+	var_dump($conn);
+
 	header("Cache-Control: no-cache");
 	header("Expires: -1");
 	header("Pragma: no-cache");

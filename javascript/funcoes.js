@@ -560,10 +560,16 @@ function mascaraCampo(objeto){
 	 ||((event.keyCode <= 57)&&(event.keyCode >= 48))
 	 ||((event.keyCode >= 44)&&(event.keyCode <= 47))
 	 ||((event.keyCode == 38))||((event.keyCode == 95))){*/
-	if(event.keyCode != 39){
- 		event.returnValue = true;
- 	}else{
- 		event.returnValue = false;}
+
+	if(typeof event != 'undefined'){
+
+		if(event.keyCode != 39){
+	 		event.returnValue = true;
+	 	}else{
+	 		event.returnValue = false;
+	 	}	
+	}
+	
 }
 
 function ValidarCNPJ(cnpj){
@@ -849,11 +855,17 @@ function mascaraValAsterisco(objeto){
 
 function mascaraVal(objeto){
 	campo = eval (objeto);
-	if((event.keyCode >= 48)&&(event.keyCode <= 57)){
-		event.returnValue = true;
-	}else{
-	  event.returnValue = false;
+
+	if(typeof event != 'undefined'){
+
+		if((event.keyCode >= 48)&&(event.keyCode <= 57)){
+			event.returnValue = true;
+		}else{
+		  event.returnValue = false;
+		}
+
 	}
+
 }
 
 function mascaraNum(objeto){
@@ -933,51 +945,57 @@ function acertaData(entrada){
 	var meses, dias, anos;
 	valor = entrada.value;
 	//campo = eval(entrada);
-	if ((event.keyCode!=46)&&(event.keyCode!=8)){
-		if((valor.length==2)||(valor.length==5)){
-			entrada.value = valor + "/";
-			if(valida_data(valor,valor.length)==false){
-			   alert('Data inválida');
-			   entrada.value = "";
-			   return false;
+
+	if(typeof event != 'undefined'){
+
+		if ((event.keyCode!=46)&&(event.keyCode!=8)){
+			if((valor.length==2)||(valor.length==5)){
+				entrada.value = valor + "/";
+				if(valida_data(valor,valor.length)==false){
+				   alert('Data inválida');
+				   entrada.value = "";
+				   return false;
+				}
 			}
+			if(valor.length==11){
+				entrada.value = valor.substring(0,10)+ " " + valor.substring(10,11);
+			}
+			if(valor.length==13){
+				entrada.value = valor + ":";
+				if(valor.substring(11,13)>23){
+					alert('Hora Inválida');
+				entrada.value = valor.substring(0,11);
+				return false;
+			   }
+			}
+			if(valor.length==16){
+				if(valor.substring(14,16)>59){
+					alert('Hora Inválida');
+				entrada.value = valor.substring(0,11);
+				return false;
+			   }
+			}
+			if(valor.length==10)
+				if(valida_data(valor,valor.length)==false){
+					alert('Data inválida');
+				entrada.value = "";
+				return false;
+			}else{
+					idade=(parseInt(anos)-parseInt(valor.substring(6,14)));
+					if((parseInt(6)-parseInt(valor.substring(3,5)))<1)
+					   idade = parseInt(idade) - 1;
+					dia=(parseInt(6)-parseInt(valor.substring(0,2)));
+					mes=parseInt(6)-parseInt(valor.substring(3,5));
+						mes_dig= parseInt(valor.substring(3,5))
+					if((parseInt(6)-parseInt(valor.substring(3,5)))==0)
+						if(dia > 0)
+					idade = parseInt(idade) + 1;
+			}
+			return true;
 		}
-		if(valor.length==11){
-			entrada.value = valor.substring(0,10)+ " " + valor.substring(10,11);
-		}
-		if(valor.length==13){
-			entrada.value = valor + ":";
-			if(valor.substring(11,13)>23){
-				alert('Hora Inválida');
-			entrada.value = valor.substring(0,11);
-			return false;
-		   }
-		}
-		if(valor.length==16){
-			if(valor.substring(14,16)>59){
-				alert('Hora Inválida');
-			entrada.value = valor.substring(0,11);
-			return false;
-		   }
-		}
-		if(valor.length==10)
-			if(valida_data(valor,valor.length)==false){
-				alert('Data inválida');
-			entrada.value = "";
-			return false;
-		}else{
-				idade=(parseInt(anos)-parseInt(valor.substring(6,14)));
-				if((parseInt(6)-parseInt(valor.substring(3,5)))<1)
-				   idade = parseInt(idade) - 1;
-				dia=(parseInt(6)-parseInt(valor.substring(0,2)));
-				mes=parseInt(6)-parseInt(valor.substring(3,5));
-					mes_dig= parseInt(valor.substring(3,5))
-				if((parseInt(6)-parseInt(valor.substring(3,5)))==0)
-					if(dia > 0)
-				idade = parseInt(idade) + 1;
-		}
-		return true;
 	}
+
+	
 }
 
 function valida_data(entrada, posicao){

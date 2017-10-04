@@ -5,8 +5,10 @@
 	function get_header(){
 		global $caminhoSistema, $tituloSistema, $descricaoSistema, $dadosUserLogin, $caminhoFisico;
 		$dadospagina = get_page_content();
+
 		if($dadospagina[Titulo] != "")
 			$tituloSistema = $tituloSistema." - ".$dadospagina[Titulo];
+
 		echo "	<title>".$tituloSistema."</title>
 				<meta name='description' content='$descricaoSistema.'>
 				<meta http-equiv='content-type' content='text/html; charset=UTF-8'>
@@ -88,6 +90,7 @@
 		global $dadosUserLogin,$caminhoSistema;
 		$dadosPagina = get_page_content();
 		//if($dadosPagina['Slug_Pagina']!='pdv-inicio'){
+
 		if(!empty($dadosUserLogin)){
 			require_once("includes/functions.menu.php");
 			$dadosMenu = geraDadosMenu();
@@ -114,16 +117,19 @@
 		}
 		echo "	<script>var arrayCamposForm = new Array($camposObrigatorios);</script>";
 
+
 		if(empty($dadosUserLogin))
 			if($_GET['oc'] != "")
 				include("orcamento.php");
 			else
 				include("login.php");
 		else{
+
 			echo "	<input type='hidden' id='timer-count' value='1800'>";
 			if($dadospagina =="404"){
 				echo "<script>open('$caminhoSistema', '_top')</script>";
 			}else{
+
 				if($dadospagina[Slug_Modulo] == ""){
 					if($dadospagina[Nome] != "lixeira"){
 						$paginaInicial = mpress_fetch_array(mpress_query("select descr_tipo from tipo where Tipo_ID = 6"));
@@ -229,27 +235,35 @@
 	function get_page_content(){
 		global $dadosUserLogin,$paginas;
 		global $leitura,$gravacao;
-		if($dadosUserLogin['userID'] >= 1){
+
+		if(($dadosUserLogin['userID'] == '-1') || ($dadosUserLogin['userID'] >= 1) ){
 			$grupos = mpress_query("select acessos from modulos_acessos where Modulo_Acesso_ID = ".$dadosUserLogin['grupoID']." and Situacao_ID = 1");
+
 			if($row = mpress_fetch_array($grupos)){
+
 				$acessos = unserialize($row[0]);
 				$leitura = $acessos[leitura];
 				$gravacao = $acessos[gravacao];
 				for($y=0;$y<count($leitura);$y++) $paginas .= $leitura[$y].",";
 				for($z=0;$z<count($gravacao);$z++) $paginas .= $gravacao[$z].",";
-			}
+			}	
+
 			$strAcesso = "and mp.Modulo_Pagina_ID in (".$paginas."0)";
 		}
 
 		$arrinstancia = explode("?",str_replace(str_replace("index.php", "", $_SERVER['SCRIPT_NAME']),"/", $_SERVER['REQUEST_URI']));
 		$instancia = $arrinstancia[0];
+		
 		if(substr($instancia, 0,1)=="/") $instancia = substr($instancia,1,strlen($instancia));
 		if(substr($instancia, -1)=="/") $instancia = substr($instancia,0,strlen($instancia)-1);
-		$referencia[geral] = explode("/", $instancia);
+
+		$referencia[geral] 	= explode("/", $instancia);
 		$referencia[plugin] = $referencia[geral][0];
 		$referencia[pagina] = $referencia[geral][1];
 		$referencia[filho]  = $referencia[geral][2];
+
 		if($referencia[filho] != "") $strFilho = " and  mpf.slug='$referencia[filho]'";
+
 		if(!empty($referencia[pagina])){
 			$resultado = mpress_query("select m.Nome, mp.Titulo, m.Slug Slug_Modulo, mp.Slug Slug_Pagina, mpf.Titulo Titulo_Filho, mpf.Slug Slug_Pagina_Filho,mpf.Modulo_Pagina_ID Modulo_Pagina_Filho_ID, mp.Modulo_Pagina_ID, m.Modulo_ID, coalesce(mpf.Tipo_Grupo_ID, mp.Tipo_Grupo_ID) as Tipo_Grupo_ID, mp.Campos_Obrigatorios Campos_Obrigatorios_Pai, mpf.Campos_Obrigatorios Campos_Obrigatorios_Filho
 									   from
@@ -270,6 +284,7 @@
 				return $dadosPagina;
 			}
 		}
+
 	}
 
 
@@ -3408,6 +3423,7 @@ function carregarConfiguracoesGeraisModulos($slug){
 
 function get_url(){
 	$dadosPagina = get_page_content();
+
 	$hash = $_GET['hash'];
 	if($hash != ""){
 		echo "	<input type='hidden' name='get-hash' value='$hash'>

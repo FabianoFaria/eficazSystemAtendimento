@@ -1,6 +1,11 @@
 <?php
-	error_reporting(0);
+	
+	error_reporting(E_ERROR);
+	ini_set('display_errors', 'On');
+
+	//error_reporting(0);
 	session_start();
+
 	global $conn, $caminhoSistema, $caminhoFisico, $tituloSistema, $descricaoSistema, $tipoBaseDados, $dadosUserLogin, $modulosAtivos;
 
 	header("Cache-Control: no-cache");

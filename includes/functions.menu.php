@@ -1,4 +1,8 @@
 <?php
+	
+	error_reporting(E_ERROR);
+	ini_set('display_errors', 'On');
+
 	session_start();
 	if (!function_exists("get_header"))
 		require_once("../includes/functions.gerais.php");
@@ -12,6 +16,8 @@
 			$_SESSION['modulosGeral'][$modGer[Slug]] = true;
 		}
 
+		//var_dump($dadosUserLogin);
+
 		if($dadosUserLogin['userID'] != -1){
 			$grupos = mpress_query("select acessos from modulos_acessos where Modulo_Acesso_ID = ".$dadosUserLogin['grupoID']." and Situacao_ID = 1");
 			if($row = mpress_fetch_array($grupos)){
@@ -22,14 +28,26 @@
 				for($z=0;$z<count($gravacao);$z++) $paginas .= $gravacao[$z].",";
 			}
 			$strAcesso = "and mp.Modulo_Pagina_ID in (".$paginas."0)";
+
 		}
 		$menuPrincipal = mpress_query("	select distinct m.Modulo_ID, m.Nome Nome_Modulo, m.Descricao Descricao_Modulo, m.Slug Slug_Modulo
 										from modulos m
 										inner join modulos_paginas mp on mp.Modulo_ID = m.Modulo_ID
 										where m.Situacao_ID = 1 and mp.Situacao_ID = 1
-										$strAcesso
-										order by m.Posicao,mp.Posicao");
+
+										order by m.Modulo_ID,Nome_Modulo ");
+										//order by m.Posicao,mp.Posicao");
+										
+
+		//$strAcesso
+
+		//var_dump($menuPrincipal);
+			//die();
+
 		while($principal = mpress_fetch_array($menuPrincipal)){
+
+			//echo $principal[Modulo_ID];
+
 			$i++;
 			$j=0;
 			$dadosMenu[menu_principal][$i][id] 		= $principal[Modulo_ID];
@@ -82,6 +100,7 @@
 				}
 			}
 		}
+
 		return $dadosMenu;
 	}
 	function dadosMenuPrincipal($dadosMenu){

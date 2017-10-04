@@ -42,10 +42,13 @@
 <div class="titulo-container">
 	<div class="titulo">
 		<p>
-		Filtros de Pesquisa
-<?php	if($_SESSION[dadosUserLogin][grupoID] != -3){?>
-			<input type="button" value="Incluir Novo" class='orcamento-localiza' workflow-id=''>
-<?php	}?>
+			Filtros de Pesquisa
+			<?php	
+				if($_SESSION[dadosUserLogin][grupoID] != -3){?>
+					<input type="button" value="Incluir Novo" class='orcamento-localiza' workflow-id=''>
+			<?php	
+				}
+			?>
 		</p>
 	</div>
 
@@ -53,88 +56,137 @@
 	<div class="conteudo-interno">
 		<div class="titulo-secundario" style='width:7%; float:left;'>
 			<p>ID</p>
-			<p><input type='text' name='localiza-orcamento-id' id='localiza-orcamento-id' class='formata-numero' value='<?php echo $id; ?>' style='width:80%;'></p>
+			<p>
+				<input type='text' name='localiza-orcamento-id' id='localiza-orcamento-id' class='formata-numero' value='<?php echo $id; ?>' style='width:80%;'>
+			</p>
 		</div>
 		<div class="titulo-secundario" style='width:13%; float:left;'>
 			<p>C&oacute;digo</p>
-			<p><input type='text' name='localiza-orcamento-codigo' id='localiza-orcamento-codigo' class='formata-campo' value='<?php echo $codigo; ?>' style='width:90%;'></p>
+			<p>
+				<input type='text' name='localiza-orcamento-codigo' id='localiza-orcamento-codigo' class='formata-campo' value='<?php echo $codigo; ?>' style='width:90%;'>
+			</p>
 		</div>
 		<div class="titulo-secundario" style='width:35%; float:left;'>
 			<p>Solicitante</p>
-			<p><input type='text' name='localiza-orcamento-solicitante' id='localiza-orcamento-solicitante' class='formata-campo' value='<?php echo $nomeS; ?>' style='width:97%;'></p>
+			<p>
+				<input type='text' name='localiza-orcamento-solicitante' id='localiza-orcamento-solicitante' class='formata-campo' value='<?php echo $nomeS; ?>' style='width:97%;'>
+			</p>
 		</div>
 		<div class='titulo-secundario' style='width:5%; float:left;'>
 			<div style='width:90%; float:left;'>
 				<p>UF</p>
-				<p><select name="localiza-orcamento-uf-solicitante" id="localiza-orcamento-uf-solicitante" style='width:95%;'><?php echo optionValueGrupoUF($ufSolicitante, "&nbsp;");?><select></p>
+				<p>
+					<select name="localiza-orcamento-uf-solicitante" id="localiza-orcamento-uf-solicitante" style='width:95%;'><?php echo optionValueGrupoUF($ufSolicitante, "&nbsp;");?>
+					<select>
+				</p>
 			</div>
 		</div>
 		<div class="titulo-secundario" style='width:20%; float:left;'>
 			<p>Representante</p>
 			<select name="localiza-orcamento-responsavel" id="localiza-orcamento-responsavel" style='width:98%'>
 				<option value=''></option>
-<?php
-	$grupos = mpress_query("select distinct c.Cadastro_ID, c.Nome
-							from cadastros_dados c
-							inner join orcamentos_workflows w on w.Representante_ID = c.Cadastro_ID");
-	while($row = mpress_fetch_array($grupos)){
-		if($usuarioResponsavel==$row['Cadastro_ID']) $selecionado = "selected"; else $selecionado = "";
-		echo " 	<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
-	}
-?>
+					<?php
+						$grupos = mpress_query("select distinct c.Cadastro_ID, c.Nome
+												from cadastros_dados c
+												inner join orcamentos_workflows w on w.Representante_ID = c.Cadastro_ID");
+						while($row = mpress_fetch_array($grupos)){
+							if($usuarioResponsavel==$row['Cadastro_ID']) $selecionado = "selected"; else $selecionado = "";
+							echo " 	<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
+						}
+					?>
 			<select>
 		</div>
 		<div class='titulo-secundario' style='width:20%; float:left;'>
 			<p>T&iacute;tulo</p>
-			<p><input type='text' name='localiza-orcamento-titulo' id='localiza-orcamento-titulo' class='formata-campo' value='<?php echo $titulo; ?>' style='width:97%;'></p>
+			<p>
+				<input type='text' name='localiza-orcamento-titulo' id='localiza-orcamento-titulo' class='formata-campo' value='<?php echo $titulo; ?>' style='width:97%;'>
+			</p>
 		</div>
 		<div class='titulo-secundario' style='width:20%; float:left;'>
 			<p>Data Abertura</p>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-inicio-abertura' id='data-inicio-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioAbertura; ?>'>&nbsp;&nbsp;</p>
+				<p>
+					<input type='text' name='data-inicio-abertura' id='data-inicio-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioAbertura; ?>'>&nbsp;&nbsp;
+				</p>
 			</div>
-			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
+			<div style='width:10%;text-align:center;float:left;'>
+				<p>a</p>
+			</div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-abertura' id='data-fim-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimAbertura; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-abertura' id='data-fim-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimAbertura; ?>'>
+				</p>
 			</div>
 		</div>
 		<div class='titulo-secundario' style='width:20%; float:left;'>
 			<p>Data Finalizado</p>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-inicio-finalizado' id='data-inicio-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioFinalizado; ?>'>&nbsp;&nbsp;</p>
+				<p>
+					<input type='text' name='data-inicio-finalizado' id='data-inicio-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioFinalizado; ?>'>&nbsp;&nbsp;
+				</p>
 			</div>
-			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
+			<div style='width:10%;text-align:center;float:left;'>
+				<p>a</p>
+			</div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-finalizado' id='data-fim-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimFinalizado; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-finalizado' id='data-fim-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimFinalizado; ?>'>
+				</p>
 			</div>
 		</div>
 		<div class="titulo-secundario" style='width:20%; float:left;'>
+
 			<p>&Uacute;ltima Intera&ccedil;&atilde;o</p>
+
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-inicio-interacao' id='data-inicio-interacao' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioInteracao; ?>'>&nbsp;&nbsp;</p>
+				<p>
+					<input type='text' name='data-inicio-interacao' id='data-inicio-interacao' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioInteracao; ?>'>&nbsp;&nbsp;
+				</p>
 			</div>
-			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
+			<div style='width:10%;text-align:center;float:left;'>
+				<p>a</p>
+			</div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-interacao' id='data-fim-interacao' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimInteracao; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-interacao' id='data-fim-interacao' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimInteracao; ?>'>
+				</p>
 			</div>
 		</div>
 		<div class="titulo-secundario" style='width:20%; float:left;'>
+
 			<p>Situa&ccedil;&atilde;o Or&ccedil;amento</p>
-			<select name="localiza-orcamento-situacao[]" id="localiza-orcamento-situacao" multiple><?php echo optionValueGrupoMultiplo(51, $situacoes);?><select>
+
+			<select name="localiza-orcamento-situacao[]" id="localiza-orcamento-situacao" multiple>
+				<?php 
+					echo optionValueGrupoMultiplo(51, $situacoes);
+				?>
+			<select>
 		</div>
 		<div class="titulo-secundario" style='width:20%; float:left;'>
+			
 			<p>Situa&ccedil;&atilde;o Proposta</p>
-			<select name="localiza-proposta-situacao[]" id="localiza-proposta-situacao" multiple><?php echo optionValueGrupoMultiplo(53, $situacoesProposta);?><select>
+
+			<select name="localiza-proposta-situacao[]" id="localiza-proposta-situacao" multiple>
+				<?php 
+					echo optionValueGrupoMultiplo(53, $situacoesProposta);
+				?>
+			<select>
 		</div>
 		<div class='titulo-secundario' Style='margin-top:15px; width:10%; float:right;'>
-			<p><input type='button' Style='width:90%; float:right;' value='Pesquisar' id='botao-localizar-orcamento' workflow-id=''></p>
+			<p>
+				<input type='button' Style='width:90%; float:right;' value='Pesquisar' id='botao-localizar-orcamento' workflow-id=''>
+			</p>
 		</div>
 		<div class='titulo-secundario' style='float:right; width:10%;'>
-			<p style='margin:15px 0 10px 0;' align='center'><input type='checkbox' id='exibir-propostas' name='exibir-propostas' <?php echo $chkExibirPropostas; ?>/><label for='exibir-propostas'>Exibir Propostas</label></p>
+			<p style='margin:15px 0 10px 0;' align='center'>
+				<input type='checkbox' id='exibir-propostas' name='exibir-propostas' <?php echo $chkExibirPropostas; ?>/>
+				<label for='exibir-propostas'>Exibir Propostas</label>
+			</p>
 		</div>
 
 	</div>
 </div>
+
 <?php
 //if($_POST){
 	$i = 0;
@@ -188,11 +240,14 @@
 			 		  		left join orcamentos_propostas_produtos opp on opp.Proposta_ID = op.Proposta_ID and opp.Situacao_ID = 1
 			 		  		left join tipo tp on tp.Tipo_ID =  op.Status_ID ";
 
-		$sqlGroupBy = " GROUP BY o.Workflow_ID, op.Proposta_ID";
+		//$sqlGroupBy = " GROUP BY o.Workflow_ID, op.Proposta_ID";
+		$sqlGroupBy = " GROUP BY o.Workflow_ID,o.Codigo,o.Titulo,o.Data_Abertura,o.Data_Finalizado,op.Proposta_ID,op.Titulo,of.Data_Cadastro";
+
+
 		$classeDestaque = "tabela-fundo-escuro";
 	}
 
-
+	//SELECT RETORNANDO TODAS OS ORÇAMENTOS
 	$sql = "select o.Workflow_ID, o.Codigo, o.Titulo, s.Nome as Solicitante, ts.Descr_Tipo as Situacao, o.Data_Abertura,
 				o.Data_Finalizado, of.Data_Cadastro as Data_Interacao, r.Nome as Representante, ts.Tipo_Auxiliar as Situacao_Orcamento_Dados
 				$sqlCampos
