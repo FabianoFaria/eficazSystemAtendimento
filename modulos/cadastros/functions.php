@@ -316,22 +316,48 @@
 
 	function inserirCadastro(){
 		global $dadosUserLogin, $caminhoFisico, $modulosGeral, $configCadastros;
-		$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		//$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		$dataHoraAtual  = retornaDataHora('','Y-m-d H:i:s');
 
 		$cadastroID 	= $_POST['cadastro-id'];
 		$tipoPessoa 	= $_POST['radio-tipo-grupo-8'];
 		$tiposVinculos 	= serialize($_POST['check-tipo-grupo-12']);
 		$tipoCadastro 	= serialize($_POST['check-tipo-grupo-9']);
 		$areasAtuacoes 	= serialize($_POST['check-tipo-grupo-34']);
-		$cargoID = $_POST['cargo-id'];
+		
 		$codigo 		= $_POST['cadastro-codigo'];
 		$centroCustoID	= $_POST['centro-custo-id'];
-		$tabelaPrecoID	= $_POST['tabela-preco-cliente'];
-		$regionalID		= $_POST['regional-id'];
-		$situacaoID = $_POST['situacao-id'];
+		
+		//$regionalID		= $_POST['regional-id'];
+		$situacaoID 	= $_POST['situacao-id'];
 
+		if($_POST['regional-id'] !=''){
+			$regionalID 	= $_POST['regional-id'];
+		}else{
+			//hardcoded o código do Paraná
+			$regionalID 	= 1131;
+		}
 
-		$dataNascimento = formataDataBD($_POST['data-nascimento']);
+		/* Dados para recuperar a origem do contato */
+		if($_POST['situacao-origem-cadastro'] !=''){
+			$origemContato 	= $_POST['situacao-origem-cadastro'];
+		}else{
+			$origemContato 	= 0;
+		}
+
+		if(isset($_POST['situacao-parceiro-origem'])){
+			$identificacaoParceiro = $_POST['situacao-parceiro-origem'];
+		}else{
+			$identificacaoParceiro = 0;
+		}
+
+		if($_POST['data-nascimento'] !=''){
+			$dataNascimento = formataDataBD($_POST['data-nascimento']);
+		}else{
+			$dataNascimento = date('Y-m-d');
+		}
+
+		
 		$sexo			= $_POST['sexo'];
 
 		if ($tipoPessoa=="24"){
@@ -350,11 +376,67 @@
 		$senha = utf8_decode($_POST['cadastro-senha']);
 		$foto = $_POST['arquivo-imagem'];
 		$observacao = utf8_decode($_POST['observacao']);
-		$grupoID = $_POST['grupo-id'];
+		
+		//$tabelaPrecoID	= $_POST['tabela-preco-cliente'];
+		if($_POST['tabela-preco-cliente'] != ''){
+			$tabelaPrecoID = $_POST['tabela-preco-cliente'];
+		}else{
+			$tabelaPrecoID = 0;
+		}
 
-		$sql = "Insert Into cadastros_dados (Tipo_Pessoa, Grupo_ID, Sexo, Codigo, Tipo_Cadastro, Nome, Nome_Fantasia, Senha, Foto, Email, Data_Nascimento, Cpf_Cnpj, RG, Inscricao_Municipal, Inscricao_Estadual, Tipo_Vinculo, Observacao, Usuario_Cadastro_ID, Data_Inclusao, Situacao_ID, Tabela_Preco_ID, Areas_Atuacoes, Regional_ID, Cargo_ID)
-									Values ('$tipoPessoa','$grupoID', '$sexo' ,'$codigo', '$tipoCadastro', '$nome', '$nomeFantasia',  '$senha', '$foto', '$email', '$dataNascimento', '$cpfCnpj', '$rg', '$inscricaoMunicipal', '$inscricaoEstadual', '$tiposVinculos', '$observacao','".$dadosUserLogin[userID]."', $dataHoraAtual, '$situacaoID' , '$tabelaPrecoID', '$areasAtuacoes', '$regionalID', '$cargoID')";
+		// $cargoID 		= $_POST['cargo-id'];
+		if($_POST['cargo-id'] != ''){
+			$cargoID = $_POST['cargo-id'];
+		}else{
+			$cargoID = 0;
+		}
 
+		if($_POST['grupo-id'] != ''){
+			$grupoID = $_POST['grupo-id'];
+		}else{
+			$grupoID = 0;
+		}
+
+		//$sql = "Insert Into cadastros_dados (Tipo_Pessoa, Grupo_ID, Sexo, Codigo, Tipo_Cadastro, Nome, Nome_Fantasia, Senha, Foto, Email, Data_Nascimento, Cpf_Cnpj, RG, Inscricao_Municipal, Inscricao_Estadual, Tipo_Vinculo, Observacao, Usuario_Cadastro_ID, Data_Inclusao, Situacao_ID, Tabela_Preco_ID, Areas_Atuacoes, Regional_ID, Cargo_ID)
+									//Values ('$tipoPessoa','$grupoID', '$sexo' ,'$codigo', '$tipoCadastro', '$nome', '$nomeFantasia',  '$senha', '$foto', '$email', '$dataNascimento', '$cpfCnpj', '$rg', '$inscricaoMunicipal', '$inscricaoEstadual', '$tiposVinculos', '$observacao','".$dadosUserLogin[userID]."', $dataHoraAtual, '$situacaoID' , '$tabelaPrecoID', '$areasAtuacoes', '$regionalID', '$cargoID')";
+
+		 
+		$sql = "INSERT INTO cadastros_dados(Tipo_Pessoa,Grupo_ID, Sexo, Codigo, Tipo_Cadastro, Nome, Nome_Fantasia, Senha, Foto, Email, Data_Nascimento, Cpf_Cnpj, RG, Inscricao_Municipal, Inscricao_Estadual, Tipo_Vinculo, Observacao, Usuario_Cadastro_ID, Data_Inclusao, Situacao_ID, Tabela_Preco_ID, Areas_Atuacoes, Regional_ID, Cargo_ID, Origem_ID, Parceiro_Origem_ID)VALUES('$tipoPessoa','$grupoID', '$sexo','$codigo', '$tipoCadastro','$nome', '$nomeFantasia', '$senha', '$foto', '$email', '$dataNascimento', '$cpfCnpj', '$rg', '$inscricaoMunicipal', '$inscricaoEstadual', '$tiposVinculos','$observacao','".$dadosUserLogin[userID]."', '$dataHoraAtual','$situacaoID','$tabelaPrecoID', '$areasAtuacoes', '$regionalID','$cargoID', '$origemContato', '$identificacaoParceiro')";
+
+		/*
+			INSERT INTO cadastros_dados(Tipo_Pessoa,
+                            Grupo_ID, 
+                            Sexo, 
+                            Codigo,
+                            Tipo_Cadastro,
+                            Nome, 
+                            Nome_Fantasia, 
+                            Senha, 
+                            Foto, 
+                            Email, 
+                            Data_Nascimento, 
+                            Cpf_Cnpj, 
+                            RG, 
+                            Inscricao_Municipal, 
+                            Inscricao_Estadual, 
+                            Tipo_Vinculo, 
+                            Observacao, 
+                            Usuario_Cadastro_ID, 
+                            Data_Inclusao, 
+                            Situacao_ID, 
+                            Tabela_Preco_ID, 
+                            Areas_Atuacoes, 
+                            Regional_ID, 
+                            Cargo_ID, 
+                            Origem_ID, 
+                            Parceiro_Origem_ID)VALUES('24','0', 'M','', 'N;','abctelefone', '', '', '', 'abctelefone@email.com', '2017-07-17', '', '', '', '', 'N;','','1088','2017-10-23 15:56:24','1','0', 'N;', '0','0','2347', '0')
+
+		*/
+
+		// var_dump($grupoID.' TESTE');
+		//var_dump($_SESSION[dadosUserLogin][grupoID]);
+		// var_dump($sql);
+		// die();
 		mpress_query($sql);
 		$cadastroID = mysql_insert_id();
 
@@ -387,7 +469,8 @@
 
 	function atualizarCadastro(){
 		global $dadosUserLogin, $caminhoFisico, $modulosGeral, $configCadastros;
-		$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		//$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		$dataHoraAtual  = retornaDataHora('','Y-m-d H:i:s');
 
 		$cadastroID 	= $_POST['cadastro-id'];
 		$tipoPessoa 	= $_POST['radio-tipo-grupo-8'];
@@ -395,19 +478,36 @@
 		$tiposVinculos 	= serialize($_POST['check-tipo-grupo-12']);
 		$tipoCadastro 	= serialize($_POST['check-tipo-grupo-9']);
 		$areasAtuacoes 	= serialize($_POST['check-tipo-grupo-34']);
-		$cargoID = $_POST['cargo-id'];
+		//$cargoID = $_POST['cargo-id'];
 		$sexo			= $_POST['sexo'];
 
 		$codigo 		= $_POST['cadastro-codigo'];
 		$centroCustoID	= $_POST['centro-custo-id'];
-		$regionalID		= $_POST['regional-id'];
-		$tabelaPrecoID	= $_POST['tabela-preco-cliente'];
-		$dataNascimento = formataDataBD($_POST['data-nascimento']);
+		//$regionalID		= $_POST['regional-id'];
+		//$tabelaPrecoID	= $_POST['tabela-preco-cliente'];
+		//$dataNascimento = formataDataBD($_POST['data-nascimento']);
 
+		if($_POST['data-nascimento'] !=''){
+			$dataNascimento = formataDataBD($_POST['data-nascimento']);
+		}else{
+			$dataNascimento = date('Y-m-d');
+		}
 
+		/* Dados para recuperar a origem do contato */
+		if($_POST['situacao-origem-cadastro'] !=''){
+			$origemContato 	= $_POST['situacao-origem-cadastro'];
+		}else{
+			$origemContato 	= 0;
+		}
+
+		if(isset($_POST['situacao-parceiro-origem'])){
+			$identificacaoParceiro = $_POST['situacao-parceiro-origem'];
+		}else{
+			$identificacaoParceiro = 0;
+		}
 
 		if ($tipoPessoa=="24"){
-			$cpfCnpj = str_replace('/','',str_replace('-','',str_replace('.','',$_POST['cnpj'])));
+			$cpfCnpj = str_replace('/','',str_replace('-','',str_replace('.','',$_POST['cpf'])));
 			$rg = $_POST['rg'];
 			$nome = utf8_decode($_POST['nome-completo']);
 		}
@@ -418,13 +518,43 @@
 			$inscricaoEstadual = $_POST['inscricao-estadual'];
 			$inscricaoMunicipal = $_POST['inscricao-municipal'];
 		}
-		$email = utf8_decode($_POST['cadastro-email']);
-		$senha = utf8_decode($_POST['cadastro-senha']);
-		$foto = $_POST['arquivo-imagem'];
+		$email 		= utf8_decode($_POST['cadastro-email']);
+		$senha 		= utf8_decode($_POST['cadastro-senha']);
+		$foto 		= $_POST['arquivo-imagem'];
 		$observacao = utf8_decode($_POST['observacao']);
-		$grupoID = $_POST['grupo-id'];
-		$situacaoID = $_POST['situacao-id'];
-		$sql = "Update cadastros_dados set 	Tipo_Pessoa			= '$tipoPessoa',
+		//$grupoID = $_POST['grupo-id'];
+
+		//$regionalID		= $_POST['regional-id'];
+		$situacaoID 	= $_POST['situacao-id'];
+
+		if($_POST['regional-id'] !=''){
+			$regionalID 	= $_POST['regional-id'];
+		}else{
+			//hardcoded o código do Paraná
+			$regionalID 	= 1131;
+		}
+
+		//$tabelaPrecoID	= $_POST['tabela-preco-cliente'];
+		if($_POST['tabela-preco-cliente'] != ''){
+			$tabelaPrecoID = $_POST['tabela-preco-cliente'];
+		}else{
+			$tabelaPrecoID = 0;
+		}
+
+		// $cargoID 		= $_POST['cargo-id'];
+		if($_POST['cargo-id'] != ''){
+			$cargoID = $_POST['cargo-id'];
+		}else{
+			$cargoID = 0;
+		}
+
+		if($_POST['grupo-id'] != ''){
+			$grupoID = $_POST['grupo-id'];
+		}else{
+			$grupoID = 0;
+		}
+
+		$sql = "UPDATE cadastros_dados set 	Tipo_Pessoa			= '$tipoPessoa',
 											Grupo_ID 			= '$grupoID',
 											Sexo				= '$sexo',
 											Codigo 				= '$codigo',
@@ -445,10 +575,15 @@
 											Regional_ID			= '$regionalID',
 											Cargo_ID			= '$cargoID',
 											Usuario_Alteracao_ID = '".$dadosUserLogin[userID]."',
-											Data_Alteracao 		= $dataHoraAtual,
+											Data_Alteracao 		= '$dataHoraAtual',
 											Tipo_Vinculo 		= '$tiposVinculos',
-											Situacao_ID 		= '$situacaoID'
-				where Cadastro_ID = $cadastroID";
+											Situacao_ID 		= '$situacaoID',
+											Origem_ID 			= '$origemContato',
+											Parceiro_Origem_ID 	= '$identificacaoParceiro'
+				WHERE Cadastro_ID = '$cadastroID'";
+
+		// var_dump($sql);
+		// die();
 		mpress_query($sql);
 		echo $cadastroID;
 
@@ -500,7 +635,9 @@
 		$referencia = utf8_decode($_POST['referencia-endereco']);
 
 		$sql = "Insert Into cadastros_enderecos (Cadastro_ID, Tipo_Endereco_ID, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, Referencia, Situacao_ID, Usuario_Cadastro_ID)
-									     Values ('$cadastroID', '$tipoEnderecoID', '$cep', '$logradouro', '$numero', '$complemento', '$bairro', '$cidade', '$uf', '$referencia', 1, '".$dadosUserLogin[userID]."')";
+									     Values ('$cadastroID', '$tipoEnderecoID', '$cep', '$logradouro', '$numero', '$complemento', '$bairro', '$cidade', '$uf', '$referencia', 1, '".$_SESSION['dadosUserLogin']['userID']."')";
+
+		//var_dump($_SESSION['dadosUserLogin']);
 		echo $sql;
 		mpress_query($sql);
 		//echo mysql_insert_id();

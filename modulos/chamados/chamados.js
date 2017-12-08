@@ -905,6 +905,7 @@ $(document).ready(function(){
 
 		$(".botao-salvar-orcamento").live('click', function () {
 			$(".botao-salvar-orcamento").hide();
+		
 			if ($("#situacao-follow-orcamento").val()=="113")
 				$("#data-finalizado-orcamento").addClass('required');
 			else
@@ -916,6 +917,7 @@ $(document).ready(function(){
 				$("#descricao-follow").removeClass('required');
 
 			if(validarCamposGenerico("#div-solicitante-dados .required, #div-orcamento-dados .required")){
+
 				caminho = caminhoScript+"/modulos/chamados/chamados-orcamento-salvar.php";
 				dados = $(".dados-orc").serialize();
 				//alert(dados);
@@ -936,9 +938,37 @@ $(document).ready(function(){
 				});
 			}
 			else{
+
 				$(".botao-salvar-orcamento").show();
 			}
 		});
+
+		/*
+			Verifica a orgiem do chamado
+			exibindo a lista de parceiros que possivelmente indicaram o orçamento
+		*/
+		$("#situacao-origem-workflow").change( function (){
+
+			var textoSelect = $("#situacao-origem-workflow option:selected").text();
+			//console.log($(this).val());
+			 //console.log($(this + ':selected').text());
+			//console.log(textoSelect);
+			if(textoSelect === 'Indicação'){
+				console.log('É Uma indicação');
+
+				$("#lista-parceiros").show();
+				$("#situacao-parceiro-workflow" ).addClass( "required" );
+
+
+			}else{
+				console.log('Não indicação');
+
+				$("#lista-parceiros").hide();
+				$("#situacao-parceiro-workflow" ).removeClass( "required" );
+			}
+
+		});
+
 
 
 		$(".btn-excluir-produto-orcamento").live('click', function () {

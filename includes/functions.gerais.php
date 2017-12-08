@@ -1321,6 +1321,41 @@
 		return $optionValue;
 	}
 
+	//Função que irá retornar todos os parceiros para serem filtrados
+	function optionValueParceirosGrupo($idParceiro, $selecionado, $condicao){
+
+		$optionValue = "";
+
+		if($idParceiro!=""){
+			$condicao .= " and Parceiro_ID = '$idParceiro'";
+		}
+		$sql = "SELECT Parceiro_ID, Nome_Parceiro FROM sistema_parceiros WHERE Status_ID = 1 $condicao";
+		$parceiros = mpress_query($sql);
+
+		if(empty($parceiros)){
+
+			$optionValue = "<option value='0' selected> Nenhum parceiro encontrado </option>";
+
+		}else{
+
+			$optionValue .= "<option value='0'> Selecione </option>";
+
+			while($parceiro = mpress_fetch_array($parceiros)){
+
+				if(	$selecionado==$parceiro['Parceiro_ID'] ){
+					$seleciona='selected';
+				}else{
+					$seleciona='';
+				}
+
+				$optionValue .= "<option value='".$parceiro['Parceiro_ID']."' $seleciona>".($parceiro['Nome_Parceiro'])."</option>";
+			}
+
+		}
+
+		return $optionValue;
+	}
+
 	function optionValueGrupoMultiplo($idGrupo, $selecionados, $condicoes){
 		if (is_array(unserialize($selecionados))){
 			foreach(unserialize($selecionados) as $selAux){

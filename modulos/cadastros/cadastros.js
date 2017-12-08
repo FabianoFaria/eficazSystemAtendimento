@@ -347,6 +347,34 @@ $(document).ready(function(){
 		$("#frmDefault").submit();
 	})
 
+
+	/*
+		Verifica a orgiem do chamado
+		exibindo a lista de parceiros que possivelmente indicaram o orçamento
+	*/
+	$("#situacao-origem-cadastro").change( function (){
+
+		var textoSelect = $("#situacao-origem-cadastro option:selected").text();
+		//console.log($(this).val());
+		 //console.log($(this + ':selected').text());
+		//console.log(textoSelect);
+		if(textoSelect === 'Indicação'){
+			console.log('É Uma indicação');
+
+			$("#lista-parceiros").show();
+			$("#situacao-parceiro-origem" ).addClass( "required" );
+
+
+		}else{
+			console.log('Não indicação');
+
+			$("#lista-parceiros").hide();
+			$("#situacao-parceiro-origem").val('0');
+			$("#situacao-parceiro-origem" ).removeClass( "required" );
+		}
+
+	});
+
 });
 
 
@@ -488,6 +516,23 @@ function salvarCadastroDados(acaoExtra){
 		flag=1;
 	}
 */
+	//console.log(validarCamposGenerico("#situacao-origem-cadastro"));
+
+	// //verifica se foi informado a origem do cadastro
+	//if (validarCamposGenerico("#situacao-origem-cadastro")){
+		//flag = validarCamposGenerico("#situacao-origem-cadastro");
+		//if (validarTelefone()==false) flag = 1;
+		
+		//$("#situacao-origem-cadastro").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
+	//}
+
+	if($('#situacao-origem-cadastro').val()==""){
+		//console.log('Teste de validacao de origem');
+		flag = 1;
+		$("#situacao-origem-cadastro").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
+		validarCamposGenerico("#situacao-origem-cadastro");
+	}
+
 	if ($('.radio-tipo-grupo-8').val()==""){$(".radio-tipo-grupo-8").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');flag=1;}
 	if(($(".radio-tipo-grupo-8:checked").val())=="24"){
 		if ($('#nome-completo').val()==""){ $("#nome-completo").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');flag=1;}
@@ -503,6 +548,7 @@ function salvarCadastroDados(acaoExtra){
 		flag = validarCamposGenerico("#div-cadastros-telefones .required");
 		//if (validarTelefone()==false) flag = 1;
 	}
+
 	if (flag==0){
 		$('#botao-cadastro-novo').hide();
 		if ($("#cadastro-id").val()=="")

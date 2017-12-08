@@ -17,7 +17,9 @@
 					w.Data_Abertura, 
 					w.Data_Finalizado,
 					w.Data_Cadastro, 
-					w.Usuario_Cadastro_ID, 
+					w.Usuario_Cadastro_ID,
+					w.Origem_ID,
+					w.Parceiro_ID,
 					s.Descr_Tipo as Situacao
 				from orcamentos_workflows w
 				left join tipo s on s.Tipo_ID = w.Situacao_ID
@@ -36,6 +38,9 @@
 			$tituloOrcamento	= $rs['Titulo'];
 			$usuarioCadastroID 	= $rs['Usuario_Cadastro_ID'];
 			$codigo 			= $rs['Codigo'];
+
+			$origemOrc 			= $rs['Origem_ID'];
+			$parceiroIndic 		= $rs['Usuario_Cadastro_ID'];
 
 			$sql = "Select 
 						Follow_ID, 
@@ -140,14 +145,19 @@
 		<div class="titulo-container conjunto1" id='div-solicitante-dados'>
 			<div class="titulo">
 				<p>	Dados do Solicitante
-<?php				if($dadosUserLogin['grupoID'] != -3){
+				<?php				
+					
+					if($dadosUserLogin['grupoID'] != -3){
 						echo "<input type='button' class='editar-cadastro-generico' style='float:right;margin-right:0px; width:50px;' value='Alterar' id='botao-alterar-solicitante-id' campo-alvo='solicitante-id'>";
 					}
-?>
+
+				?>
 				</p>
 			</div>
 			<div class='conteudo-interno' id='conteudo-interno-solicitante'>
-				<?php carregarBlocoCadastroGeral($solicitanteID, 'solicitante-id','Solicitante',1,'','','','required dados-orc'); ?>
+				<?php 
+					carregarBlocoCadastroGeral($solicitanteID, 'solicitante-id','Solicitante',1,'','','','required dados-orc'); 
+				?>
 			</div>
 		</div>
 
@@ -155,10 +165,12 @@
 			<div class="titulo">
 				<!--<div class='btn-retrair btn-expandir-retrair-orcamento' style='float:right;' title='Expandir'></div>-->
 				<p>Dados Gerais <?php echo $dadosOrcamento; ?>
-			</p>
+				</p>
 			</div>
 			<div class='conteudo-interno titulo-secundario' id='conteudo-interno-orcamento'>
-				<?php echo $empresasCadastradas;?>
+				<?php 
+					echo $empresasCadastradas;
+				?>
 				<div class='titulo-secundario' style='width:5%;float:left;'>
 					<p><b>ID</b></p>
 					<p><input type='text' value='<?php echo $workflowID; ?>' class='dados-orc' style='width:89%' readonly/></p>
@@ -172,6 +184,7 @@
 					<p><b>Data Abertura</b></p>
 					<p><input type="text" id="data-abertura-orcamento" name="data-abertura-orcamento" class='formata-data-meia-hora required dados-orc' value='<?php echo $dataAbertura; ?>' style='width:92%' maxlength='16'/></p>
 				</div>
+
 <?php
 	echo "		<div class='titulo-secundario' style='width:20%;float:left;'>
 					<p><b>Representante Respons&aacute;vel</b></p>
@@ -213,11 +226,20 @@
 		}
 		if ($dataPrevisao=="00/00/0000") $dataPrevisao = "";
 
+
+		/*
+			<div class='titulo-secundario' style='width:15%; float:left;'>
+				<p><b>Origem</b></p>
+				<p><select name='oportunidade-origem' id='oportunidade-origem' class='dados-orc'>".optionValueGrupo(76, $origemID, "Selecione")."</select></p>
+			</div>
+		*/
+
+		/*
+
+		*/
+
 		echo "	<div class='titulo-secundario' style='padding-top:50px;'>
-					<div class='titulo-secundario' style='width:15%; float:left;'>
-						<p><b>Origem</b></p>
-						<p><select name='oportunidade-origem' id='oportunidade-origem' class='dados-orc'>".optionValueGrupo(76, $origemID, "Selecione")."</select></p>
-					</div>
+					
 					<div class='titulo-secundario' style='width:15%; float:left;'>
 						<p><b>Previs&atilde;o Fechamento</b></p>
 						<p><input type='text' class='formata-data dados-orc' id='oportunidade-data-previsao-fechamento' name='oportunidade-data-previsao-fechamento' style='width:92%;' maxlength='' value='".$dataPrevisao."'/></p>
@@ -255,9 +277,35 @@
 	/**************************************************/
 
 	}
+		?>
+			
+			<!-- <div class='titulo-secundario' style='width:50%;float:left;'>
+				<p><b>Origem do or&ccedil;amento</b></p>
+				<p style='margin-left:5px' align='//left'>
+					&nbsp;
+					<select name="situacao-origem-workflow" id="situacao-origem-workflow" style='width:98.5%' class='required dados-orc'>
+								<?php 
+									//echo optionValueGrupo(76, $origemOrc, "Selecione", '');
+								?> 
+					</select>
+				</p>
+			</div> -->
+
+			<div id="lista-parceiros" class="titulo-secundario" style='width:50%;float:left;display:none;'>
+				<p><b>Parceiro que indicou</b></p>
+				<select name="situacao-parceiro-workflow" id="situacao-parceiro-workflow" style='width:98.5%' class=' dados-orc'>
+							<?php 
+								echo optionValueParceirosGrupo('', '', '');
+							?>
+				</select>
+
+			</div>
+
+		<?php
+
 
 	if ($workflowID!=""){
-?>
+		?>
 			</div>
 		</div>
 		<div class='titulo-container conjunto1' id='div-orcamento-dados' >
@@ -265,9 +313,11 @@
 				<p>Hist&oacute;rico <?php echo $dadosReabertura;?></p>
 			</div>
 			<div class='conteudo-interno titulo-secundario'>
-<?php
+		<?php
 	}
-?>				<div class='dados-follows-orcamento <?php echo $escondeDadosFollows;?>'>
+		?>
+
+				<div class='dados-follows-orcamento <?php echo $escondeDadosFollows;?>'>
 					<div class='titulo-secundario' style='width:100%;'>
 						<p><b><?php echo $textoDescricao; ?></b></p>
 						<p class='omega'><textarea id='descricao-follow' name='descricao-follow' class='dados-orc' style='height:60px;width:99.3%'></textarea></p>
@@ -277,10 +327,20 @@
 						<p>
 							<input type='hidden' name="situacao-atual" id="situacao-atual" class='dados-orc' value='<?php echo $situacaoID; ?>'/>
 							<select name="situacao-follow-orcamento" id="situacao-follow-orcamento" style='width:98.5%' class='required dados-orc'>
-								<?php echo optionValueGrupo(51, $situacaoIDAux, "Selecione", $condicaoSituacao);?>
+								<?php 
+									echo optionValueGrupo(51, $situacaoIDAux, "Selecione", $condicaoSituacao);
+								?>
 							<select>
 						</p>
 					</div>
+
+					<div class='titulo-secundario' style='width:20%;float:left;'>
+						<p style='margin-top:22px; margin-left:5px' align='center'>
+							&nbsp;
+							<input type='checkbox' id='enviar-email' name='enviar-email' class='dados-orc' checked value='1'/>&nbsp;<label for="enviar-email" style='cursor:pointer;'><b>ENVIAR EMAIL</b></label>
+						</p>
+					</div>
+
 					<div class='titulo-secundario' style='width:15%;float:left;'>
 						<div class='div-data-finalizado esconde'>
 							<p><b>Data Finaliza&ccedil;&atilde;o</b></p>
@@ -288,12 +348,7 @@
 						</div>
 						&nbsp;
 					</div>
-					<div class='titulo-secundario' style='width:20%;float:left;'>
-						<p style='margin-top:22px; margin-left:5px' align='center'>
-							&nbsp;
-							<input type='checkbox' id='enviar-email' name='enviar-email' class='dados-orc' checked value='1'/>&nbsp;<label for="enviar-email" style='cursor:pointer;'><b>ENVIAR EMAIL</b></label>
-						</p>
-					</div>
+
 					<div class='titulo-secundario' style='width:15%;float:right;'>
 						<p style='margin-top:22px; margin-left:5px'>
 						<p><input type='button' value='<?php echo $descricaoBotao;?>' class='botao-salvar-orcamento' id='botao-atualizar-situacao' Style='width:95%;'/></p>
@@ -310,14 +365,20 @@
 		</div>
 
 		<div class="titulo-container esconde conjunto2" id='div-propostas'>
-			<?php carregarPropostasOrcamentos($workflowID, ""); ?>
+			<?php 
+				carregarPropostasOrcamentos($workflowID, ""); 
+			?>
 		</div>
 
 		<div class="titulo-container esconde conjunto5" id='div-financeiro-dados'>
 			<div class="titulo">
 				<p>Financeiro</p>
 			</div>
-			<div class='conteudo-interno' id='div-financeiro'><?php echo carregarFinanceiro($workflowID, 'orcamentos'); ?></div>
+			<div class='conteudo-interno' id='div-financeiro'>
+				<?php 
+					echo carregarFinanceiro($workflowID, 'orcamentos'); 
+				?>		
+			</div>
 		</div>
 
 		<!-- INICIO Bloco Upload usando PLUPLOAD -->
@@ -332,9 +393,13 @@
 
 		<div id='orcamentos-produtos-chamados'>
 			<!--<iframe name='iframe-atualiza-proposta' id='iframe-atualiza-proposta'></iframe>-->
-			<?php carregarOrcamentosChamados($workflowID, "esconde");?>
+			<?php 
+				carregarOrcamentosChamados($workflowID, "esconde");
+			?>
 		</div>
 
 		<div class="titulo-container esconde conjunto6" id='div-tarefas-cadastradas-geral'>
-			<?php carregarTarefas($workflowID,'orcamentos_workflows', 'Workflow_ID', $solicitanteID);?>
+			<?php 
+				carregarTarefas($workflowID,'orcamentos_workflows', 'Workflow_ID', $solicitanteID);
+			?>
 		</div>

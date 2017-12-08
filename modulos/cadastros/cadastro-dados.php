@@ -11,20 +11,50 @@
 	$cadastroID = $_POST['cadastroID'];
 	if ($cadastroID=="") $cadastroID = $_GET['cadastroID'];
 	if ($cadastroID!=""){
-		$sql = "Select Tipo_Pessoa, Tipo_Cadastro, Grupo_ID, Codigo, Centro_Custo_ID, Nome, Nome_Fantasia, Senha, Email, Data_Nascimento,
-					Foto, Cpf_Cnpj, RG, Inscricao_Municipal, Inscricao_Estadual, Tipo_Vinculo, Observacao, Usuario_Cadastro_ID, Situacao_ID, Areas_Atuacoes, Sexo, Regional_ID
-					from cadastros_dados where Cadastro_ID = '$cadastroID'";
+		$sql = "SELECT 
+					Tipo_Pessoa, 
+					Tipo_Cadastro, 
+					Grupo_ID, 
+					Codigo, 
+					Centro_Custo_ID, 
+					Nome, 
+					Nome_Fantasia, 
+					Senha, 
+					Email, 
+					Data_Nascimento,
+					Foto, 
+					Cpf_Cnpj, 
+					RG, 
+					Inscricao_Municipal, 
+					Inscricao_Estadual, 
+					Tipo_Vinculo, 
+					Observacao, 
+					Usuario_Cadastro_ID, 
+					Situacao_ID, 
+					Areas_Atuacoes, 
+					Sexo, 
+					Regional_ID,
+					Origem_ID,
+					Parceiro_Origem_ID
+					FROM cadastros_dados WHERE Cadastro_ID = '$cadastroID'";
+
 		$query = mpress_query($sql);
-		if($cadastro = mpress_fetch_array($query)){
-			$tipoPessoa  = $cadastro[Tipo_Pessoa];
-			$tipoVinculo = $cadastro[Tipo_Vinculo];
-			$grupoID 	 = $cadastro[Grupo_ID];
-			$centroCustoID = $cadastro[Centro_Custo_ID];
-			$codigo		 = $cadastro[Codigo];
+
+		// var_dump($sql);
+		// die();
+
+		if($cadastro 		= mpress_fetch_array($query)){
+			$tipoPessoa  	= $cadastro[Tipo_Pessoa];
+			$tipoVinculo 	= $cadastro[Tipo_Vinculo];
+			$grupoID 	 	= $cadastro[Grupo_ID];
+			$centroCustoID 	= $cadastro[Centro_Custo_ID];
+			$codigo		 	= $cadastro[Codigo];
 			$areasAtuacoes	= $cadastro[Areas_Atuacoes];
 			$dataNascimento = formataData($cadastro[Data_Nascimento]);
-			$cargoID = formataData($cadastro[Cargo_ID]);
-			$regionalID = $cadastro[Regional_ID];
+			$cargoID 		= formataData($cadastro[Cargo_ID]);
+			$regionalID 	= $cadastro[Regional_ID];
+			$origemID 		= $cadastro[Origem_ID];
+			$parceiroOrigemID = $cadastro[Parceiro_Origem_ID];
 
 			if ($tipoPessoa=="24"){
 				$cpf = $cadastro[Cpf_Cnpj];
@@ -249,6 +279,29 @@
 ?>
 			</div>
 		</div>
+
+		<!-- CAMPOS PARA REGISTRAR A ORIGEM DO CONTATO -->
+
+		<div class='titulo-secundario' style='width:50%;float:left;'>
+			<p><b>Origem do or&ccedil;amento</b></p>
+			<p style='margin-left:5px' align='left'>
+				&nbsp;
+				<select name="situacao-origem-cadastro" id="situacao-origem-cadastro" style='width:98.5%' class='required dados-orc'>
+					<?php echo optionValueGrupo(76, $origemID, "Selecione", '');?> 
+				</select>
+			</p>
+		</div>
+
+		<div id="lista-parceiros" class="titulo-secundario" style='width:50%;float:left;<?php if($parceiroOrigemID !='0'){echo '';}else{ echo 'display:none;';} ?>'>
+			<p><b>Parceiro que indicou</b></p>
+			<select name="situacao-parceiro-origem" id="situacao-parceiro-origem" style='width:98.5%' class=' dados-orc'>
+				<?php echo optionValueParceirosGrupo('', $parceiroOrigemID, '');?>
+			</select>
+			
+		</div>
+
+		<!-- FIM CAMPOS PARA REGISTRAR A ORIGEM DO CONTATO -->
+
 	</div>
 	<div id='div-retorno'></div>
 
