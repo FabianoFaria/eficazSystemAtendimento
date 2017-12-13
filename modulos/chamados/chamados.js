@@ -1937,6 +1937,34 @@ $(document).ready(function(){
 				}
 			});
 		});
+
+		$("#valor_modificado").live('change', function() {
+
+			var valueModificador = document.getElementById('valor_modificado').value;
+
+			if(isNaN(valueModificador)){
+
+				console.log('Variavel não é um número '+ valueModificador);
+
+				$("#errorValueModificador").show();
+
+			}else{
+
+				if(valueModificador > 99){
+
+					$("#errorValueModificador").show();
+
+				}else{
+					console.log('Variavel é um número '+ valueModificador);
+
+					$("#errorValueModificador").hide();
+				}
+				
+			}
+			
+
+		});
+
 	}
 
 	if ($("#slug-pagina").val()=="chamados-orcamento"){

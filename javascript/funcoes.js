@@ -498,10 +498,28 @@ $(document).ready(function(){
 $(document).ready(function(){
 	paginaAtual = window.location.href.replace("#","");
 	$(".cadastra-tipo").click(function() {
+
 		if($("#titulo").val()==""){
 			$("#titulo").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD').focus();
 			return false;
 		};
+
+		//Validação dos campos adicionais
+		if($("#valor_modificado").val()==""){
+			$("#valor_modificado").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD').focus();
+			return false;
+		};
+
+		if($("#valor_modificado").val() > 99){
+			$("#valor_modificado").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD').focus();
+			return false;
+		};
+
+		if($("#tipo-bonus-disponivel").val()==""){
+			$("#tipo-bonus").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD').focus();
+			return false;
+		};	
+
 		$("#frmDefault").attr("action",caminhoScript+"/funcoes/cadastra-tipo.php?slug="+paginaAtual);
 		$("#frmDefault").submit();
 	});

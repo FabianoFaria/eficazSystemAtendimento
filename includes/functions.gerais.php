@@ -852,12 +852,13 @@
 	function geraTelaTipos(){
 		$dadospagina = get_page_content();
 		$tipoID = $_POST['tipo-id'];
+
 		if ($tipoID!=''){
 			$rs = mpress_query("select Tipo_Auxiliar, Tipo_Auxiliar_Extra, Descr_Tipo from tipo where Tipo_ID = '$tipoID' order by Descr_Tipo");
 			if($row = mpress_fetch_array($rs)){
-				$tipoAuxiliar = $row['Tipo_Auxiliar'];
-				$tipoAuxiliarExtra = $row['Tipo_Auxiliar_Extra'];
-				$descrTipo = $row['Descr_Tipo'];
+				$tipoAuxiliar 		= $row['Tipo_Auxiliar'];
+				$tipoAuxiliarExtra 	= $row['Tipo_Auxiliar_Extra'];
+				$descrTipo 			= $row['Descr_Tipo'];
 			}
 		}
 		echo "	<input type='hidden' id='tipo-grupo' name='tipo-grupo' value='".$dadospagina[Tipo_Grupo_ID]."'/>
@@ -1104,6 +1105,24 @@
 							</div>
 							<div class='titulo-secundario' style='float:left; width:10%'>&nbsp;</div>
 							<div class='titulo-secundario' style='float:left; width:20%' id='qtde-parcelas-formas-pagamento'>".carregarParcelasFormasPagamento($dados)."</div>
+
+							<!-- Tipo de modificador de valor a ser adicionado -->
+							<div class='titulo-secundario' style='float:left; width:20%' id='tipo-bonus'>
+								<p><b>Tipo de b&ocirc;nus dispon&iacute;vel</b></p>
+								<select name='dados-tipo[tipo-bonus-disponivel]' id='tipo-bonus-disponivel' class='tipo-bonus-disponivel required'>
+									<option value=''>Selecione...</option>
+									<option value='Desconto'>Desconto </option>
+									<option value='Acrescimo'>Acr&eacute;scimo</option>
+								</select>
+							</div>
+
+							<!-- Valor do modificador de valor a ser adicionado -->
+							<div class='titulo-secundario' style='float:left; width:20%'>
+								<p><b>Valor a ser modificado em %</b></p>
+								<p><input type='text' name='dados-tipo[valor_modificado]' id='valor_modificado' class='formata-numero'></p>
+								<p id='errorValueModificador' style='color: red;display: none;'>Valor deve ser um número menor que 100<p>
+							</div>
+
 						</div>";
 		}
 

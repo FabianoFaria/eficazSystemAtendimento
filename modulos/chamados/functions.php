@@ -1906,11 +1906,11 @@ function carregarProdutos($chaveID, $tipo){
 			}
 			echo "		</fieldset>
 					</div>";
-			$clienteFinalIDAnt = $row['Cliente_Final_ID'];
-			$solicitanteID = $row['Solicitante_ID'];
-			$formaPagamentoID = $row['Forma_Pagamento_ID'];
+			$clienteFinalIDAnt 	= $row['Cliente_Final_ID'];
+			$solicitanteID 		= $row['Solicitante_ID'];
+			$formaPagamentoID 	= $row['Forma_Pagamento_ID'];
 
-
+			//echo "teste de variavel !!! ".$clienteFinalIDAnt." solicitante ".$solicitanteID." forma ".$formaPagamentoID;
 		}
 
 
@@ -1926,13 +1926,13 @@ function carregarProdutos($chaveID, $tipo){
 		if (($configChamados['exibe-bloco-frete']) && ($tipo=="orcamento")){
 			$resultado = mpress_query("SELECT Tipo_Frete, Forma_Envio_ID, Endereco_Entrega_ID, Valor_Frete, Valor_Seguro FROM orcamentos_propostas_envios where Proposta_ID = '$chaveID' and Situacao_ID = 1");
 			if($rsFrete = mpress_fetch_array($resultado)){
-				$tipoFrete = $rsFrete['Tipo_Frete'];
-				$valorFrete = $rsFrete['Valor_Frete'];
-				$valorSeguro = $rsFrete['Valor_Seguro'];
-				$totalFrete = $valorFrete + $valorSeguro;
+				$tipoFrete 			= $rsFrete['Tipo_Frete'];
+				$valorFrete 		= $rsFrete['Valor_Frete'];
+				$valorSeguro 		= $rsFrete['Valor_Seguro'];
+				$totalFrete 		= $valorFrete + $valorSeguro;
 				//$totalCusto += $valorFrete + $valorSeguro;
-				$enderecoEntregaID = $rsFrete['Endereco_Entrega_ID'];
-				$formaEnvioID = $rsFrete['Forma_Envio_ID'];
+				$enderecoEntregaID 	= $rsFrete['Endereco_Entrega_ID'];
+				$formaEnvioID 		= $rsFrete['Forma_Envio_ID'];
 			}
 
 			if ($tipoFrete!='CIF') $escondeValoresFrete = "esconde";
@@ -2034,9 +2034,9 @@ function carregarProdutos($chaveID, $tipo){
 
 function salvarPropostaDadosVencimentos(){
 	global $dadosUserLogin;
-	$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
-	$propostaID = $_POST['proposta-id'];
-	$formaPagamentoID = $_POST['forma-pagamento'][$propostaID];
+	$dataHoraAtual 		= "'".retornaDataHora('','Y-m-d H:i:s')."'";
+	$propostaID 		= $_POST['proposta-id'];
+	$formaPagamentoID 	= $_POST['forma-pagamento'][$propostaID];
 	mpress_query("update orcamentos_propostas set Forma_Pagamento_ID = '$formaPagamentoID' where Proposta_ID = '$propostaID'");
 	mpress_query("update orcamentos_propostas_vencimentos set Situacao_ID = 2 where Proposta_ID = '$propostaID'");
 	$i = 0;
@@ -2059,13 +2059,14 @@ function carregarFormaPagamentoOrcamento($propostaID, $formaPagamentoID, $valorT
 	global $caminhoSistema, $dadosUserLogin;
 	$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
 
-	$sql = "SELECT Forma_Pagamento_ID FROM orcamentos_propostas where Proposta_ID = '$propostaID'";
-	$resultado = mpress_query($sql);
+	$sql 		= "SELECT Forma_Pagamento_ID FROM orcamentos_propostas where Proposta_ID = '$propostaID'";
+	$resultado 	= mpress_query($sql);
 	if($rs = mpress_fetch_array($resultado))
 		$formaPagamentoIDAnt = $rs['Forma_Pagamento_ID'];
 
 	$sql = "select sum(Valor_Vencimento) as Total_Vencimento from orcamentos_propostas_vencimentos where Proposta_ID = 144 and Situacao_ID = 1";
 	$resultado = mpress_query($sql);
+
 	if($rs = mpress_fetch_array($resultado))
 		$valorTotalPropostaAnt = $rs['Total_Vencimento'];
 
@@ -2092,7 +2093,28 @@ function carregarFormaPagamentoOrcamento($propostaID, $formaPagamentoID, $valorT
 
 				$dadosFP = unserialize($rs['Tipo_Auxiliar']);
 				$i = 0;
-				$valorVencimento = $valorTotalProposta / $dadosFP['quantidade-parcelas'];
+
+				//EFETUA A APLICAÇÃO DA MODIFICAÇÃO DO VALOR DA PROPOSTA
+				if(!empty($dadosFP['tipo-bonus-disponivel'])){
+
+					$valorMod = ($valorTotalProposta / 100) * $dadosFP['valor_modificado'];
+
+					if($dadosFP['tipo-bonus-disponivel'] == 'Desconto'){
+
+						$valorVencimentoMod = $valorTotalProposta - $valorMod;
+
+					}else{
+						$valorVencimentoMod = $valorTotalProposta + $valorMod;
+					}
+
+					$valorVencimento = $valorVencimentoMod / $dadosFP['quantidade-parcelas'];
+
+				}else{
+
+					$valorVencimento = $valorTotalProposta / $dadosFP['quantidade-parcelas'];
+
+				}
+
 				foreach($dadosFP['dias'] as $dias){
 					$i++;
 					$diaVencimento = $dias;
@@ -2107,6 +2129,28 @@ function carregarFormaPagamentoOrcamento($propostaID, $formaPagamentoID, $valorT
 																VALUES	 ('$propostaID', '$diaVencimento', '$valorVencimento', $dataHoraAtual, '".$dadosUserLogin['userID']."', 1)";
 					$resultado = mpress_query($sql);
 				}
+
+				//EXIBIÇÃO DOS VALORES DE DESCONTO E ACRESCIMO
+				if(!empty($dadosFP['tipo-bonus-disponivel'])){
+					$h .= " <hr><div style='float:left; width:100%; margin-top:15px;'>
+							<div class='titulo-secundario' style='float:left; width:25%;'>&nbsp;&nbsp;&nbsp;&nbsp;".$dadosFP['tipo-bonus-disponivel']." em %</div>
+							<div class='titulo-secundario' style='float:left; width:25%;'>
+
+								<input type='text' name='' id='' value='".$dadosFP['valor_modificado']." %' class='formata-numero vencimentos' style='width:50px;' readonly='readonly'/>
+							</div>
+
+							<div class='titulo-secundario' style='float:left; width:20%;'>
+								&nbsp;&nbsp;&nbsp;&nbsp; Total:
+							</div>
+
+							<div class='titulo-secundario' style='float:left; width:20%;'>
+
+								<input type='text' name='' id='' value=' R$ ".number_format($valorVencimentoMod, 2, ',', '.')."' class='formata-numero vencimentos' style='width:150px;' readonly='readonly'/>
+							</div>
+
+						</div>";
+				}
+				
 			}
 		}
 	}
@@ -2872,7 +2916,7 @@ function carregarPropostasOrcamentos($workflowID, $propostaID){
 				carregarSituacaoProposta($proposta);
 			}
 			if ($configChamados['listagem-orcamento']=="procura"){
-				carregarProdutos($proposta,'orcamento');
+				carregarProdutos($proposta,'orcamento'); // Carregar produtos e formas de pagamentos
 				carregarSituacaoProposta($proposta);
 			}
 			echo "			<div id='bloco-follows-proposta-$proposta' style='float:left; width:100%; margin-top:10px;'>";
