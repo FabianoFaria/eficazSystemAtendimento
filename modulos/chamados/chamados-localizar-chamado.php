@@ -48,7 +48,9 @@
 	<div class="titulo">
 		<p>
 		Filtros de pesquisa
-<?php	if($dadosUserLogin[grupoID] != -3) echo "<input type='button' value='Incluir ".$_SESSION['objeto']."' class='workflow-localiza' workflow-id=''>"; ?>
+		<?php		
+			if($dadosUserLogin[grupoID] != -3) echo "<input type='button' value='Incluir ".$_SESSION['objeto']."' class='workflow-localiza' workflow-id=''>"; 
+		?>
 		</p>
 	</div>
 
@@ -57,11 +59,17 @@
 		<div class="titulo-secundario cinco-colunas">
 			<div class="titulo-secundario" style='width:22%; float:left;'>
 				<p>ID</p>
-				<p><input type='text' name='localiza-chamado-id' id='localiza-chamado-id' class='formata-numero' value='<?php echo $id; ?>' style='width:80%;'></p>
+				<p>
+					<input type='text' name='localiza-chamado-id' id='localiza-chamado-id' class='formata-numero' value='<?php echo $id; ?>' style='width:80%;'>
+				</p>
 			</div>
 			<div class="titulo-secundario" style='width:77%; float:left;'>
-				<p>C&oacute;digo <?php echo $_SESSION['objeto'];?></p>
-				<p><input type='text' name='localiza-chamado-codigo' id='localiza-chamado-codigo' class='formata-campo' value='<?php echo $codigo; ?>'></p>
+				<p>
+					C&oacute;digo <?php echo $_SESSION['objeto'];?>	
+				</p>
+				<p>
+					<input type='text' name='localiza-chamado-codigo' id='localiza-chamado-codigo' class='formata-campo' value='<?php echo $codigo; ?>'>
+				</p>
 			</div>
 		</div>
 		<div class="titulo-secundario cinco-colunas">
@@ -71,42 +79,61 @@
 			</div>
 			<div class="titulo-secundario" style='width:22%; float:left;'>
 				<p>UF:</p>
-				<p><select name="localiza-chamado-uf-solicitante" id="localiza-chamado-uf-solicitante"><?php echo optionValueGrupoUF($ufSolicitante, "&nbsp;");?><select></p>
+				<p>
+					<select name="localiza-chamado-uf-solicitante" id="localiza-chamado-uf-solicitante">
+						<?php echo optionValueGrupoUF($ufSolicitante, "&nbsp;");?>
+					<select>
+				</p>
 			</div>
 		</div>
 <?php	if($dadosUserLogin[grupoID] == -3) $classeEsconde = "esconde"; ?>
 		<div class="titulo-secundario cinco-colunas <?php echo $classeEsconde; ?>">
 			<p>Prestador:</p>
-			<p><input type='text' name='localiza-chamado-prestador' id='localiza-chamado-prestador' class='formata-campo' value='<?php echo $nomeP; ?>'></p>
+			<p>
+				<input type='text' name='localiza-chamado-prestador' id='localiza-chamado-prestador' class='formata-campo' value='<?php echo $nomeP; ?>'>
+			</p>
 		</div>
 		<div class="titulo-secundario cinco-colunas">
 			<p>Tipo <?php echo $_SESSION['objeto'];?></p>
-			<p><select name="localiza-tipo-chamado" id="localiza-tipo-chamado"><?php echo optionValueGrupoFilho(19, $tipoChamado, "&nbsp;");?><select></p>
+			<p>
+				<select name="localiza-tipo-chamado" id="localiza-tipo-chamado">
+					<?php echo optionValueGrupoFilho(19, $tipoChamado, "&nbsp;");?>
+				<select>
+			</p>
 		</div>
 		<div class="titulo-secundario cinco-colunas" style='position:relative;z-index:2;'>
 			<p>Situa&ccedil;&atilde;o:</p>
-			<select name="localiza-chamado-situacao[]" multiple id="localiza-chamado-situacao" style='height:71px;'><?php echo optionValueGrupoMultiplo(18, $situacoes);?><select>
+			<select name="localiza-chamado-situacao[]" multiple id="localiza-chamado-situacao" style='height:71px;'>	<?php echo optionValueGrupoMultiplo(18, $situacoes); ?>
+			<select>
 		</div>
 
 		<div class="titulo-secundario cinco-colunas" id='data-abertura'>
 			<p>Data Abertura:</p>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-inicio-abertura' id='data-inicio-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicio; ?>'>&nbsp;&nbsp;</p>
+				<p>
+					<input type='text' name='data-inicio-abertura' id='data-inicio-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicio; ?>'>&nbsp;&nbsp;
+				</p>
 			</div>
 			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-abertura' id='data-fim-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFim; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-abertura' id='data-fim-abertura' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFim; ?>'>
+				</p>
 			</div>
 		</div>
 
 		<div class="titulo-secundario cinco-colunas" id='data-abertura'>
 			<p>Data Limite:</p>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-inicio-limite' id='data-inicio-limite' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioLimite; ?>'>&nbsp;&nbsp;</p>
+				<p>
+					<input type='text' name='data-inicio-limite' id='data-inicio-limite' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataInicioLimite; ?>'>&nbsp;&nbsp;
+				</p>
 			</div>
 			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-limite' id='data-fim-limite' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimLimite; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-limite' id='data-fim-limite' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimLimite; ?>'>
+				</p>
 			</div>
 		</div>
 
@@ -117,7 +144,9 @@
 			</div>
 			<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
 			<div style='width:43%;float:left;'>
-				<p><input type='text' name='data-fim-finalizado' id='data-fim-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimFinalizado; ?>'></p>
+				<p>
+					<input type='text' name='data-fim-finalizado' id='data-fim-finalizado' class='formata-data' style='width:95%' maxlength='10' value='<?php echo $dataFimFinalizado; ?>'>
+				</p>
 			</div>
 		</div>
 
@@ -151,15 +180,15 @@
 			<p>Grupo Respons&aacute;vel:</p>
 			<select name="localiza-chamado-grupo-responsavel" id="localiza-chamado-grupo-responsavel" >
 				<option value=''></option>
-<?php
-	$grupos = mpress_query("select distinct m.Modulo_Acesso_ID, m.Titulo from modulos_acessos m
-							inner join chamados_workflows w on w.Grupo_Responsavel_ID = m.Modulo_Acesso_ID
-							where m.Situacao_ID = 1 order by m.Titulo");
-	while($row = mpress_fetch_array($grupos)){
-		if($grupoResponsavel==$row['Modulo_Acesso_ID']) $selecionado = "selected"; else $selecionado = "";
-		echo " 	<option value='".$row['Modulo_Acesso_ID']."' $selecionado>".$row['Titulo']."</option>";
-	}
-?>
+				<?php
+					$grupos = mpress_query("select distinct m.Modulo_Acesso_ID, m.Titulo from modulos_acessos m
+											inner join chamados_workflows w on w.Grupo_Responsavel_ID = m.Modulo_Acesso_ID
+											where m.Situacao_ID = 1 order by m.Titulo");
+					while($row = mpress_fetch_array($grupos)){
+						if($grupoResponsavel==$row['Modulo_Acesso_ID']) $selecionado = "selected"; else $selecionado = "";
+						echo " 	<option value='".$row['Modulo_Acesso_ID']."' $selecionado>".$row['Titulo']."</option>";
+					}
+				?>
 			<select>
 		</div>
 
@@ -167,20 +196,22 @@
 			<p>Respons&aacute;vel:</p>
 			<select name="localiza-chamado-responsavel" id="localiza-chamado-responsavel" >
 				<option value=''></option>
-<?php
-	$grupos = mpress_query("select distinct c.Cadastro_ID, c.Nome
-							from cadastros_dados c
-							inner join chamados_workflows w on w.Responsavel_ID = c.Cadastro_ID");
-	while($row = mpress_fetch_array($grupos)){
-		if($usuarioResponsavel==$row['Cadastro_ID']) $selecionado = "selected"; else $selecionado = "";
-		echo " 	<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
-	}
-?>
+				<?php
+					$grupos = mpress_query("select distinct c.Cadastro_ID, c.Nome
+											from cadastros_dados c
+											inner join chamados_workflows w on w.Responsavel_ID = c.Cadastro_ID");
+					while($row = mpress_fetch_array($grupos)){
+						if($usuarioResponsavel==$row['Cadastro_ID']) $selecionado = "selected"; else $selecionado = "";
+						echo " 	<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
+					}
+				?>
 			<select>
 		</div>
 
 		<div class='titulo-secundario' Style='margin-top:15px;float:right; width:10%'>
-			<p class='direita'><input type='button' Style='width:90%;float:right;' value='Pesquisar' id='botao-localizar-chamado'></p>
+			<p class='direita'>
+				<input type='button' Style='width:90%;float:right;' value='Pesquisar' id='botao-localizar-chamado'>
+			</p>
 		</div>
 	</div>
 </div>

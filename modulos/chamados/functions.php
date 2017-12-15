@@ -532,12 +532,19 @@
 		if ($workflowID==""){
 			$sql = "Insert Into chamados_workflows (Codigo, Cadastro_ID, Solicitante_ID, Prestador_ID, Responsavel_ID, Grupo_Responsavel_ID, Data_Abertura, Data_Finalizado, Tipo_Workflow_ID, Prioridade_ID, Data_Cadastro, Usuario_Cadastro_ID, Titulo, Data_Limite)
 											 Values ('$codigo', '$cadastroID', '$solicitanteID', '$prestadorID', '$usuarioResponsavel','$grupoResponsavel', $dataAbertura, $dataHoraFinalizado, '$tipoWorkflowID', '$prioridadeID', $dataHoraAtual, '".$dadosUserLogin['userID']."','$titulo', $dataLimite)";
+
+			// var_dump($sql);
+
+			// die();
+
 			mpress_query($sql);
 			$workflowID = mysql_insert_id();
 			$sql = "Insert Into chamados_follows (Workflow_ID, Descricao, Dados, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
 											 Values ('$workflowID', '$descricaoFollow', '', '$situacaoFollowID', $dataHoraAtual, '".$dadosUserLogin['userID']."')";
 
 			mpress_query($sql);
+
+
 
 			/* chamada para função de criação do projeto */
 			if ($projetoID!=""){
@@ -983,32 +990,46 @@ function carregarProdutoDetalhes($workflowID, $produtoVariacaoID, $tipo, $chaveE
 
 function salvarProdutoChamado(){
 	global $dadosUserLogin;
-	$dataHoraAtual = retornaDataHora('','Y-m-d H:i:s');
-	$produtoVariacaoID = $_POST['select-produtos'];
-	$quantidadeProdutos = $_POST['quantidade-produtos'];
-	$valorCustoUnitario = str_replace(",",".",str_replace(".","",$_POST['valor-custo-unitario']));
-	$valorVendaUnitario = str_replace(",",".",str_replace(".","",$_POST['valor-venda-unitario']));
-	$workflowID = $_POST['workflow-id'];
-	$descricao = $_POST['descricao-produto-variacao'];
-	$pagamento = $_POST['checkbox-pagamento-prestador'];
-	$cobranca 	= $_POST['checkbox-cobranca-cliente'];
-	$faturamentoDireto = $_POST['checkbox-faturamento-direto'];
+	$dataHoraAtual 			= retornaDataHora('','Y-m-d H:i:s');
+	$produtoVariacaoID 		= $_POST['select-produtos'];
+	$quantidadeProdutos 	= $_POST['quantidade-produtos'];
+	$valorCustoUnitario 	= str_replace(",",".",str_replace(".","",$_POST['valor-custo-unitario']));
+	$valorVendaUnitario 	= str_replace(",",".",str_replace(".","",$_POST['valor-venda-unitario']));
+	$workflowID 			= $_POST['workflow-id'];
+	$descricao 				= $_POST['descricao-produto-variacao'];
+	$pagamento 				= $_POST['checkbox-pagamento-prestador'];
+	$cobranca 				= $_POST['checkbox-cobranca-cliente'];
+	$faturamentoDireto 		= $_POST['checkbox-faturamento-direto'];
 
-	if ($pagamento=="")
-		$valorCustoUnitario=0;
-	else
-		$prestadorID = $_POST['select-prestador'];
+	$produtoObservacao 		= utf8_decode($_POST['observacao_produto']);
 
-	if ($cobranca=="")
+	if($faturamentoDireto==""){
+		$faturamentoDireto 	= 	0;
+	}
+
+	if ($pagamento==""){
+		$valorCustoUnitario = 	0;
+		$prestadorID 		=	0;
+		$pagamento 			= 	0;
+	}else{
+		$prestadorID 		= 	$_POST['select-prestador'];
+		// $valorCustoUnitario = 	$_POST['valor-custo-unitario'];
+	}
+
+	if ($cobranca==""){
 		$valorVendaUnitario=0;
+	}else{
+		// $valorVendaUnitario = $_POST['valor-venda-unitario'];
+	}
 
 	$workflowProdutoID = $_POST['chave-primaria-id'];
 	if ($workflowProdutoID==""){
 		$sql = "insert into chamados_workflows_produtos
-						(Workflow_ID, Produto_Variacao_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
+						(Workflow_ID, Produto_Variacao_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID, Observacao_Produtos)
 				values
-						('$workflowID', '$produtoVariacaoID', '$quantidadeProdutos', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."')";
+						('$workflowID', '$produtoVariacaoID', '$quantidadeProdutos', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."', '$produtoObservacao')";
 		$resultado = mpress_query($sql);
+
 		$sql = "select pd.Tipo_Produto as Tipo_Produto from produtos_dados pd inner join produtos_variacoes pv on pv.Produto_ID = pd.Produto_ID where pv.Produto_Variacao_ID = '$produtoVariacaoID'";
 		$query = mpress_query($sql);
 	}
@@ -1022,7 +1043,8 @@ function salvarProdutoChamado(){
 						Pagamento_Prestador = '$pagamento',
 						Faturamento_Direto = '$faturamentoDireto',
 						Prestador_ID = '$prestadorID',
-						Usuario_Alteracao_ID = ".$dadosUserLogin['userID']."
+						Usuario_Alteracao_ID = ".$dadosUserLogin['userID'].",
+						Observacao_Produtos = '$produtoObservacao'
 					where Workflow_Produto_ID = '$workflowProdutoID'";
 		$resultado = mpress_query($sql);
 	}
@@ -1759,17 +1781,32 @@ function carregarProdutos($chaveID, $tipo){
 		}
 		if ($tipo=="chamado"){
 			//$botaoGerarProposta = "<div style='float:left;margin-top:20px; width:25%;' id='proposta-gerar' class='btn-excel' title='Expandir'><span style='margin-left:18px;'><b>GERAR PROPOSTA</b></span></div>";
-			$sql = "select cwp.Workflow_Produto_ID as Chave_Primaria_ID, pv.Produto_Variacao_ID as Produto_Variacao_ID, cwp.Cobranca_Cliente as Cobranca_Cliente,
-								cwp.Pagamento_Prestador as Pagamento_Prestador, re.Nome as Prestador,
-								DATE_FORMAT(cwp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, concat(coalesce(pd.Nome,''),' ',coalesce(pv.Descricao,'')) as Descricao_Produto, cd.Nome as Autor,
-								pv.Codigo as Codigo, Quantidade as Quantidade,
-								cwp.Valor_Venda_Unitario, cwp.Valor_Custo_Unitario, cwp.Faturamento_Direto,
-								pd.Tipo_Produto as Tipo_Produto,
-								cwp.Cliente_Final_ID, cf.Nome as Cliente_Final, cf.Foto as Foto_Cliente_Final,
-								fc.Descr_Tipo as Forma_Cobranca, tp.Descr_Tipo AS Tipo, ma.Nome_Arquivo as Nome_Arquivo, pd.Produto_ID as Produto_ID,
-								(select count(*) from financeiro_produtos fp1
-											inner join financeiro_contas fc1 on fc1.Conta_ID = fp1.Conta_ID
-											where fp1.Tabela_Estrangeira = 'chamados' and fp1.Produto_Referencia_ID = cwp.Workflow_Produto_ID and fc1.Tipo_ID = '45' and fp1.Situacao_ID = 1) as A_Pagar,
+			$sql = "select cwp.Workflow_Produto_ID as Chave_Primaria_ID, 
+							pv.Produto_Variacao_ID as Produto_Variacao_ID, 
+							cwp.Cobranca_Cliente as Cobranca_Cliente,
+							cwp.Pagamento_Prestador as Pagamento_Prestador, 
+							re.Nome as Prestador,
+							DATE_FORMAT(cwp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
+							concat(coalesce(pd.Nome,''),
+							' ',coalesce(pv.Descricao,'')) as Descricao_Produto,
+							 cd.Nome as Autor,
+							pv.Codigo as Codigo, 
+							Quantidade as Quantidade,
+							cwp.Valor_Venda_Unitario, 
+							cwp.Valor_Custo_Unitario, 
+							cwp.Faturamento_Direto,
+							cwp.Observacao_Produtos,
+							pd.Tipo_Produto as Tipo_Produto,
+							cwp.Cliente_Final_ID, 
+							cf.Nome as Cliente_Final, 
+							cf.Foto as Foto_Cliente_Final,
+							fc.Descr_Tipo as Forma_Cobranca, 
+							tp.Descr_Tipo AS Tipo, 
+							ma.Nome_Arquivo as Nome_Arquivo, 
+							pd.Produto_ID as Produto_ID,
+							(select count(*) from financeiro_produtos fp1
+							inner join financeiro_contas fc1 on fc1.Conta_ID = fp1.Conta_ID
+							where fp1.Tabela_Estrangeira = 'chamados' and fp1.Produto_Referencia_ID = cwp.Workflow_Produto_ID and fc1.Tipo_ID = '45' and fp1.Situacao_ID = 1) as A_Pagar,
 								(select count(*) from financeiro_produtos fp2
 											inner join financeiro_contas fc2 on fc2.Conta_ID = fp2.Conta_ID
 											where fp2.Tabela_Estrangeira = 'chamados' and fp2.Produto_Referencia_ID = cwp.Workflow_Produto_ID   and fc2.Tipo_ID = '44' and fp2.Situacao_ID = 1) as A_Receber,
@@ -2502,7 +2539,7 @@ function carregarLocalizarProduto($tipo, $chaveEstrangeira, $solicitanteID){
 	}
 	if ($tipo=="chamado"){
 		$sql = "select Workflow_ID as Chave_ID, Produto_Variacao_ID, Descricao_Produto, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario,
-						Cobranca_Cliente, Pagamento_Prestador, Prestador_ID, Situacao_ID, '' as Cliente_Final_ID, '' as Solicitante_ID, Faturamento_Direto
+						Cobranca_Cliente, Pagamento_Prestador, Prestador_ID, Situacao_ID, '' as Cliente_Final_ID, '' as Solicitante_ID, Faturamento_Direto, Observacao_Produtos
 					from chamados_workflows_produtos where Workflow_Produto_ID = '$chaveEstrangeira'";
 					//echo $sql;
 	}

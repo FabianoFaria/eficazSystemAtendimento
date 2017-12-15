@@ -60,11 +60,11 @@
 						<div class='titulo' style="min-height:25px">
 							<p style="margin-top:2px;">
 							Filtros de Pesquisa
-<?php
-			echo "				<input type='button' value='Incluir Lan&ccedil;amento' id='botao-incluir-conta' class='botao-incluir-conta' style='float:right;height:24px;font-size:10px;margin-top:-3px;width:120px;'>";
-			echo "				<input type='hidden' value='".$configFinanceiro['lancamento-fancybox']."' id='lancamento-fancybox'>";
+							<?php
+										echo "				<input type='button' value='Incluir Lan&ccedil;amento' id='botao-incluir-conta' class='botao-incluir-conta' style='float:right;height:24px;font-size:10px;margin-top:-3px;width:120px;'>";
+										echo "				<input type='hidden' value='".$configFinanceiro['lancamento-fancybox']."' id='lancamento-fancybox'>";
 
-?>
+							?>
 							</p>
 						</div>
 						<div class='conteudo-interno'>

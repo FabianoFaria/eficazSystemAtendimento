@@ -3,6 +3,7 @@
 global $modulosAtivos, $caminhoSistema, $dadosUserLogin;
 $contEmpresas = verificaNumeroEmpresas();
 $workflowID = $_POST["workflow-id"];
+
 if ($workflowID!=""){
 	$descricaoBotao = "Atualizar ".$_SESSION['objeto'];
 	$descricaoFollow = "Observa&ccedil;&atilde;o";
