@@ -7,27 +7,26 @@ b<?php
 		$virgula = ",";
 	}
 
-	$centrosCusto = $_POST['localiza-centro-custo'];
-	$tipoContaID = $_POST['localiza-tipo-conta'];
-	$situacaoID = $_POST['localiza-situacao-conta'];
-	$codigo = trim($_POST['localiza-codigo']);
-	$localizaCadastroConta = $_POST['localiza-cadastro-conta'];
-
+	$centrosCusto 			= $_POST['localiza-centro-custo'];
+	$tipoContaID 			= $_POST['localiza-tipo-conta'];
+	$situacaoID 			= $_POST['localiza-situacao-conta'];
+	$codigo 				= trim($_POST['localiza-codigo']);
+	$localizaCadastroConta 	= $_POST['localiza-cadastro-conta'];
 
 	if ($_POST){
-		$dataInicioVencimento = $_POST['data-inicio-vencimento'];
-		$dataFimVencimento = $_POST['data-fim-vencimento'];
+		$dataInicioVencimento 	= $_POST['data-inicio-vencimento'];
+		$dataFimVencimento 		= $_POST['data-fim-vencimento'];
 	}
 	else{
-		$dataInicioVencimento = "01/".date("m/Y");
-		$mes = date("m");
-		$ano = date("Y");
-		$ultimo_dia = date("t", mktime(0,0,0,$mes,'01',$ano));
-		$dataFimVencimento = $ultimo_dia."/".date("m/Y");
+		$dataInicioVencimento 	= "01/".date("m/Y");
+		$mes 					= date("m");
+		$ano 					= date("Y");
+		$ultimo_dia 			= date("t", mktime(0,0,0,$mes,'01',$ano));
+		$dataFimVencimento 		= $ultimo_dia."/".date("m/Y");
 	}
 	echo " <input type='hidden' value='".$configFinanceiro['lancamento-fancybox']."' id='lancamento-fancybox'>";
-?>
-					<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+?>	
+				<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 					<div class='titulo-container conjunto1'>
 						<div class='titulo' style="min-height:25px">
 							<p style="margin-top:2px;">Filtros de Pesquisa</p>
@@ -43,42 +42,42 @@ b<?php
 									<p><input type='text' name='data-fim-vencimento' id='data-fim-vencimento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataFimVencimento; ?>'></p>
 								</div>
 							</div>
-<?php
-		if ($configFinanceiro['exibe-conta']){
-			echo "			<div class='titulo-secundario' style='float:left;width:25%'>
-								<p><b>Conta</b></p>
-								<p><select id='localiza-cadastro-conta' name='localiza-cadastro-conta' class='required'>
-									<option value=''></option>
-									".optionValueContas($localizaCadastroConta)."
-									</select>
-								</p>
-							</div>";
-		}
-?>
+								<?php
+										if ($configFinanceiro['exibe-conta']){
+											echo "			<div class='titulo-secundario' style='float:left;width:25%'>
+																<p><b>Conta</b></p>
+																<p><select id='localiza-cadastro-conta' name='localiza-cadastro-conta' class='required'>
+																	<option value=''></option>
+																	".optionValueContas($localizaCadastroConta)."
+																	</select>
+																</p>
+															</div>";
+										}
+								?>
 							<div class='titulo-secundario' style='float:left;width:20%'>
 								<div class='div-normal'>
 									<p><b>Tipo Conta</b></p>
 									<p><select name='localiza-tipo-conta' id='localiza-tipo-conta'><option></option><?php echo optionValueTipoConta($_POST['localiza-tipo-conta']);?></select></p>
 								</div>&nbsp;
 							</div>
-<?php
-			if ($configFinanceiro['exibe-centro-custo']){
-				echo "		<div class='titulo-secundario' style='float:left;width:20%'>
-								<div class='div-normal'>
-									<p><b>Centro de Custo</b></p>
-									<p><select id='localiza-centro-custo' name='localiza-centro-custo'><option></option>".optionValueGrupoFilho(26, $_POST['localiza-centro-custo'], "","")."</select></p>
-								</div>&nbsp;
-							</div>";
-			}
-?>
+								<?php
+											if ($configFinanceiro['exibe-centro-custo']){
+												echo "		<div class='titulo-secundario' style='float:left;width:20%'>
+																<div class='div-normal'>
+																	<p><b>Centro de Custo</b></p>
+																	<p><select id='localiza-centro-custo' name='localiza-centro-custo'><option></option>".optionValueGrupoFilho(26, $_POST['localiza-centro-custo'], "","")."</select></p>
+																</div>&nbsp;
+															</div>";
+											}
+								?>
 							<div class='titulo-secundario duas-colunas' Style='margin-top:15px; float:right;width:10%' >
 								<p align='right'>
 									<input type='button' value='Pesquisar' id='botao-pesquisar-contas' style='width:100px:margin-right:2px'/>
-<?php
-			if (($filtroRelatorio=='menu-superior-5') || ($filtroRelatorio=='menu-superior-1')){
-				echo "				<div class='btn-imprimir' id='botao-imprimir' style='margin-top:5px; float:right;' title='Imprimir'></div>";
-			}
-?>
+									<?php
+												if (($filtroRelatorio=='menu-superior-5') || ($filtroRelatorio=='menu-superior-1')){
+													echo "				<div class='btn-imprimir' id='botao-imprimir' style='margin-top:5px; float:right;' title='Imprimir'></div>";
+												}
+									?>
 								</p>
 							</div>
 						</div>
@@ -93,11 +92,13 @@ b<?php
 		if ($contaID!=""){ $sqlCond .= " and fc.Conta_ID = '$contaID' ";}
 
 		if (($centrosCusto!="") || ($tipoContaID!="")){
-			$sqlInnerjoinContabil = " inner join financeiro_contabil fco on fco.Conta_ID = fc.Conta_ID and fco.Situacao_ID = 1";
+			// $sqlInnerjoinContabil = " INNER JOIN financeiro_contabil fco on fco.Conta_ID = fc.Conta_ID and fco.Situacao_ID = 1";
+			$sqlInnerjoinContabil = "";
 			if ($centrosCusto!="")
 				$sqlCond .= " and fco.Centro_Custo_ID in ($centrosCusto)";
 			if ($tipoContaID!="")
-				$sqlCond .= " and fco.Tipo_Conta_ID in ($tipoContaID)";
+				// $sqlCond .= " and fco.Tipo_Conta_ID in ($tipoContaID)";
+				$sqlCond .= " and fc.Tipo_Conta_ID in ($tipoContaID)";
 			$sqlGroupBy = " group by fc.Conta_ID, ft.Titulo_ID ";
 		}
 
@@ -118,15 +119,15 @@ b<?php
 		/****      DE QUEM RECEBO E PARA QUEM PAGO       ****/
 		/****************************************************/
 		if ($filtroRelatorio=='menu-superior-1'){
-			$sql = "select fc.Tipo_ID as Tipo_ID, coalesce(cdd.Cadastro_ID,0) as Cadastro_ID, coalesce(cdd.Nome,' Não Definido') as Cadastro, sum(coalesce(ft.Valor_Pago,0)) as Valor_Pago, sum(coalesce(ft.Valor_Titulo,0)) as Valor_Titulo
-						from financeiro_contas fc
-						inner join financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
+			$sql = "SELECT fc.Tipo_ID as Tipo_ID, coalesce(cdd.Cadastro_ID,0) as Cadastro_ID, coalesce(cdd.Nome,' Não Definido') as Cadastro, sum(coalesce(ft.Valor_Pago,0)) as Valor_Pago, sum(coalesce(ft.Valor_Titulo,0)) as Valor_Titulo
+						FROM financeiro_contas fc
+						INNER JOIN financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
 						$sqlInnerjoinContabil
-						left join cadastros_dados cdd on cdd.Cadastro_ID = fc.Cadastro_ID_Para
-						where fc.Tipo_ID in (44,45) and ft.Situacao_Pagamento_ID = 49
+						LEFT JOIN cadastros_dados cdd on cdd.Cadastro_ID = fc.Cadastro_ID_Para
+						WHERE fc.Tipo_ID in (44,45) and ft.Situacao_Pagamento_ID = 49
 						$sqlCond
-						group by fc.Tipo_Conta_ID, fc.Tipo_ID, coalesce(cdd.Cadastro_ID,0)
-						order by Valor_Pago desc";
+						GROUP BY fc.Tipo_Conta_ID, fc.Tipo_ID, coalesce(cdd.Cadastro_ID,0), cdd.Nome
+						ORDER BY Valor_Pago DESC";
 			//echo $sql;
 			$resultado = mpress_query($sql);
 			$i = 0;
@@ -186,6 +187,8 @@ b<?php
 						$sqlCond
 						GROUP BY fco.Tipo_Conta_ID, fc.Tipo_ID
 						ORDER BY Valor DESC";
+
+			//echo $sql;
 			$resultado = mpress_query($sql);
 			$i = 0;
 			$virgulaE = ""; $virgulaS = ""; $dadosPizzaS = ""; $dadosPizzaE = "";
@@ -362,20 +365,23 @@ b<?php
 		/****************************************************/
 		if ($filtroRelatorio=='menu-superior-2'){
 
-			$sql = "select coalesce(cc1.Descr_Tipo, ' Não definido') as Centro_Custo_N1, coalesce(cc2.Descr_Tipo,' Não definido') as Centro_Custo_N2, concat(cc1.Descr_Tipo, cc2.Descr_Tipo ) as CentroCusto,
+			$sql = "SELECT coalesce(cc1.Descr_Tipo, ' Não definido') as Centro_Custo_N1, coalesce(cc2.Descr_Tipo,' Não definido') as Centro_Custo_N2, concat(cc1.Descr_Tipo, cc2.Descr_Tipo ) as CentroCusto,
 						coalesce(tc1.Descr_Tipo, ' Não definido') as Tipo_Conta_N1, coalesce(tc2.Descr_Tipo, ' Não definido') as Tipo_Conta_N2, fco.Valor as Valor, cd.Nome as Cadastro, fc.Tipo_ID, fc.Cadastro_ID_para as Cadastro_ID_para,
 						DATE_FORMAT(ft.Data_Vencimento, '%d/%m/%Y') as Data_Vencimento, fc.Conta_ID, concat(fc.Observacao, ' ' ,fco.Observacao) as Historico
-						from financeiro_contabil fco
-						inner join financeiro_contas fc on fc.Conta_ID = fco.Conta_ID
-						inner join financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
-						left join cadastros_dados cd on cd.Cadastro_ID = fc.Cadastro_ID_para
-						left join tipo cc2 on cc2.Tipo_ID = fco.Centro_Custo_ID
-						left join tipo cc1 on cc1.Tipo_ID = cc2.Tipo_Auxiliar
-						left join tipo tc2 on tc2.Tipo_ID = fco.Tipo_Conta_ID
-						left join tipo tc1 on tc1.Tipo_ID = tc2.Tipo_Auxiliar
-						where fco.Situacao_ID = 1 and fc.Tipo_ID in (44,45) and ft.Situacao_Pagamento_ID = 49
+						FROM financeiro_contabil fco
+						INNER join financeiro_contas fc on fc.Conta_ID = fco.Conta_ID
+						INNER join financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
+						LEFT join cadastros_dados cd on cd.Cadastro_ID = fc.Cadastro_ID_para
+						LEFT join tipo cc2 on cc2.Tipo_ID = fco.Centro_Custo_ID
+						LEFT join tipo cc1 on cc1.Tipo_ID = cc2.Tipo_Auxiliar
+						LEFT join tipo tc2 on tc2.Tipo_ID = fco.Tipo_Conta_ID
+						LEFT join tipo tc1 on tc1.Tipo_ID = tc2.Tipo_Auxiliar
+						WHERE fco.Situacao_ID = 1 and fc.Tipo_ID in (44,45) and ft.Situacao_Pagamento_ID = 49
 						$sqlCond
-						order by cd.Nome, fc.Cadastro_ID_para, ft.Data_Vencimento";
+						ORDER BY cd.Nome, fc.Cadastro_ID_para, ft.Data_Vencimento";
+
+			//echo $sql;
+
 			$query = mpress_query($sql);
 			$i = 0;
 			while($rs = mpress_fetch_array($query)){

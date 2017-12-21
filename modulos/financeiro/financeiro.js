@@ -711,13 +711,21 @@ $(document).ready(function(){
 		/**/
 
 		$(".botao-faturar-cancelar").live('click', function () {
+
+			// console.log('teste de botão...');
+
+			// console.log('teste de origem  '+$(this).attr('origem'));
+
+			// console.log('teste de origem  '+$(this).val());
+
 			if ($(this).attr('origem')=='orcamentos'){
 				dados = $('#frmDefault .prod-faturar:checked, #frmDefault .prod-cancelar:checked').serialize();
-				dados += "&empresa-id=" + $(this).attr('empresa-id');
-				dados += "&tipo-id=" + $(this).attr('tipo-id');
-				dados += "&cadastro-id=" + $(this).attr('cadastro-id');
-				dados += "&modulo="+$(this).attr('origem');
+				dados += "&empresa-id=" 	+ $(this).attr('empresa-id');
+				dados += "&tipo-id=" 		+ $(this).attr('tipo-id');
+				dados += "&cadastro-id=" 	+ $(this).attr('cadastro-id');
+				dados += "&modulo="			+ $(this).attr('origem');
 				dados += "&chave-estrangeira="+$(this).attr('chave-estrangeira');
+
 				if ($(this).val()=='Faturar'){
 					caminho = caminhoScript+"/financeiro/financeiro-lancamento?tipo=direto&"+dados;
 					$.fancybox.open({
@@ -771,7 +779,7 @@ $(document).ready(function(){
 							if($(this).attr('checked')){
 								if ((fornecedorIDAnt!="") && (fornecedorIDAnt!=($(this).attr('fornecedor-id')))){
 									flagFornDif = true;
-								}
+					botao-faturar-cancelar			}
 								fornecedorIDAnt = $(this).attr('fornecedor-id');
 							}
 						});
@@ -836,14 +844,14 @@ function salvarConta(fluxo){
 	$(".valor-pago").css('background-color', '').css('outline', '');
 
 	//contas a pagar e a receber
-	/*
-	if(($(".radio-tipo-grupo-27:checked").val()=="44")||($(".radio-tipo-grupo-27:checked").val()=="45")){
-		if ($('#lancamento-tipo-conta').val()==""){
-			$("#lancamento_tipo_conta_chosen a").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
-			flag=1;
-		}
-	}
-	*/
+	
+	// if(($(".radio-tipo-grupo-27:checked").val()=="44")||($(".radio-tipo-grupo-27:checked").val()=="45")){
+	// 	if ($('#lancamento-tipo-conta').val()==""){
+	// 		$("#lancamento_tipo_conta_chosen a").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
+	// 		flag=1;
+	// 	}
+	// }
+	
 
 	//transferencias
 	if($(".radio-tipo-grupo-27:checked").val()=="46"){
@@ -851,10 +859,15 @@ function salvarConta(fluxo){
 		$('#cadastro-conta-id-para-transf, #cadastro-id-para-transf').addClass('required');
 	}
 
+
+
 	// AQUI COMENTADO PARA MANDAR NOTA FISCAL DE TRASPORTE COM VALORES ZERADOS
 	//if (desformataValor($('#valor-total').val())==0){ $("#valor-total").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD'); $("#valor-total").focus(); flag=1;}
 
-	if (desformataValor($('#qtde-parcelas').val())==0){ $("#qtde-parcelas").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD'); $("#qtde-parcelas").focus(); flag=1;}
+	if (desformataValor($('#qtde-parcelas').val())==0){ 
+		$("#qtde-parcelas").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
+		$("#qtde-parcelas").focus(); flag=1;
+	}
 
 	$(".situacao-vencimento").each(function(){
 		ordem = $(this).attr("ordem");
@@ -900,7 +913,7 @@ function salvarConta(fluxo){
 	}
 	*/
 
-	if (((Math.round(parseFloat(total*100),2)/100)) != parseFloat(ReplaceAll(ReplaceAll($("#valor-total").val(),".",""),",","."))){
+	if(((Math.round(parseFloat(total*100),2)/100)) != parseFloat(ReplaceAll(ReplaceAll($("#valor-total").val(),".",""),",","."))){
 		$("#valor-total").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
 		$(".valor-vencimento").css('background-color', '#FFE4E4').css('outline', '1px solid #FFCDCD');
 		flag=1;

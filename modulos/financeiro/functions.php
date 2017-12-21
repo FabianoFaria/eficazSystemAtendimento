@@ -70,9 +70,9 @@
 
 	function carregarVencimentos(){
 		global $caminhoSistema, $configCob;
-		$contaID = $_POST['localiza-conta-id'];
-		$tituloID = $_POST['localiza-titulo-id'];
-		$situacaoTitulos = $_POST['situacao-titulos'];
+		$contaID 			= $_POST['localiza-conta-id'];
+		$tituloID 			= $_POST['localiza-titulo-id'];
+		$situacaoTitulos 	= $_POST['situacao-titulos'];
 
 
 		echo "<table width='100%' style='margin-top:1px;border:0px solid silver;margin-bottom:0px;' border='0' cellpadding='0' cellspacing='0' align='center'>
@@ -354,24 +354,24 @@
 		global $configFinanceiro;
 		$escondeExcluir = "esconde";
 		if ($contaID != ""){
-			$sql = "select Tipo_ID, Tipo_Conta_ID, Cadastro_ID_de, Cadastro_ID_para, Codigo, Valor_Total,
-						(select count(*) from financeiro_titulos where Conta_ID = $contaID) as Qtde_Parcelas,
-						(select COUNT(*) FROM financeiro_titulos ft2 WHERE ft2.Conta_ID = $contaID and ft2.Situacao_Pagamento_ID = 50) AS Qtde_Cancelados
-					from financeiro_contas where Conta_ID = $contaID";
+			$sql = "SELECT Tipo_ID, Tipo_Conta_ID, Cadastro_ID_de, Cadastro_ID_para, Codigo, Valor_Total,
+						(SELECT COUNT(*) FROM financeiro_titulos WHERE Conta_ID = $contaID) as Qtde_Parcelas,
+						(SELECT COUNT(*) FROM financeiro_titulos ft2 WHERE ft2.Conta_ID = $contaID and ft2.Situacao_Pagamento_ID = 50) AS Qtde_Cancelados
+					FROM financeiro_contas WHERE Conta_ID = $contaID";
 			$resultado = mpress_query($sql);
 			if($row = mpress_fetch_array($resultado)){
-				$tipoContaID = $row[Tipo_Conta_ID];
-				$codigo = $row[Codigo];
-				$valorTotal = number_format($row[Valor_Total], 2, ',', '.');
-				$qtdeParcelas = $row[Qtde_Parcelas];
+				$tipoContaID 			= $row[Tipo_Conta_ID];
+				$codigo 				= $row[Codigo];
+				$valorTotal 			= number_format($row[Valor_Total], 2, ',', '.');
+				$qtdeParcelas 			= $row[Qtde_Parcelas];
 				$escondeSalvarContinuar = "esconde";
 				if ($situacaoTitulos!='pendente'){
-					$readOnly = "readonly='readonly'";
-					$esconde = "esconde";
-					$disabled = "disabled";
+					$readOnly 	= "readonly='readonly'";
+					$esconde 	= "esconde";
+					$disabled 	= "disabled";
 				}else{
-					$escondeInsert = "esconde";
-					$escondeAtualizar = "esconde";
+					$escondeInsert 		= "esconde";
+					$escondeAtualizar 	= "esconde";
 				}
 				if (($qtdeParcelas>1)&&($tituloID!="")){$botaoVisualizarParcelas = "<input type='button' value='Visualizar Todas Parcelas' id='botao-visualizar-parcelas' style='height:18px;font-size:10px;margin-top:5px;width:135px'>";}
 				if ($qtdeParcelas>1){$checkedTipoPgtoP = "checked='checked'";}else{$checkedTipoPgtoV = "checked='checked'"; $escondeQtdeParcelas = "esconde";}
@@ -381,12 +381,12 @@
 			}
 		}
 		else{
-			$escondeInsert = "esconde";
-			$escondeQtdeParcelas = "esconde";
-			$escondeAtualizar = "esconde";
+			$escondeInsert 			= "esconde";
+			$escondeQtdeParcelas 	= "esconde";
+			$escondeAtualizar 		= "esconde";
 			$escondeSalvarContinuar = "";
-			$qtdeParcelas = 1;
-			$checkedTipoPgtoV = "checked='checked'";
+			$qtdeParcelas 			= 1;
+			$checkedTipoPgtoV 		= "checked='checked'";
 
 			/* FATURAMENTO DIRETO */
 			if ($_GET['tipo']=='direto'){
@@ -405,8 +405,8 @@
 					}
 					$condWorkflowProdutoID = substr($condWorkflowProdutoID, 0, -1);
 					$worflowID = $_GET['workflow-id'];
-					$sql = "select Pagamento_Prestador, Valor_Custo_Unitario, Cobranca_Cliente, Valor_Venda_Unitario
-								from chamados_workflows_produtos where Workflow_ID = '$worflowID' and Workflow_Produto_ID IN ($condWorkflowProdutoID)";
+					$sql = "SELECT Pagamento_Prestador, Valor_Custo_Unitario, Cobranca_Cliente, Valor_Venda_Unitario
+								FROM chamados_workflows_produtos WHERE Workflow_ID = '$worflowID' AND Workflow_Produto_ID IN ($condWorkflowProdutoID)";
 					$resultado = mpress_query($sql);
 					while ($rs = mpress_fetch_array($resultado)){
 						$valorTotal += $rs['Valor_Venda_Unitario'];
@@ -422,16 +422,27 @@
 					}
 					$idsProdutos = substr($idsProdutos,1);
 
-					$sql = "select SUM(opp.Quantidade * opp.Valor_Venda_Unitario) as Valor_Total_Venda,
+					$sql = "SELECT SUM(opp.Quantidade * opp.Valor_Venda_Unitario) as Valor_Total_Venda,
 									SUM(opp.Quantidade * opp.Valor_Custo_Unitario) as Valor_Total_Custo,
 									opp.Faturamento_Direto,
 								op.Proposta_ID as Proposta_ID
-								from orcamentos_propostas_produtos opp
-								inner join orcamentos_propostas op on op.Proposta_ID = opp.Proposta_ID
-								where opp.Proposta_Produto_ID in ($idsProdutos)";
+								FROM orcamentos_propostas_produtos opp
+								INNER JOIN orcamentos_propostas op on op.Proposta_ID = opp.Proposta_ID
+								WHERE opp.Proposta_Produto_ID in ($idsProdutos)
+								GROUP BY opp.Faturamento_Direto,op.Proposta_ID";
 					//echo "-->".$_GET['tipo-id'];
+					/*
+						DEVIDO a diferença da verção dos bancos de dados,
+						será necessario adaptar esse trecho de código para compensar
+						o seguinte erro de MYSQL
+						"#1140 - In aggregated query without GROUP BY, expression #3 of SELECT list contains nonaggregated column 'eficazsystem3.opp.Faturamento_Direto'; this is incompatible with sql_mode=only_full_group_by"
+					*/
+
+					//echo "<p>Teste Teste  query: ".$sql."</p>";
+
 					$resultado = mpress_query($sql);
 					while ($rs = mpress_fetch_array($resultado)){
+
 						if ($_GET['tipo-id']=='44'){
 							$valorTotal += $rs['Valor_Total_Custo'];
 						}
@@ -448,14 +459,22 @@
 					$valorTotal = number_format($valorTotal, 2, ',', '.');
 					$faturamentoDireto = "S";
 
-					$sql = "select count(*) as Quantidade from orcamentos_propostas_vencimentos where Proposta_ID = '".$propostaID."' and Situacao_ID = 1";
+					$sql = "SELECT count(*) as Quantidade FROM orcamentos_propostas_vencimentos WHERE Proposta_ID = '".$propostaID."' and Situacao_ID = 1";
 					$resultado = mpress_query($sql);
 					while ($rs = mpress_fetch_array($resultado)){
 						$qtdeParcelas = $rs['Quantidade'];
 					}
 				}
-				if ($qtdeParcelas==0) $qtdeParcelas = 1;
-				if ($qtdeParcelas>1){$checkedTipoPgtoP = "checked='checked'";}else{ $checkedTipoPgtoV = "checked='checked'"; $escondeQtdeParcelas = "esconde";}
+				if ($qtdeParcelas==0) {
+					$qtdeParcelas = 1;
+				}
+
+				if ($qtdeParcelas>1){
+					$checkedTipoPgtoP = "checked='checked'";
+				}else{ 
+					$checkedTipoPgtoV = "checked='checked'"; 
+					$escondeQtdeParcelas = "esconde";
+				}
 			}
 		}
 
@@ -655,29 +674,68 @@
 		//echo $_POST["acao"];
 		//exit();
 		global $dadosUserLogin, $configFinanceiro;
-		$situacaoTitulos = $_POST['situacao-titulos'];
 
-		$contaID = $_POST['localiza-conta-id'];
-		$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		$situacaoTitulos 	= $_POST['situacao-titulos'];
 
-		$valorTotal = str_replace(",",".",str_replace(".","",$_POST['valor-total']));
-		$qtdeParcelas = $_POST['qtde-parcelas'];
-		$titulo = $_POST['titulo-lancamento'];
-		$tipoID = $_POST['radio-tipo-grupo-27'];
-		$tipoContaID = $_POST['lancamento-tipo-conta'][0];
-		$centroCustoID = $_POST['lancamento-centro-custo'][0];
+		$contaID 			= $_POST['localiza-conta-id'];
+		$dataHoraAtual 		= "'".retornaDataHora('','Y-m-d H:i:s')."'";
 
-		$observacao = utf8_decode($_POST['observacao']);
+		$valorTotal 		= str_replace(",",".",str_replace(".","",$_POST['valor-total']));
+		$qtdeParcelas 		= $_POST['qtde-parcelas'];
+		$titulo 			= $_POST['titulo-lancamento'];
+		$tipoID 			= $_POST['radio-tipo-grupo-27'];
+		
+		
+
+		if($_POST['lancamento-tipo-conta'][0] != ''){
+			$tipoContaID 	= $_POST['lancamento-tipo-conta'][0];
+		}else{
+			$tipoContaID 	= 0;
+		}
+
+		if($_POST['lancamento-centro-custo'][0] != ''){
+			$centroCustoID 	= $_POST['lancamento-centro-custo'][0];
+		}else{
+			$centroCustoID 	= 0;
+		}
+
+		$observacao 		= utf8_decode($_POST['observacao']);
 
 
-		$cadastroIDde = $_POST['cadastro-id-de'];
-		$cadastroContaIDde = $_POST['cadastro-conta-id-de'];
-		$cadastroIDpara = $_POST['cadastro-id-para'];
+		//echo "teste de cadastro para: ".$_POST['cadastro-id-para'];
+
+		//die();
+
+		$cadastroIDde 		= $_POST['cadastro-id-de'];
+		$cadastroContaIDde 	= $_POST['cadastro-conta-id-de'];
+
+		if(!empty($_POST['cadastro-id-para'])){
+			$cadastroIDpara = $_POST['cadastro-id-para'];
+		}else{
+			$cadastroIDpara = 0;
+		}
+
+		//var_dump($_POST);
+
+		//die();
 
 		/* SE TRANSFERENCIA */
 		if ($tipoID==46){
-			$cadastroContaIDpara = $_POST['cadastro-conta-id-para-transf'];
-			$cadastroIDpara = $_POST['cadastro-id-para-transf'];
+			
+			if($_POST['cadastro-id-para-transf'] != ''){
+				$cadastroIDpara = $_POST['cadastro-id-para-transf'];
+			}else{
+				$cadastroIDpara = 0;
+			}
+
+			if($_POST['cadastro-conta-id-para-transf'] != ''){
+				$cadastroContaIDpara 	= $_POST['cadastro-conta-id-para-transf'];
+			}else{
+				$cadastroContaIDpara 	= 0;
+			}
+		}else{
+			$cadastroContaIDpara 		= 0;
+			//$cadastroIDpara 			= 0;
 		}
 
 		if ($situacaoTitulos=='pendente'){
@@ -687,24 +745,54 @@
 				mpress_query("delete from financeiro_titulos where Conta_ID = '$contaID'");
 			}
 			else{
-				$sql = "insert into financeiro_contas (Tipo_ID, Tipo_Conta_ID, Centro_Custo_ID, Cadastro_ID_de, Cadastro_ID_para, Cadastro_Conta_ID_de, Cadastro_Conta_ID_para, Codigo, Tabela_Estrangeira, Chave_Estrangeira, Valor_Total, Observacao, Data_Cadastro, Usuario_Cadastro_ID)
-											   values ('$tipoID', '$tipoContaID', '$centroCustoID', '$cadastroIDde', '$cadastroIDpara', '$cadastroContaIDde', '$cadastroContaIDpara', '$titulo', '','', '$valorTotal', '$observacao', $dataHoraAtual,'".$dadosUserLogin['userID']."')";
+				$sql = "INSERT INTO financeiro_contas (Tipo_ID, 
+					Tipo_Conta_ID, 
+					Centro_Custo_ID, 
+					Cadastro_ID_de, 
+					Cadastro_ID_para, 
+					Cadastro_Conta_ID_de, 
+					Cadastro_Conta_ID_para, 
+					Codigo, 
+					Tabela_Estrangeira, 
+					Chave_Estrangeira, 
+					Valor_Total, 
+					Observacao, 
+					Data_Cadastro, 
+					Usuario_Cadastro_ID)
+					VALUES ('$tipoID', 
+					'$tipoContaID', 
+					'$centroCustoID', 
+					'$cadastroIDde', 
+					'$cadastroIDpara', 
+					'$cadastroContaIDde', 
+					'$cadastroContaIDpara', 
+					'$titulo', 
+					'',
+					'0', 
+					'$valorTotal', 
+					'$observacao', 
+					$dataHoraAtual,
+					'".$dadosUserLogin['userID']."')";
+
+				// echo($sql);
+
+				// die();
+
 				mpress_query($sql);
 				$contaID = mysql_insert_id();
-
 
 				if ($_POST['faturamento-direto']=='S'){
 					$i = 0;
 					foreach ($_POST['financeiro-produto-id'] as $financeiroProdutoID){
-						$tabelaEstrangeira = $_POST['tabela-estrangeira'][$i];
-						$chaveEstrangeira = $_POST['chave-estrangeira'][$i];
-						$chaveEstrangeiraProduto = $_POST['chave-estrangeira-produto'][$i];
-						$produtoVariacaoID = $_POST['produto-variacao-id'][$i];
-						$descricaoProduto = $_POST['descricao-produto'][$i];
-						$quantidadeProduto = formataValorBD($_POST['quantidade-produto'][$i]);
-						$valorUnitarioProduto = formataValorBD($_POST['valor-unitario-produto'][$i]);
-						$produtoReferenciaID = $_POST['produto-referencia-id'][$i];
-						$sql = "INSERT INTO financeiro_produtos (Produto_Referencia_ID, Conta_ID, Tabela_Estrangeira, Chave_Estrangeira, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro, Produto_Variacao_ID, Produto_Descricao, Quantidade, Valor_Unitario, Info_NFE)
+						$tabelaEstrangeira 			= $_POST['tabela-estrangeira'][$i];
+						$chaveEstrangeira 			= $_POST['chave-estrangeira'][$i];
+						$chaveEstrangeiraProduto 	= $_POST['chave-estrangeira-produto'][$i];
+						$produtoVariacaoID 			= $_POST['produto-variacao-id'][$i];
+						$descricaoProduto 			= $_POST['descricao-produto'][$i];
+						$quantidadeProduto 			= formataValorBD($_POST['quantidade-produto'][$i]);
+						$valorUnitarioProduto 		= formataValorBD($_POST['valor-unitario-produto'][$i]);
+						$produtoReferenciaID 		= $_POST['produto-referencia-id'][$i];
+						$sql 						= "INSERT INTO financeiro_produtos (Produto_Referencia_ID, Conta_ID, Tabela_Estrangeira, Chave_Estrangeira, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro, Produto_Variacao_ID, Produto_Descricao, Quantidade, Valor_Unitario, Info_NFE)
 														VALUES ('$chaveEstrangeiraProduto', '$contaID', '$tabelaEstrangeira', '$chaveEstrangeira', 1,'".$dadosUserLogin['userID']."', $dataHoraAtual, '$produtoVariacaoID', '$descricaoProduto', '$quantidadeProduto', '$valorUnitarioProduto', '')";
 						mpress_query($sql);
 						$i++;
@@ -1310,19 +1398,26 @@
 
 	function salvarProdutoFinanceiro(){
 		global $dadosUserLogin;
-		$dataHoraAtual = retornaDataHora('','Y-m-d H:i:s');
-		$financeiroProdutoID = $_POST['financeiro-produto-id-aux'];
-		$contaID = $_POST['conta-id'];
-		$produtoVariacaoID = $_POST['select-produtos'];
-		$produtoDescricao = utf8_decode($_POST['descricao-produto-variacao-aux']);
-		$quantidadeProdutos = str_replace(",",".",str_replace(".","",$_POST['quantidade-produtos']));
-		$valorVendaUnitario = str_replace(",",".",str_replace(".","",$_POST['valor-venda-unitario']));
+		$dataHoraAtual 			= retornaDataHora('','Y-m-d H:i:s');
+		$financeiroProdutoID 	= $_POST['financeiro-produto-id-aux'];
+		$contaID 				= $_POST['conta-id'];
+		$produtoVariacaoID 		= $_POST['select-produtos'];
+		$produtoDescricao 		= utf8_decode($_POST['descricao-produto-variacao-aux']);
+		$quantidadeProdutos 	= str_replace(",",".",str_replace(".","",$_POST['quantidade-produtos']));
+		$valorVendaUnitario 	= str_replace(",",".",str_replace(".","",$_POST['valor-venda-unitario']));
+
+		//Produto referencia ID não foi definido aqui, sendo colocado manualmente no código até verificção futura.
+		$produtoReferenciaID  	= 0;
 
 		if ($financeiroProdutoID==""){
 			$sql = "INSERT INTO financeiro_produtos
-						(Conta_ID, Produto_Variacao_ID, Produto_Descricao, Quantidade, Valor_Unitario, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro)
+						(Conta_ID, Produto_Referencia_ID, Produto_Variacao_ID, Produto_Descricao, Quantidade, Valor_Unitario, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro)
 					VALUES
-						($contaID, '$produtoVariacaoID', '$produtoDescricao',  '$quantidadeProdutos', '$valorVendaUnitario', 1, ".$dadosUserLogin['userID'].",'$dataHoraAtual')";
+						($contaID, '$produtoReferenciaID', '$produtoVariacaoID', '$produtoDescricao',  '$quantidadeProdutos', '$valorVendaUnitario', 1, ".$dadosUserLogin['userID'].",'$dataHoraAtual')";
+
+			// var_dump($sql);
+
+			// die();
 			$resultado = mpress_query($sql);
 		}
 		else{
@@ -1490,14 +1585,14 @@
 			require_once($caminhoFisico."/modulos/nfe/arrays-nfe.php");
 			require_once($caminhoFisico."/modulos/nfe/functions.php");
 
-			$sql = "select (select count(pd.Tipo_Produto) from financeiro_produtos fp
-									inner join produtos_variacoes pv on pv.Produto_Variacao_ID = fp.Produto_Variacao_ID
-									inner join produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-									where fp.Conta_ID = '$contaID' and pd.Tipo_Produto not in (30,100,175) and fp.Situacao_ID = 1) as Servicos,
-									(select count(pd.Tipo_Produto) from financeiro_produtos fp
-									inner join produtos_variacoes pv on pv.Produto_Variacao_ID = fp.Produto_Variacao_ID
-									inner join produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-									where fp.Conta_ID = '$contaID' and pd.Tipo_Produto in (30,100,175) and fp.Situacao_ID = 1) as Produtos";
+			$sql = "SELECT (SELECT count(pd.Tipo_Produto) FROM financeiro_produtos fp
+									INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = fp.Produto_Variacao_ID
+									INNER JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
+									WHERE fp.Conta_ID = '$contaID' and pd.Tipo_Produto not in (30,100,175) and fp.Situacao_ID = 1) as Servicos,
+									(SELECT count(pd.Tipo_Produto) FROM financeiro_produtos fp
+									INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = fp.Produto_Variacao_ID
+									INNER JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
+									WHERE fp.Conta_ID = '$contaID' and pd.Tipo_Produto in (30,100,175) and fp.Situacao_ID = 1) as Produtos";
 			//echo $sql;
 			$resultado = mpress_query($sql);
 			if ($rs = mpress_fetch_array($resultado)){
@@ -2451,11 +2546,11 @@
 		$sql = "SELECT Contabil_ID, Centro_Custo_ID, Tipo_Conta_ID, Valor, Observacao FROM financeiro_contabil where Conta_ID = '$contaID' and Situacao_ID = 1 $sqlLimit";
 		$resultado = mpress_query($sql);
 		while ($rs = mpress_fetch_array($resultado)){
-			$dados[$i]['Contabil_ID'] = $rs["Contabil_ID"];
-			$dados[$i]['Centro_Custo_ID'] = $rs["Centro_Custo_ID"];
-			$dados[$i]['Tipo_Conta_ID'] = $rs["Tipo_Conta_ID"];
-			$dados[$i]['Valor'] = $rs["Valor"];
-			$dados[$i]['Observacao'] = $rs["Observacao"];
+			$dados[$i]['Contabil_ID'] 		= $rs["Contabil_ID"];
+			$dados[$i]['Centro_Custo_ID'] 	= $rs["Centro_Custo_ID"];
+			$dados[$i]['Tipo_Conta_ID'] 	= $rs["Tipo_Conta_ID"];
+			$dados[$i]['Valor'] 			= $rs["Valor"];
+			$dados[$i]['Observacao'] 		= $rs["Observacao"];
 			$i++;
 		}
 		if ($i==0)
@@ -2467,10 +2562,10 @@
 		}
 		for ($ii = 0; $ii<$i; $ii++){
 			$totalParcelas += formataValorBD($_POST['valor-contabil'][$ii]);
-			if($_POST['valor-contabil'][$ii]!="") $dados[$ii]['Valor'] = formataValorBD($_POST['valor-contabil'][$ii]);
-			if($_POST['observacao-contabil'][$ii]!="") $dados[$ii]['Observacao'] = $_POST['observacao-contabil'][$ii];
-			if($_POST['lancamento-tipo-conta'][$ii]!="") $dados[$ii]['Tipo_Conta_ID'] = $_POST['lancamento-tipo-conta'][$ii];
-			if($_POST['lancamento-centro-custo'][$ii]!="") $dados[$ii]['Centro_Custo_ID'] = $_POST['lancamento-centro-custo'][$ii];
+			if($_POST['valor-contabil'][$ii]		!="") $dados[$ii]['Valor'] 				= formataValorBD($_POST['valor-contabil'][$ii]);
+			if($_POST['observacao-contabil'][$ii]	!="") $dados[$ii]['Observacao'] 		= $_POST['observacao-contabil'][$ii];
+			if($_POST['lancamento-tipo-conta'][$ii]	!="") $dados[$ii]['Tipo_Conta_ID']		= $_POST['lancamento-tipo-conta'][$ii];
+			if($_POST['lancamento-centro-custo'][$ii]!="") $dados[$ii]['Centro_Custo_ID'] 	= $_POST['lancamento-centro-custo'][$ii];
 			$tam = "50%";
 			$hExtra1 = $hExtra2 = "";
 			if ($i>1){

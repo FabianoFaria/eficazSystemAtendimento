@@ -5,40 +5,42 @@ include("functions.php");
 global $caminhoFisico, $modulosAtivos, $modulosGeral, $configFinanceiro;
 
 $contaID = $_POST['localiza-conta-id'];
-if ($contaID=="")
+if ($contaID==""){
 	$contaID = $_GET['localiza-conta-id'];
+}
 
 if ($contaID != ""){
-	$sql = "select Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Cadastro_Conta_ID_de, Cadastro_Conta_ID_para, Tipo_Conta_ID, Observacao from financeiro_contas where Conta_ID = $contaID";
+	$sql = "SELECT Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Cadastro_Conta_ID_de, Cadastro_Conta_ID_para, Tipo_Conta_ID, Observacao FROM financeiro_contas WHERE Conta_ID = $contaID";
 	$resultado = mpress_query($sql);
 	if($row = mpress_fetch_array($resultado)){
-		$tipo = $row[Tipo_ID];
-		$empresaID = $cadastroIDde = $row[Cadastro_ID_de];
-		$cadastroIDpara = $row[Cadastro_ID_para];
-		$observacao = $row[Observacao];
-		$tipoContaID = $row[Tipo_Conta_ID];
-		$cadastroContaIDde = $row[Cadastro_Conta_ID_de];
-		$cadastroContaIDpara = $row[Cadastro_Conta_ID_para];
+		$tipo 					= $row[Tipo_ID];
+		$empresaID 				= $cadastroIDde = $row[Cadastro_ID_de];
+		$cadastroIDpara 		= $row[Cadastro_ID_para];
+		$observacao 			= $row[Observacao];
+		$tipoContaID 			= $row[Tipo_Conta_ID];
+		$cadastroContaIDde 		= $row[Cadastro_Conta_ID_de];
+		$cadastroContaIDpara 	= $row[Cadastro_Conta_ID_para];
 	}
-	$sql = "select Situacao_Pagamento_ID from financeiro_titulos ft where Conta_ID = '$contaID'";
+	$sql = "SELECT Situacao_Pagamento_ID FROM financeiro_titulos ft WHERE Conta_ID = '$contaID'";
 	$resultado = mpress_query($sql);
 	if ($rs = mpress_fetch_array($resultado)){
 		if ($rs[Situacao_Pagamento_ID]=="-1"){
-			$situacaoTitulos = "pendente";
-			$tituloID = "";
+			$situacaoTitulos 	= "pendente";
+			$tituloID 			= "";
 		}
 	}
 }
 else{
-	$situacaoTitulos = "pendente";
-	$tipo = $_POST['localiza-tipo'];
+
+	$situacaoTitulos 		= "pendente";
+	$tipo 					= $_POST['localiza-tipo'];
 	if ($tipo==""){
 		$tipo = "44";
 	}
 	$cadastroContaIDde = $_GET['filtro-cadastro-conta'];
 	if ($cadastroContaIDde!=""){
-		$sql = "select Cadastro_ID from cadastros_contas where Cadastro_Conta_ID = '$cadastroContaIDde'";
-		$resultado = mpress_query($sql);
+		$sql 		= "SELECT Cadastro_ID FROM cadastros_contas WHERE Cadastro_Conta_ID = '$cadastroContaIDde'";
+		$resultado 	= mpress_query($sql);
 		if ($rs = mpress_fetch_array($resultado)){
 			$cadastroIDde = $rs['Cadastro_ID'];
 		}
@@ -47,8 +49,8 @@ else{
 
 $cont = verificaNumeroEmpresas();
 if ($cont==1){
-	$cadastroIDde = retornaCodigoEmpresa();
-	$condicao = " and Tipo_ID IN (44,45) ";
+	$cadastroIDde 	= retornaCodigoEmpresa();
+	$condicao 		= " and Tipo_ID IN (44,45) ";
 }
 
 $tamanho = "100%";
@@ -101,24 +103,24 @@ if ($_GET['tipo']=='direto'){
 	if ($_GET['modulo']=='chamados'){
 		// ENTRADA
 		if (is_array($_GET['check-fat-receber'])){
-			$tipo = "45";
-			$cadastroIDde = $_GET['cadastro-id'];
-			$cadastroIDpara = $_GET['solicitante-id'];
+			$tipo 				= "45";
+			$cadastroIDde 		= $_GET['cadastro-id'];
+			$cadastroIDpara 	= $_GET['solicitante-id'];
 		}
 		// SAIDA
 		if (is_array($_GET['check-fat-pagar'])){
-			$tipo = "44";
-			$cadastroIDde = $_GET['cadastro-id'];
+			$tipo 			= "44";
+			$cadastroIDde 	= $_GET['cadastro-id'];
 			$cadastroIDpara = $_GET['prestador-id'];
 		}
 		$faturamentoDireto = "S";
 	}
 	if ($_GET['modulo']=='orcamentos'){
 		// ENTRADA e SAIDA
-		$tipo = $_GET['tipo-id'];
-		$cadastroIDde = $_GET['empresa-id'];
-		$cadastroIDpara = $_GET['cadastro-id'];
-		$faturamentoDireto = "S";
+		$tipo 				= $_GET['tipo-id'];
+		$cadastroIDde 		= $_GET['empresa-id'];
+		$cadastroIDpara 	= $_GET['cadastro-id'];
+		$faturamentoDireto 	= "S";
 	}
 }
 
@@ -172,11 +174,11 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 	<div class="titulo-container conjunto1" id='div-dados-gerais'>
 		<div class="titulo">
 			<p>Conta
-<?php
+			<?php
 				if ($contaID != "")
 					echo " - ".$contaID." ".$tituloConta;
 				echo $btGerarNF;
-?>
+			?>
 			</p>
 		</div>
 		<div class='conteudo-interno'>
@@ -224,6 +226,9 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 	}
 ?>
 	<div id='div-titulo'>
+
+		<!-- <p><?php //echo " ContaID: ".$contaID."  Titulo: ".$tituloID." Situação: ".$situacaoTitulos." Tipo: ".$tipo; ?></p> -->
+
 		<?php carregarTitulos($contaID, $tituloID, $situacaoTitulos, $tipo); ?>
 	</div>
 	<div class='titulo-container conjunto3 esconde' id='div-lancamentos-mes'></div>

@@ -1,32 +1,40 @@
 <?php
 	global $modulosAtivos, $configChamados;
 	include('functions.php');
-	$configChamados = carregarConfiguracoesGeraisModulos('chamados');
+	$configChamados 	= carregarConfiguracoesGeraisModulos('chamados');
 
-	$contEmpresas = verificaNumeroEmpresas();
+	$contEmpresas 		= verificaNumeroEmpresas();
 	if ($contEmpresas==1){
 		$classeEmpresasEsconde = " esconde ";
 	}
 
 	if ($_POST){
-		$dataInicio = $_POST['data-inicio'];
-		$dataFim = $_POST['data-fim'];
-		$chamadoID = $_POST['chamado-id'];
-		$ordemCompraID = $_POST['localiza-ordem-compra-id'];
-		$envioID = $_POST['localiza-envio-id'];
-		$orcamentoID = $_POST['localiza-orcamento-id'];
-		$virgula = "";
+		$dataInicio 		= $_POST['data-inicio'];
+		$dataFim 			= $_POST['data-fim'];
+		$chamadoID 			= $_POST['chamado-id'];
+		$ordemCompraID 		= $_POST['localiza-ordem-compra-id'];
+		$envioID 			= $_POST['localiza-envio-id'];
+		$orcamentoID 		= $_POST['localiza-orcamento-id'];
+		$virgula 			= "";
 		for($i = 0; $i < count($_POST['localiza-cadastro-de']); $i++){
-			$cadastrosDe .= $virgula.$_POST['localiza-cadastro-de'][$i];
-			$virgula = ",";
+			$cadastrosDe 	.= $virgula.$_POST['localiza-cadastro-de'][$i];
+			$virgula 		= ",";
 		}
-		$tipoGrupo = $_POST['radio-tipo-grupo'];
-		$origemFaturamento = $_POST['origem-faturamento'];
-		$cadastroPara = $_POST['cadastro-para'];
+		$tipoGrupo 			= $_POST['radio-tipo-grupo'];
+		$origemFaturamento 	= $_POST['origem-faturamento'];
+		$cadastroPara 		= $_POST['cadastro-para'];
 	}
 	else{
 		//$origemFaturamento = "chamados";
+		$origemFaturamento = "orcamentos";
 		$tipoGrupo = "45";
+
+		$mes 				= date("m");
+		$ano 				= date("Y");
+		$ultimo_dia 		= date("t", mktime(0,0,0,$mes,'01',$ano));
+		$dataFim 			= $ultimo_dia."/".date("m/Y");
+		$dataInicio 		= "01/".date("m/Y");
+
 	}
 ?>
 				<div id='div-retorno'></div>
@@ -43,13 +51,16 @@
 								<p>Origem</p>
 								<p>
 									<select name='origem-faturamento' id='origem-faturamento'>
-<?php
+									
+									<?php
+
 										if (($modulosAtivos['chamados']) || ($configChamados['orcamentos']==0)){ echo "<option value='orcamentos'"; if ($origemFaturamento=='orcamentos') echo 'selected'; echo ">Or&ccedil;amento</option>"; }
 										if (($modulosAtivos['chamados']) || ($configChamados['chamados']==0)){ echo "<option value='chamados'"; if ($origemFaturamento=='chamados') echo 'selected'; echo ">".$_SESSION['objeto']."</option>"; }
 										if ($modulosAtivos['compras']){ echo "<option value='compras'"; if ($origemFaturamento=='compras') echo 'selected'; echo ">Compras</option>"; }
 										if ($modulosAtivos['envios']){ echo "<option value='envios'"; if ($origemFaturamento=='envios') echo 'selected'; echo ">Centro de Distribui&ccedil;&atilde;o</option>"; }
 										if ($modulosAtivos['financeiro-comissionamento']){ echo "<option value='comissao'"; if ($origemFaturamento=='comissao') echo 'selected'; echo ">Comissões</option>"; }
-?>
+									?>
+
 									</select>
 									<input type='hidden' id='origem-selecionada' name='origem-selecionada' value='<?php echo $origemFaturamento; ?>'/>
 								</p>
@@ -59,15 +70,16 @@
 									<div>
 										<select name="representante" id="representante" style='width:98.5%'>
 											<option value=''></option>
-<?php
-					$grupos = mpress_query("select cd.Cadastro_ID, cd.Nome from cadastros_dados cd
-												inner join modulos_acessos ma on ma.Modulo_Acesso_ID = cd.Grupo_ID
-												where cd.Cadastro_ID > 0 and ma.Situacao_ID = 1 order by cd.Nome");
-					while($row = mpress_fetch_array($grupos)){
-						if ($representanteID==$row['Cadastro_ID']) $selecionado = ' selected '; else $selecionado = '' ;
-						echo " 						<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
-					}
-?>										<select>
+												<?php
+													$grupos = mpress_query("select cd.Cadastro_ID, cd.Nome from cadastros_dados cd
+																				inner join modulos_acessos ma on ma.Modulo_Acesso_ID = cd.Grupo_ID
+																				where cd.Cadastro_ID > 0 and ma.Situacao_ID = 1 order by cd.Nome");
+													while($row = mpress_fetch_array($grupos)){
+														if ($representanteID==$row['Cadastro_ID']) $selecionado = ' selected '; else $selecionado = '' ;
+														echo " 						<option value='".$row['Cadastro_ID']."' $selecionado>".$row['Nome']."</option>";
+													}
+												?>										
+										<select>
 									</div>
 								</p>
 							</div>
@@ -147,7 +159,7 @@
 				<input type='hidden' id='workflow-id' name='workflow-id' value=''>
 				<input type='hidden' id='ordem-compra-id' name='ordem-compra-id' value=''>
 <?php
-	if($_POST){
+	//if($_POST){
 		if ($origemFaturamento=='orcamentos'){
 			/*
 			if ($cadastrosDe != ""){ $sqlCond .= " and fc.Cadastro_ID_de IN ($cadastrosDe)";}
@@ -185,19 +197,19 @@
 			if ($chamadoID!=''){ $sqlCond .= " and cwp.Workflow_ID = '$chamadoID'";}
 			if ($cadastroPara!=""){ $sqlCond .= " and (cd2.Nome like '%$cadastroPara%' or cd2.Nome_Fantasia like '%$cadastroPara%')";}
 
-			$sql = "select fp.Conta_ID, tc.Tipo_ID, tc.Descr_Tipo as Tipo, cd1.Nome as Nome_De, cd2.Nome as Nome_Para, pd.Nome as Produto, fc.Valor_Total,
+			$sql = "SELECT fp.Conta_ID, tc.Tipo_ID, tc.Descr_Tipo as Tipo, cd1.Nome as Nome_De, cd2.Nome as Nome_Para, pd.Nome as Produto, fc.Valor_Total,
 						(cwp.Quantidade * cwp.Valor_Venda_Unitario) as Valor_Venda, (cwp.Quantidade * cwp.Valor_Custo_Unitario) as Valor_Custo,
 						DATE_FORMAT(fc.Data_Cadastro, '%d/%m/%Y') as Data_Solicitacao, cwp.Workflow_Produto_ID, fp.Financeiro_Produto_ID, cwp.Workflow_ID as ID_Ref
-						from financeiro_contas fc
-						inner join tipo tc on tc.Tipo_ID = fc.Tipo_ID and tc.Tipo_Grupo_ID = 27
-						inner join financeiro_produtos fp on fp.Tabela_Estrangeira = 'chamados' and fp.Conta_ID = fc.Conta_ID and fp.Situacao_ID = 1
-						inner join chamados_workflows_produtos cwp on cwp.Workflow_Produto_ID = fp.Produto_Referencia_ID
-						inner join produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
-						inner join produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-						inner join cadastros_dados cd1 on cd1.Cadastro_ID = Cadastro_ID_de
-						left join cadastros_dados cd2 on cd2.Cadastro_ID = Cadastro_ID_para
-						left join financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
-						where ft.Titulo_ID is null
+						FROM financeiro_contas fc
+						INNER JOIN tipo tc on tc.Tipo_ID = fc.Tipo_ID and tc.Tipo_Grupo_ID = 27
+						INNER JOIN financeiro_produtos fp on fp.Tabela_Estrangeira = 'chamados' and fp.Conta_ID = fc.Conta_ID and fp.Situacao_ID = 1
+						INNER JOIN chamados_workflows_produtos cwp on cwp.Workflow_Produto_ID = fp.Produto_Referencia_ID
+						INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
+						INNER JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
+						INNER JOIN cadastros_dados cd1 on cd1.Cadastro_ID = Cadastro_ID_de
+						LEFT JOIN cadastros_dados cd2 on cd2.Cadastro_ID = Cadastro_ID_para
+						LEFT JOIN financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
+						WHERE ft.Titulo_ID is null
 						$sqlCond
 						and (fc.Tabela_Estrangeira = 'chamados')
 						and (case fc.Tipo_ID when 45 then cwp.Valor_Venda_Unitario when 44 then cwp.Valor_Custo_Unitario else 0 end) > 0
@@ -265,18 +277,18 @@
 			if ($ordemCompraID!=''){ $sqlCond .= " and c.Ordem_Compra_ID = $ordemCompraID";}
 
 			$titulo = "Compras - Aguardando Faturamento";
-			$sql = "select p.Codigo, p.Nome Produto, pv.Produto_Variacao_ID, Ordens_Compras_Produtos_ID,
+			$sql = "SELECT p.Codigo, p.Nome Produto, pv.Produto_Variacao_ID, Ordens_Compras_Produtos_ID,
 						 cpf.Fornecedor_ID, cf.Nome Fornecedor, ce.Nome Cadastro, cpf.Quantidade_Aprovada, cpf.Valor_Aprovado, c.Ordem_Compra_ID, cpf.Ordem_Compra_Produto_ID
-						from compras_ordem_compra c
-						inner join compras_ordens_compras_produtos cp on cp.Ordem_Compra_ID = c.Ordem_Compra_ID
-						inner join compras_solicitacoes cs on cs.Compra_Solicitacao_ID = cp.Compra_Solicitacao_ID
-						inner join produtos_variacoes pv on pv.Produto_Variacao_ID = cs.Produto_Variacao_ID
-						inner join produtos_dados p on p.Produto_ID = pv.Produto_ID
-						inner join compras_ordem_compras_finalizadas cpf on cpf.Ordem_Compra_ID = c.Ordem_Compra_ID and cpf.Ordem_Compra_Produto_ID = cp.Ordens_Compras_Produtos_ID
-						inner join cadastros_dados cf on cf.Cadastro_ID = cpf.Fornecedor_ID
-						left join cadastros_dados ce on ce.Cadastro_ID = c.Cadastro_ID
-						left join financeiro_produtos fp on fp.Produto_Referencia_ID = cpf.Ordem_Compra_Produto_ID and cpf.Ordem_Compra_ID = fp.Chave_Estrangeira and fp.Tabela_Estrangeira = 'compras'
-						where c.Situacao_ID = 1 and cs.Situacao_ID = 65 and p.Situacao_ID = 1
+						FROM compras_ordem_compra c
+						INNER JOIN compras_ordens_compras_produtos cp on cp.Ordem_Compra_ID = c.Ordem_Compra_ID
+						INNER JOIN compras_solicitacoes cs on cs.Compra_Solicitacao_ID = cp.Compra_Solicitacao_ID
+						INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cs.Produto_Variacao_ID
+						INNER JOIN produtos_dados p on p.Produto_ID = pv.Produto_ID
+						INNER JOIN compras_ordem_compras_finalizadas cpf on cpf.Ordem_Compra_ID = c.Ordem_Compra_ID and cpf.Ordem_Compra_Produto_ID = cp.Ordens_Compras_Produtos_ID
+						INNER JOIN cadastros_dados cf on cf.Cadastro_ID = cpf.Fornecedor_ID
+						LEFT JOIN cadastros_dados ce on ce.Cadastro_ID = c.Cadastro_ID
+						LEFT JOIN financeiro_produtos fp on fp.Produto_Referencia_ID = cpf.Ordem_Compra_Produto_ID and cpf.Ordem_Compra_ID = fp.Chave_Estrangeira and fp.Tabela_Estrangeira = 'compras'
+						WHERE c.Situacao_ID = 1 and cs.Situacao_ID = 65 and p.Situacao_ID = 1
 						and fp.Financeiro_Produto_ID is null
 						$sqlCond
 						group by p.Codigo, p.Nome, pv.Produto_Variacao_ID, fp.Produto_Referencia_ID, cpf.Ordem_Compra_Produto_ID, cpf.Ordem_Compra_ID, fp.Chave_Estrangeira
@@ -331,13 +343,13 @@
 			if ($ordemCompraID!=''){ $sqlCond .= " and c.Ordem_Compra_ID = $ordemCompraID";}
 
 			$titulo = "Envios - Aguardando Faturamento - A Pagar";
-			$sql = "select ew.Workflow_ID as Envio_ID, ce.Nome as Empresa, ccf.Nome as Cliente_Fornecedor, ff.Cliente_Fornecedor_ID as Fornecedor_ID, (ff.Quantidade * ff.Valor_Unitario) as Valor_Total from envios_workflows ew
-					inner join financeiro_faturar ff on ff.Tabela_Estrangeira = 'envios' and ff.Chave_Estrangeira = ew.Workflow_ID and ff.Situacao_ID = 1
-					inner join cadastros_dados ce on ce.Cadastro_ID = ff.Empresa_ID
-					inner join cadastros_dados ccf on ccf.Cadastro_ID = ff.Cliente_Fornecedor_ID
-					left join financeiro_contas fc on fc.Tabela_Estrangeira = 'envios' and fc.Chave_Estrangeira = ew.Workflow_ID
-					left join financeiro_produtos fp on fp.Tabela_Estrangeira = 'envios' and fp.Chave_Estrangeira = ew.Workflow_ID
-					where fc.Conta_ID is null and fp.Conta_ID is null
+			$sql = "SELECT ew.Workflow_ID as Envio_ID, ce.Nome as Empresa, ccf.Nome as Cliente_Fornecedor, ff.Cliente_Fornecedor_ID as Fornecedor_ID, (ff.Quantidade * ff.Valor_Unitario) as Valor_Total from envios_workflows ew
+					INNER JOIN financeiro_faturar ff on ff.Tabela_Estrangeira = 'envios' and ff.Chave_Estrangeira = ew.Workflow_ID and ff.Situacao_ID = 1
+					INNER JOIN cadastros_dados ce on ce.Cadastro_ID = ff.Empresa_ID
+					INNER JOIN cadastros_dados ccf on ccf.Cadastro_ID = ff.Cliente_Fornecedor_ID
+					LEFT JOIN financeiro_contas fc on fc.Tabela_Estrangeira = 'envios' and fc.Chave_Estrangeira = ew.Workflow_ID
+					LEFT JOIN financeiro_produtos fp on fp.Tabela_Estrangeira = 'envios' and fp.Chave_Estrangeira = ew.Workflow_ID
+					WHERE fc.Conta_ID is null and fp.Conta_ID is null
 					order by ce.Nome, ce.Cadastro_ID, ccf.Nome, ccf.Cadastro_ID";
 			//echo $sql;
 			$i=0;
@@ -384,11 +396,11 @@
 			$titulo = "Comissionamento - Aguardando Faturamento - A Pagar";
 
 
-			$sql = "select cd.Nome, Descricao, opp.Quantidade, opp.Valor_Custo_Unitario, opp.Valor_Venda_Unitario from orcamentos_propostas op
-					inner join orcamentos_propostas_produtos opp on op.Proposta_ID = opp.Proposta_ID
-					inner join orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
-					inner join cadastros_dados cd on cd.Cadastro_ID = ow.Representante_ID
-					where opp.Situacao_ID = 2 and op.Situacao_ID = 1
+			$sql = "SELECT cd.Nome, Descricao, opp.Quantidade, opp.Valor_Custo_Unitario, opp.Valor_Venda_Unitario from orcamentos_propostas op
+					INNER JOIN orcamentos_propostas_produtos opp on op.Proposta_ID = opp.Proposta_ID
+					INNER JOIN orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
+					INNER JOIN cadastros_dados cd on cd.Cadastro_ID = ow.Representante_ID
+					WHERE opp.Situacao_ID = 2 and op.Situacao_ID = 1
 					and op.Status_ID = 121";
 			//echo $sql;
 			$i=0;
@@ -447,5 +459,5 @@
 			</div>";
 
 
-	}
+	//}
 ?>

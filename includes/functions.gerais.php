@@ -293,10 +293,10 @@
 		//unset($_SESSION['documento']);
 		$_SESSION['campoVisivel'] = "";
 		if($mostraFiltro != ""){
-			$_SESSION['documento']['largura'] = $largura;
-			$_SESSION['documento']['colunas'] = $colunas;
-			$_SESSION['documento']['dados'] = $dados;
-			$filtroLateral = geraTabelaFiltro($colunas,$dados);
+			$_SESSION['documento']['largura'] 		= $largura;
+			$_SESSION['documento']['colunas'] 		= $colunas;
+			$_SESSION['documento']['dados'] 		= $dados;
+			$filtroLateral 							= geraTabelaFiltro($colunas,$dados);
 		}
 		$registrosBloqueados = geraTabelaBloqueio($dados,$idTabela);
 		if($mostraRegistros == "") $mostraRegistros = count($dados[colunas][conteudo]);
@@ -832,16 +832,16 @@
 					</div>
 				</div>
 			</div>
-<?php
-			$lixeira = mpress_query("select count(*) Total from tipo where Situacao_ID = 3 and Tipo_Grupo_ID = ".$dadospagina[Tipo_Grupo_ID]);
-			$itens = mpress_fetch_array($lixeira); $totalItens = $itens[Total];
-			if($totalItens >=1) $classeAddLixeira = "lixeira-cheia"; else $classeAddLixeira = "lixeira-vazia";
-			echo "		<div class='exclui-dragable $classeAddLixeira' title='$totalItens item(s) na lixeira'>
-				 			<input type='hidden' name='slug' id='slug' value=''>
-							<input type='hidden' name='id-lixeira' id='id-lixeira' value='".$dadospagina[Tipo_Grupo_ID]."'>
-							<input type='hidden' name='tipo-lixeira' id='tipo-lixeira' value='tipos'>
-						</div>";
-?>
+				<?php
+					$lixeira = mpress_query("select count(*) Total from tipo where Situacao_ID = 3 and Tipo_Grupo_ID = ".$dadospagina[Tipo_Grupo_ID]);
+					$itens = mpress_fetch_array($lixeira); $totalItens = $itens[Total];
+					if($totalItens >=1) $classeAddLixeira = "lixeira-cheia"; else $classeAddLixeira = "lixeira-vazia";
+					echo "		<div class='exclui-dragable $classeAddLixeira' title='$totalItens item(s) na lixeira'>
+								 			<input type='hidden' name='slug' id='slug' value=''>
+											<input type='hidden' name='id-lixeira' id='id-lixeira' value='".$dadospagina[Tipo_Grupo_ID]."'>
+											<input type='hidden' name='tipo-lixeira' id='tipo-lixeira' value='tipos'>
+										</div>";
+				?>
 			<input type='hidden' name='tipo-excluir' id='tipo-excluir' value=''>
 		</div>
 <?php
@@ -2290,7 +2290,7 @@
 		$txtNaoInfo = "N&atilde;o Informado";
 		if (($cadastroID!="")&&($cadastroID!="0")){
 			$classeInsere = "esconde";
-			$query = mpress_query("select Nome from cadastros_dados where Cadastro_ID = '$cadastroID'");
+			$query = mpress_query("SELECT Nome FROM cadastros_dados WHERE Cadastro_ID = '$cadastroID'");
 			if($rs = mpress_fetch_array($query)){
 				$nome = $rs['Nome'];
 			}

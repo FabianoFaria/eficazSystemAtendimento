@@ -7,31 +7,33 @@
 		$virgula = ",";
 	}
 
-	$centrosCusto = $_POST['localiza-centro-custo'];
-	$tipoContaID = $_POST['localiza-tipo-conta'];
-	$situacaoID = $_POST['localiza-situacao-conta'];
-	$codigo = trim($_POST['localiza-codigo']);
-	$localizaCadastroDe = trim($_POST['localiza-cadastro-de']);
-	$localizaCadastroPara = trim($_POST['localiza-cadastro-para']);
+	$centrosCusto 			= $_POST['localiza-centro-custo'];
+	$tipoContaID 			= $_POST['localiza-tipo-conta'];
+	$situacaoID 			= $_POST['localiza-situacao-conta'];
+	$codigo 				= trim($_POST['localiza-codigo']);
+	$localizaCadastroDe 	= trim($_POST['localiza-cadastro-de']);
+	$localizaCadastroPara 	= trim($_POST['localiza-cadastro-para']);
 
-	$tituloID = trim($_POST['localiza-titulo']);
-	$contaID = trim($_POST['localiza-conta']);
+	$tituloID 				= trim($_POST['localiza-titulo']);
+	$contaID 				= trim($_POST['localiza-conta']);
 
 
 	if ($_POST){
-		$dataInicioVencimento = $_POST['data-inicio-vencimento'];
-		$dataFimVencimento = $_POST['data-fim-vencimento'];
-		$dataInicioLancamento = $_POST['data-inicio-lancamento'];
-		$dataFimLancamento = $_POST['data-fim-lancamento'];
+		$dataInicioVencimento 	= $_POST['data-inicio-vencimento'];
+		$dataFimVencimento 		= $_POST['data-fim-vencimento'];
+		$dataInicioLancamento 	= $_POST['data-inicio-lancamento'];
+		$dataFimLancamento 		= $_POST['data-fim-lancamento'];
 	}
 	else{
-		$dataInicioVencimento = "01/".date("m/Y");
-		$mes = date("m");
-		$ano = date("Y");
-		$ultimo_dia = date("t", mktime(0,0,0,$mes,'01',$ano));
-		$dataFimVencimento = $ultimo_dia."/".date("m/Y");
+		$dataInicioVencimento 	= "01/".date("m/Y");
+		$mes 					= date("m");
+		$ano 					= date("Y");
+		$ultimo_dia 			= date("t", mktime(0,0,0,$mes,'01',$ano));
+		$dataFimVencimento 		= $ultimo_dia."/".date("m/Y");
 	}
-	$contEmpresas = verificaNumeroEmpresas();
+
+	$contEmpresas 				= verificaNumeroEmpresas();
+
 	if ($contEmpresas==1)
 		$classeEscondeMultiEmpresa = " esconde ";
 
@@ -55,6 +57,8 @@
 			$filtroTipoConta = "46";
 		}
 	}
+
+
 ?>
 					<div class='titulo-container conjunto1'>
 						<div class='titulo' style="min-height:25px">
@@ -76,10 +80,14 @@
 									</div>&nbsp;
 								</div>
 								<div class='titulo-secundario' style='float:left;width:20%'>
-								<div class='titulo-secundario' style='float:left;width:50%'>
-									<p><b>Conta ID</b></p>
-									<p><input type='text' id='localiza-conta' name='localiza-conta' class='formata-numero'  maxlength='50' value='<?php echo $contaID;?>' style='width:90%'/></p>
-								</div>
+									<div class='titulo-secundario' style='float:left;width:50%'>
+										<p>
+											<b>Conta ID</b>
+										</p>
+										<p>
+											<input type='text' id='localiza-conta' name='localiza-conta' class='formata-numero'  maxlength='50' value='<?php echo $contaID;?>' style='width:90%'/>
+										</p>
+									</div>
 								</div>
 								<!--
 								<div class='titulo-secundario' style='float:left;width:15%'>
@@ -91,23 +99,35 @@
 								-->
 								<div class="titulo-secundario" style='float:left;width:40%' >
 									<div class="titulo-secundario" style='float:left;width:50%' >
-										<p><b>Data Vencimento</b></p>
+										<p>
+											<b>Data Vencimento</b>
+										</p>
 										<div style='width:43%;float:left;'>
-											<p><input type='text' name='data-inicio-vencimento' id='data-inicio-vencimento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataInicioVencimento; ?>'>&nbsp;&nbsp;</p>
+											<p>
+												<input type='text' name='data-inicio-vencimento' id='data-inicio-vencimento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataInicioVencimento; ?>'>&nbsp;&nbsp;
+											</p>
 										</div>
 										<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
 										<div style='width:43%;float:left;'>
-											<p><input type='text' name='data-fim-vencimento' id='data-fim-vencimento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataFimVencimento; ?>'></p>
+											<p>
+												<input type='text' name='data-fim-vencimento' id='data-fim-vencimento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataFimVencimento; ?>'>
+											</p>
 										</div>
 									</div>
 									<div class='titulo-secundario' style='float:left;width:50%'>
-										<p><b>Data Lan&ccedil;amento</b></p>
+										<p>
+											<b>Data Lan&ccedil;amento</b>
+										</p>
 										<div style='width:43%;float:left;'>
-											<p><input type='text' name='data-inicio-lancamento' id='data-inicio-lancamento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataInicioLancamento; ?>'>&nbsp;&nbsp;</p>
+											<p>
+												<input type='text' name='data-inicio-lancamento' id='data-inicio-lancamento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataInicioLancamento; ?>'>&nbsp;&nbsp;
+											</p>
 										</div>
 										<div style='width:10%;text-align:center;float:left;'><p>a</p></div>
 										<div style='width:43%;float:left;'>
-											<p><input type='text' name='data-fim-lancamento' id='data-fim-lancamento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataFimLancamento; ?>'></p>
+											<p>
+												<input type='text' name='data-fim-lancamento' id='data-fim-lancamento' class='formata-data' style='width:92%' maxlength='10' value='<?php echo $dataFimLancamento; ?>'>
+											</p>
 										</div>
 										<!--
 										<p>C&oacute;digo T&iacute;tulo</p>
@@ -118,8 +138,12 @@
 								<div class='titulo-secundario' style='float:left;width:20%'>
 									<div class='div-normal'>
 										<div class='<?php echo $classeEscondeMultiEmpresa;?>'>
-											<p><b><?php echo $configFinanceiro['cadastro'];?></b></p>
-											<p><select name='localiza-cadastro-de[]' id='localiza-cadastro-de' multiple><?php echo optionValueEmpresasMultiplo($localizaCadastroDe);?></select></p>
+											<p>
+												<b><?php echo $configFinanceiro['cadastro'];?></b>
+											</p>
+											<p>
+												<select name='localiza-cadastro-de[]' id='localiza-cadastro-de' multiple><?php echo optionValueEmpresasMultiplo($localizaCadastroDe);?></select>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -137,18 +161,18 @@
 										<p><select name='localiza-tipo-conta' id='localiza-tipo-conta'><option></option><?php echo optionValueTipoConta($_POST['localiza-tipo-conta']);?></select></p>
 									</div>&nbsp;
 								</div>
-<?php
-			if ($configFinanceiro['exibe-centro-custo']){
-				echo "			<div class='titulo-secundario' style='float:left;width:20%'>
-									<div class='div-normal'>
-										<p><b>Centro de Custo</b></p>
-										<p>
-											<select id='localiza-centro-custo' name='localiza-centro-custo'><option></option>".optionValueGrupoFilho(26, $_POST['localiza-centro-custo'], "","")."</select>
-										</p>
-									</div>&nbsp;
-								</div>";
-			}
-?>
+								<?php
+									if ($configFinanceiro['exibe-centro-custo']){
+										echo "			<div class='titulo-secundario' style='float:left;width:20%'>
+																	<div class='div-normal'>
+																		<p><b>Centro de Custo</b></p>
+																		<p>
+																			<select id='localiza-centro-custo' name='localiza-centro-custo'><option></option>".optionValueGrupoFilho(26, $_POST['localiza-centro-custo'], "","")."</select>
+																		</p>
+																	</div>&nbsp;
+																</div>";
+									}
+								?>
 								<div class='titulo-secundario' style='float:left;width:10%'>
 									<p><b>Situa&ccedil;&atilde;o</b></p>
 									<p><select name='localiza-situacao-conta' id='localiza-situacao-conta' >
@@ -175,9 +199,13 @@
 			if ($filtroCadastroConta!="") $sqlCond .= " and (fc.Cadastro_Conta_ID_de = '$filtroCadastroConta' or fc.Cadastro_Conta_ID_para = '$filtroCadastroConta')";
 		}
 		else{
-			if ($situacaoID != ""){ $sqlCond .= " and ft.Situacao_Pagamento_ID = '$situacaoID' ";}
+			if ($situacaoID != ""){ 
+				$sqlCond .= " and ft.Situacao_Pagamento_ID = '$situacaoID' ";
+			}
 			if ($filtroCadastroConta!="") $sqlCond .= " and (fc.Cadastro_Conta_ID_de = '$filtroCadastroConta' or fc.Cadastro_Conta_ID_para = '$filtroCadastroConta')";
-			if ($tituloID!=""){ $sqlCond .= " and ft.Titulo_ID = '$tituloID' ";}
+			if ($tituloID!=""){ 
+				$sqlCond .= " and ft.Titulo_ID = '$tituloID' ";
+			}
 			if ($contaID!=""){ $sqlCond .= " and fc.Conta_ID = '$contaID' ";}
 			if ($codigo != ""){ $sqlCond .= " and ft.Codigo like '%$codigo%'";}
 			//if ($localizaCadastroDe != ""){ $sqlCond .= " and (cdd.Nome like '%$localizaCadastroDe%'  or cdd.Nome_Fantasia like '%$localizaCadastroDe%')";}
@@ -242,18 +270,29 @@
 					order by ft.Data_Vencimento, fc.Tipo_ID";
 
 		//echo $sql;
+
+		//die();
+
 		$i=0;
 
 		$query = mpress_query($sql);
 		while($rs = mpress_fetch_array($query)){
 			$i++;
-			$situacao ="";
-			$situacaoPagamento = $rs[Situacao_Pagamento];
-			$valor = number_format($rs[Valor_Titulo], 2, ',', '.');
-			$dataVencimento = $rs[Data_Vencimento]; if ($dataVencimento=="00/00/0000"){$dataVencimento="A definir";}
+			$situacao 				="";
+			$situacaoPagamento 		= $rs[Situacao_Pagamento];
+			$valor 					= number_format($rs[Valor_Titulo], 2, ',', '.');
+			$dataVencimento 		= $rs[Data_Vencimento]; if ($dataVencimento=="00/00/0000"){$dataVencimento="A definir";}
 
-			if ($rs[Nome_De]==""){$nomeDe = "N&atilde;o Informado";}else{$nomeDe = $rs[Nome_De];}
-			if ($rs[Nome_Para]==""){$nomePara = "N&atilde;o Informado";}else{$nomePara = $rs[Nome_Para];}
+			if ($rs[Nome_De]==""){
+					$nomeDe = "N&atilde;o Informado";
+			}else{
+				$nomeDe = $rs[Nome_De];
+			}
+			if ($rs[Nome_Para]==""){
+				$nomePara = "N&atilde;o Informado";
+			}else{
+				$nomePara = $rs[Nome_Para];
+			}
 
 
 			$estiloFonte = "";
@@ -280,10 +319,15 @@
 				if ($rs[DiasAtraso]==0){$situacao = "<p class='mini-bola-amarela' Style='margin:0px;float:left;cursor:pointer;' title='O Vencimento &eacute; hoje'>&nbsp;</p>";}
 				if ($rs[DiasAtraso]<0){$situacao = "<p class='mini-bola-azul' Style='margin:0px;float:left;cursor:pointer;' title='T&iacute;tulo com vencimento para dia $rs[Data_Vencimento]'>&nbsp;</p>";}
 			}
-			if ($rs[Situacao_Pagamento_ID]=="49"){$situacao = "<p class='mini-bola-verde' Style='margin:0px;float:left;cursor:pointer;' title='T&iacute;tulo pago dia $rs[Data_Pago]'>&nbsp;</p>";}
-			if ($rs[Situacao_Pagamento_ID]=="50"){$situacao = "<p class='mini-bola-cinza' Style='margin:0px;float:left;cursor:pointer;' title='Cancelado'>&nbsp;</p>";}
-			if ($rs[Situacao_Pagamento_ID]=="-1"){$situacao = "<p class='mini-bola-cinza' Style='margin:0px;float:left;cursor:pointer;' title='Faturado Pendente de Preenchimento'>&nbsp;</p>"; $situacaoPagamento="Faturado Pendente"; $valor = number_format($rs[Valor_Total], 2, ',', '.');}
-
+			if ($rs[Situacao_Pagamento_ID]=="49"){
+				$situacao = "<p class='mini-bola-verde' Style='margin:0px;float:left;cursor:pointer;' title='T&iacute;tulo pago dia $rs[Data_Pago]'>&nbsp;</p>";
+			}
+			if ($rs[Situacao_Pagamento_ID]=="50"){
+				$situacao = "<p class='mini-bola-cinza' Style='margin:0px;float:left;cursor:pointer;' title='Cancelado'>&nbsp;</p>";
+			}
+			if ($rs[Situacao_Pagamento_ID]=="-1"){
+				$situacao = "<p class='mini-bola-cinza' Style='margin:0px;float:left;cursor:pointer;' title='Faturado Pendente de Preenchimento'>&nbsp;</p>"; $situacaoPagamento="Faturado Pendente"; $valor = number_format($rs[Valor_Total], 2, ',', '.');
+			}
 
 
 			/******************************/
@@ -318,7 +362,6 @@
 		}
 		$largura = "100%";
 		$colunas = $c-1;
-
 
 		$c=1;
 		$dados[colunas][titulo][$c++] 	= " ";
