@@ -8,7 +8,7 @@
 	$condicaoSituacao = " and Tipo_ID != 111 ";
 	$textoDescricao = "Descri&ccedil;&atilde;o";
 	if ($workflowID!=""){
-		$sql = "Select 
+		$sql = "SELECT 
 					w.Empresa_ID, 
 					w.Solicitante_ID, 
 					w.Representante_ID, 
@@ -21,9 +21,9 @@
 					w.Origem_ID,
 					w.Parceiro_ID,
 					s.Descr_Tipo as Situacao
-				from orcamentos_workflows w
-				left join tipo s on s.Tipo_ID = w.Situacao_ID
-				where Workflow_ID = '$workflowID'";
+				FROM orcamentos_workflows w
+				LEFT JOIN tipo s on s.Tipo_ID = w.Situacao_ID
+				WHERE Workflow_ID = '$workflowID'";
 		$query = mpress_query($sql);
 		if($rs = mpress_fetch_array($query)){
 			$cadastro 			= $rs['Cadastro'];
@@ -42,7 +42,7 @@
 			$origemOrc 			= $rs['Origem_ID'];
 			$parceiroIndic 		= $rs['Usuario_Cadastro_ID'];
 
-			$sql = "Select 
+			$sql = "SELECT 
 						Follow_ID, 
 						Descricao, 
 						Dados, 
@@ -50,11 +50,11 @@
 						f.Situacao_ID as Situacao_ID, 
 						DATE_FORMAT(Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
 						cd.Nome as Usuario_Follow
-					from orcamentos_follows f
-					left join cadastros_dados cd on cd.Cadastro_ID = f.Usuario_Cadastro_ID
-					left join tipo t on t.Tipo_ID = f.Situacao_ID
-					where Workflow_ID = $workflowID
-					order by f.Follow_ID desc";
+					FROM orcamentos_follows f
+					LEFT JOIN cadastros_dados cd on cd.Cadastro_ID = f.Usuario_Cadastro_ID
+					LEFT JOIN tipo t on t.Tipo_ID = f.Situacao_ID
+					WHERE Workflow_ID = $workflowID
+					ORDER BY f.Follow_ID desc";
 
 			//echo $sql;
 			$query = mpress_query($sql);

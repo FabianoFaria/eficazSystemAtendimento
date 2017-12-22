@@ -1,48 +1,51 @@
 <?php
 //include("functions.php");
 global $modulosAtivos, $caminhoSistema, $dadosUserLogin;
-$contEmpresas = verificaNumeroEmpresas();
-$workflowID = $_POST["workflow-id"];
+$contEmpresas 	= verificaNumeroEmpresas();
+$workflowID 	= $_POST["workflow-id"];
+$orcamentoId 	= $_POST["chave-estrangeira-tarefa"];
+
 
 if ($workflowID!=""){
 	$descricaoBotao = "Atualizar ".$_SESSION['objeto'];
 	$descricaoFollow = "Observa&ccedil;&atilde;o";
-	$sql = "Select w.Cadastro_ID, w.Solicitante_ID, w.Prestador_ID, w.Codigo, w.Tipo_Workflow_ID, w.Data_Cadastro, w.Usuario_Cadastro_ID, w.Prioridade_ID,
+	$sql = "SELECT w.Cadastro_ID, w.Solicitante_ID, w.Prestador_ID, w.Codigo, w.Tipo_Workflow_ID, w.Data_Cadastro, w.Usuario_Cadastro_ID, w.Prioridade_ID,
 				DATE_FORMAT(w.Data_Abertura, '%d/%m/%Y %H:%i') as Data_Abertura,
 				DATE_FORMAT(w.Data_Finalizado, '%d/%m/%Y %H:%i') as Data_Finalizado,
 				DATE_FORMAT(w.Data_Limite, '%d/%m/%Y %H:%i') as Data_Limite,
 				c.Nome as Cadastro, w.Titulo, w.Grupo_Responsavel_ID, w.Responsavel_ID
-				from chamados_workflows w
-				left join cadastros_dados c on c.Cadastro_ID = w.Cadastro_ID
-				where Workflow_ID = $workflowID";
+				FROM chamados_workflows w
+				LEFT JOIN cadastros_dados c on c.Cadastro_ID = w.Cadastro_ID
+				WHERE Workflow_ID = $workflowID";
+
 	$query = mpress_query($sql);
 	if($rs = mpress_fetch_array($query)){
-		$cadastro 		= $rs['Cadastro'];
-		$cadastroID 	= $rs['Cadastro_ID'];
-		$solicitanteID 	= $rs['Solicitante_ID'];
-		$prestadorID 	= $rs['Prestador_ID'];
-		$tipoWorkflowID = $rs['Tipo_Workflow_ID'];
-		$prioridadeID 	= $rs['Prioridade_ID'];
-		$dataCadastro 	= $rs['Data_Cadastro'];
-		$responsavelID 	 = $rs['Responsavel_ID'];
+		$cadastro 			= $rs['Cadastro'];
+		$cadastroID 		= $rs['Cadastro_ID'];
+		$solicitanteID 		= $rs['Solicitante_ID'];
+		$prestadorID 		= $rs['Prestador_ID'];
+		$tipoWorkflowID 	= $rs['Tipo_Workflow_ID'];
+		$prioridadeID 		= $rs['Prioridade_ID'];
+		$dataCadastro 		= $rs['Data_Cadastro'];
+		$responsavelID 	 	= $rs['Responsavel_ID'];
 		$grupoResponsavelID = $rs['Grupo_Responsavel_ID'];
 
-		$dataAbertura 	= $rs['Data_Abertura']; if ($dataAbertura == "00/00/0000 00:00") $dataAbertura = "";
-		$dataFinalizado = $rs['Data_Finalizado']; if ($dataFinalizado == "00/00/0000 00:00") $dataFinalizado = "";
-		$dataLimite = $rs['Data_Limite']; if ($dataLimite == "00/00/0000 00:00") $dataLimite = "";
+		$dataAbertura 		= $rs['Data_Abertura']; if ($dataAbertura == "00/00/0000 00:00") $dataAbertura = "";
+		$dataFinalizado 	= $rs['Data_Finalizado']; if ($dataFinalizado == "00/00/0000 00:00") $dataFinalizado = "";
+		$dataLimite 		= $rs['Data_Limite']; if ($dataLimite == "00/00/0000 00:00") $dataLimite = "";
 
-		$tituloChamado	= $rs['Titulo'];
+		$tituloChamado		= $rs['Titulo'];
 
-		$usuarioCadastroID = $rs[Usuario_Cadastro_ID];
-		$codigo = $rs[Codigo];
+		$usuarioCadastroID 	= $rs[Usuario_Cadastro_ID];
+		$codigo 			= $rs[Codigo];
 
-		$sql = "Select Follow_ID, Descricao, Dados, t.Descr_Tipo as Situacao, cf.Situacao_ID as Situacao_ID, DATE_FORMAT(Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, cd.Nome as Usuario_Follow
-				from chamados_follows cf
-				left join cadastros_dados cd on cd.Cadastro_ID = cf.Usuario_Cadastro_ID
-				left join tipo t on t.Tipo_ID = cf.Situacao_ID
-				where Workflow_ID = $workflowID
-				order by cf.Follow_ID desc";
-		//echo $sql;
+		$sql = "SELECT Follow_ID, Descricao, Dados, t.Descr_Tipo as Situacao, cf.Situacao_ID as Situacao_ID, DATE_FORMAT(Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, cd.Nome as Usuario_Follow
+				FROM chamados_follows cf
+				LEFT JOIN cadastros_dados cd on cd.Cadastro_ID = cf.Usuario_Cadastro_ID
+				LEFT JOIN tipo t on t.Tipo_ID = cf.Situacao_ID
+				WHERE Workflow_ID = $workflowID
+				ORDER BY cf.Follow_ID desc";
+		// echo $sql;
 
 		$query = mpress_query($sql);
 		$i=0;
@@ -90,7 +93,7 @@ else{
 							<div style='float:left;width:100%;margin-bottom:3px'><select id='cadastro-id' name='cadastro-id' style='width:99.7%'><option value=''>Selecione</option>".optionValueEmpresas($cadastroID)."</select></div>";
 }
 
-$sql = "Select Email from cadastros_dados where Cadastro_ID = ".$dadosUserLogin['userID'];
+$sql = "SELECT Email FROM cadastros_dados WHERE Cadastro_ID = ".$dadosUserLogin['userID'];
 $query = mpress_query($sql);
 if($rs = mpress_fetch_array($query))
 	$emailLogado = $rs[Email];
@@ -173,7 +176,7 @@ echo "	<input type='hidden' id='nome-campo' name='nome-campo'/>
 				<p>Dados do Solicitante $botaoSolicitante</p>
 			</div>
 			<div class='conteudo-interno' id='conteudo-interno-solicitante'>";
-carregarBlocoCadastroGeral($solicitanteID, 'solicitante-id','Solicitante',1,'','','','required');
+				carregarBlocoCadastroGeral($solicitanteID, 'solicitante-id','Solicitante',1,'','','','required');
 echo "		</div>
 		</div>";
 
@@ -188,12 +191,17 @@ if ($configChamados['exibe-bloco-prestador']==1){
 					</div>
 					<div class='conteudo-interno' id='conteudo-interno-prestador'>
 						<input type='hidden' name='prestador-id-ant' id='prestador-id-ant' value='$prestadorID'/>";
-		carregarBlocoCadastroGeral($prestadorID, 'prestador-id','Prestador',1,'');
+						carregarBlocoCadastroGeral($prestadorID, 'prestador-id','Prestador',1,'');
 		echo "		</div>
 				</div>";
 
 	}
 }
+
+// echo "modulo ativo ".$modulosAtivos['produtos'];
+// echo "Workflow atual: ".$workflowID;
+// echo "Orcamento atual: ".$orcamentoId;
+
 if ($modulosAtivos['produtos']){
 	echo "	<div class='titulo-container $classeEsconde; conjunto2 esconde' id='div-produtos-dados'>
 				<div class='titulo'>
@@ -205,7 +213,7 @@ if ($modulosAtivos['produtos']){
 				<div class='conteudo-interno titulo-secundario' id='conteudo-interno-produtos'>
 					<div id='div-produtos-incluir-editar' Style='float:left;width:100%;'></div>
 					<div id='div-produtos' class='titulo-secundario uma-coluna' style='margin-top:5px;'>";
-		carregarProdutos($workflowID,'chamado');
+					carregarProdutos($workflowID,'chamado');
 		echo "
 					</div>
 				</div>

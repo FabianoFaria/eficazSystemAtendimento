@@ -1752,7 +1752,7 @@ function carregarProdutos($chaveID, $tipo){
 		}
 		if ($tipo=="orcamento"){
 			$complemento = "-".$chaveID;
-			$sql = "select opp.Proposta_Produto_ID as Chave_Primaria_ID, pv.Produto_Variacao_ID, CONCAT(COALESCE(pd.Nome,''),' ', COALESCE(pv.Descricao,'')) AS Descricao_Produto,
+			$sql = "SELECT opp.Proposta_Produto_ID as Chave_Primaria_ID, pv.Produto_Variacao_ID, CONCAT(COALESCE(pd.Nome,''),' ', COALESCE(pv.Descricao,'')) AS Descricao_Produto,
 						opp.Observacao_Produtos,
 						opp.Valor_Venda_Unitario, 
 						opp.Valor_Custo_Unitario, 
@@ -1764,24 +1764,24 @@ function carregarProdutos($chaveID, $tipo){
 						opp.Pagamento_Prestador,
 						opp.Data_Cadastro, cd.Nome as Autor, ma.Nome_Arquivo as Nome_Arquivo, tp.Descr_Tipo as Tipo, fc.Descr_Tipo as Forma_Cobranca, op.Proposta_ID as Proposta_ID,
 						pd.Produto_ID as Produto_ID, ow.Solicitante_ID as Solicitante_ID, op.Forma_Pagamento_ID as Forma_Pagamento_ID
-						 from orcamentos_propostas_produtos opp
-					inner join orcamentos_propostas op ON op.Proposta_ID = opp.Proposta_ID
-					inner join orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
-					inner join produtos_variacoes pv ON pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
-					inner join produtos_dados pd ON pd.Produto_ID = pv.Produto_ID
-					inner join tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
-					inner join tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
-					left join modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
-					left join cadastros_dados cd ON cd.Cadastro_ID = opp.Usuario_Cadastro_ID
-					left join cadastros_dados re ON re.Cadastro_ID = opp.Prestador_ID
-					left join cadastros_dados cf ON cf.Cadastro_ID = opp.Cliente_Final_ID
-					where opp.Proposta_ID = '$chaveID' AND opp.Situacao_ID = 1
-						order by $condOrder opp.Data_Cadastro desc";
+						 FROM orcamentos_propostas_produtos opp
+					INNER JOIN orcamentos_propostas op ON op.Proposta_ID = opp.Proposta_ID
+					INNER JOIN orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
+					INNER JOIN produtos_variacoes pv ON pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
+					INNER JOIN produtos_dados pd ON pd.Produto_ID = pv.Produto_ID
+					INNER JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
+					INNER JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
+					LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
+					LEFT JOIN cadastros_dados cd ON cd.Cadastro_ID = opp.Usuario_Cadastro_ID
+					LEFT JOIN cadastros_dados re ON re.Cadastro_ID = opp.Prestador_ID
+					LEFT JOIN cadastros_dados cf ON cf.Cadastro_ID = opp.Cliente_Final_ID
+					WHERE opp.Proposta_ID = '$chaveID' AND opp.Situacao_ID = 1
+						ORDER BY $condOrder opp.Data_Cadastro DESC";
 			//echo $sql;
 		}
 		if ($tipo=="chamado"){
 			//$botaoGerarProposta = "<div style='float:left;margin-top:20px; width:25%;' id='proposta-gerar' class='btn-excel' title='Expandir'><span style='margin-left:18px;'><b>GERAR PROPOSTA</b></span></div>";
-			$sql = "select cwp.Workflow_Produto_ID as Chave_Primaria_ID, 
+			$sql = "SELECT cwp.Workflow_Produto_ID as Chave_Primaria_ID, 
 							pv.Produto_Variacao_ID as Produto_Variacao_ID, 
 							cwp.Cobranca_Cliente as Cobranca_Cliente,
 							cwp.Pagamento_Prestador as Pagamento_Prestador, 
@@ -1804,31 +1804,35 @@ function carregarProdutos($chaveID, $tipo){
 							tp.Descr_Tipo AS Tipo, 
 							ma.Nome_Arquivo as Nome_Arquivo, 
 							pd.Produto_ID as Produto_ID,
-							(select count(*) from financeiro_produtos fp1
-							inner join financeiro_contas fc1 on fc1.Conta_ID = fp1.Conta_ID
-							where fp1.Tabela_Estrangeira = 'chamados' and fp1.Produto_Referencia_ID = cwp.Workflow_Produto_ID and fc1.Tipo_ID = '45' and fp1.Situacao_ID = 1) as A_Pagar,
-								(select count(*) from financeiro_produtos fp2
-											inner join financeiro_contas fc2 on fc2.Conta_ID = fp2.Conta_ID
-											where fp2.Tabela_Estrangeira = 'chamados' and fp2.Produto_Referencia_ID = cwp.Workflow_Produto_ID   and fc2.Tipo_ID = '44' and fp2.Situacao_ID = 1) as A_Receber,
+							(SELECT count(*) FROM financeiro_produtos fp1
+							INNER JOIN financeiro_contas fc1 on fc1.Conta_ID = fp1.Conta_ID
+							WHERE fp1.Tabela_Estrangeira = 'chamados' and fp1.Produto_Referencia_ID = cwp.Workflow_Produto_ID and fc1.Tipo_ID = '45' and fp1.Situacao_ID = 1) as A_Pagar,
+								(SELECT count(*) FROM financeiro_produtos fp2
+											INNER JOIN financeiro_contas fc2 on fc2.Conta_ID = fp2.Conta_ID
+											WHERE fp2.Tabela_Estrangeira = 'chamados' and fp2.Produto_Referencia_ID = cwp.Workflow_Produto_ID   and fc2.Tipo_ID = '44' and fp2.Situacao_ID = 1) as A_Receber,
 
 							oc.Chamado_ID as Chamado_ID
 
-							from chamados_workflows_produtos cwp
-							inner join produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
-							inner join produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-							inner join tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
-							inner join tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
-							left join modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
-							left join cadastros_dados cd on cd.Cadastro_ID = cwp.Usuario_Cadastro_ID
-							left join cadastros_dados re ON re.Cadastro_ID = cwp.Prestador_ID
-							left join cadastros_dados cf ON cf.Cadastro_ID = cwp.Cliente_Final_ID
-							left join orcamentos_produtos_chamados_produtos opcp on opcp.Chamado_ID = cwp.Workflow_ID and opcp.Chamado_Produto_ID = cwp.Workflow_Produto_ID
-							left join orcamentos_chamados oc on oc.Chamado_ID = opcp.Chamado_ID
-							where Workflow_ID = '$chaveID' and cwp.Situacao_ID = 1
-					order by $condOrder cwp.Data_Cadastro desc";
-			//echo $sql;
+							FROM chamados_workflows_produtos cwp
+							INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
+							INNER JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
+							INNER JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
+							INNER JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
+							LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
+							LEFT JOIN cadastros_dados cd on cd.Cadastro_ID = cwp.Usuario_Cadastro_ID
+							LEFT JOIN cadastros_dados re ON re.Cadastro_ID = cwp.Prestador_ID
+							LEFT JOIN cadastros_dados cf ON cf.Cadastro_ID = cwp.Cliente_Final_ID
+							LEFT JOIN orcamentos_produtos_chamados_produtos opcp on opcp.Chamado_ID = cwp.Workflow_ID and opcp.Chamado_Produto_ID = cwp.Workflow_Produto_ID
+							LEFT JOIN orcamentos_chamados oc on oc.Chamado_ID = opcp.Chamado_ID
+							WHERE Workflow_ID = '$chaveID' and cwp.Situacao_ID = 1
+					ORDER BY $condOrder cwp.Data_Cadastro desc";
+			// echo $sql;
 		}
+
+		
 		//echo $sql;
+		//die();
+		
 		$resultado = mpress_query($sql);
 		$i = 0;
 		$clienteFinalIDAnt = -1;
@@ -3564,12 +3568,12 @@ function carregarOrcamentosChamados($workflowID, $esconder){
 					<div style='width:100%;float:left;'>";
 
 	$sql = "	SELECT cw.Workflow_ID as Chamado_ID, cw.Titulo, tw.Descr_Tipo as Tipo, ma.Titulo as Grupo_Responsavel, r.Nome as Responsavel, cw.Data_Cadastro, u.Nome as Usuario_Cadastro
-				from orcamentos_chamados oc
-				inner join chamados_workflows cw on cw.Workflow_ID = oc.Chamado_ID
-				inner join modulos_acessos ma on ma.Modulo_Acesso_ID = cw.Grupo_Responsavel_ID
-				left join cadastros_dados r on r.Cadastro_ID = cw.Responsavel_ID
-				left join cadastros_dados u on u.Cadastro_ID = cw.Usuario_Cadastro_ID
-				left join tipo tw on tw.Tipo_ID = cw.Tipo_Workflow_ID
+				FROM orcamentos_chamados oc
+				INNER JOIN chamados_workflows cw on cw.Workflow_ID = oc.Chamado_ID
+				INNER JOIN modulos_acessos ma on ma.Modulo_Acesso_ID = cw.Grupo_Responsavel_ID
+				LEFT JOIN cadastros_dados r on r.Cadastro_ID = cw.Responsavel_ID
+				LEFT JOIN cadastros_dados u on u.Cadastro_ID = cw.Usuario_Cadastro_ID
+				LEFT JOIN tipo tw on tw.Tipo_ID = cw.Tipo_Workflow_ID
 				WHERE oc.Orcamento_ID = '$workflowID'
 				and oc.Situacao_ID = 1";
 	//echo $sql;
@@ -3611,30 +3615,93 @@ function carregarOrcamentosChamados($workflowID, $esconder){
 
 function gerarChamadosOrcamentos(){
 	global $dadosUserLogin;
-	$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
-	$orcamentoID = $_POST['workflow-id'];
-	$usuarioChamadoID = $_POST['select-usuario-os'];
-	$grupoChamadoID = $_POST['select-grupo-os'];
-	$projetoID = $_POST['projeto-id-os'];
-	$tipoID = $_POST['tipo-id-os'];
-	$solicitanteID = $_POST['solicitante-id'];
+	$dataHoraAtual 		= "'".retornaDataHora('','Y-m-d H:i:s')."'";
+	$orcamentoID 		= $_POST['workflow-id'];
+	$usuarioChamadoID 	= $_POST['select-usuario-os'];
+	$grupoChamadoID 	= $_POST['select-grupo-os'];
+	$projetoID 			= $_POST['projeto-id-os'];
+	$tipoID 			= $_POST['tipo-id-os'];
+	$solicitanteID 		= $_POST['solicitante-id'];
+					
+	$temp = "SELECT 
+				Empresa_ID, 
+				Solicitante_ID, 
+				Codigo, 
+				Titulo
+				FROM orcamentos_workflows 
+				WHERE Workflow_ID = '$orcamentoID'";
 
-	$sql = "insert into chamados_workflows (Cadastro_ID, Solicitante_ID, Codigo, Titulo, Data_Cadastro, Data_Abertura, Usuario_Cadastro_ID,
-											Responsavel_ID, Grupo_Responsavel_ID, Tipo_Workflow_ID)
-									SELECT Empresa_ID, Solicitante_ID, Codigo, Titulo, $dataHoraAtual, $dataHoraAtual, '".$dadosUserLogin['userID']."',
-											'$usuarioChamadoID', '$grupoChamadoID', '$tipoID'
-									from orcamentos_workflows where Workflow_ID = '$orcamentoID'";
+	/*
+			$dataHoraAtual, 
+			$dataHoraAtual, 
+			'".$dadosUserLogin['userID']."', 
+			'$usuarioChamadoID', 
+			'$grupoChamadoID', 
+			'$tipoID' 
+	*/
+
+	$query = mpress_query($temp);
+
+	while($rs = mpress_fetch_array($query)){
+
+		$empresaId 		= $rs['Empresa_ID'];
+		$solicitanteId 	= $rs['Solicitante_ID'];
+		
+		$titulo 		= $rs['Titulo'];
+
+		//if( !empty($rs['Codigo'])){
+			$codigo 	= $rs['Codigo'];
+		//}else{
+			//$codigo 	= 0;
+		//}
+	}
+
+	if( $tipoID == ''){
+		$tipoID 	= 0;
+	}
+
+
+	/* É efetuado uma busca por informações do orçamento para posteriormente
+		inserir essas informações nas tabelas de chamados seguintes */
+
+
+	$sql = "INSERT INTO chamados_workflows (Cadastro_ID, 
+		Solicitante_ID, 
+		Codigo, 
+		Titulo, 
+		Data_Cadastro, 
+		Data_Abertura, 
+		Usuario_Cadastro_ID,
+		Responsavel_ID, 
+		Grupo_Responsavel_ID, 
+		Tipo_Workflow_ID)
+		VALUES ('$empresaId',
+		 	'$solicitanteId', 
+		 	'$codigo',
+		 	'$titulo',
+		 	$dataHoraAtual, 
+			$dataHoraAtual,
+		 	'".$dadosUserLogin['userID']."',
+		 	'$usuarioChamadoID',
+		 	'$grupoChamadoID',
+			'$tipoID')";
+
 	//echo "<br><br>".$sql.";";
+
+	// echo $sql;
+
+	// die();
+
 	mpress_query($sql);
 	$chamadoID = mysql_insert_id();
 
-	$sql = "insert into orcamentos_chamados (Orcamento_ID, Chamado_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
-										values ('$orcamentoID', '$chamadoID', 1, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
+	$sql = "INSERT INTO orcamentos_chamados (Orcamento_ID, Chamado_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID) VALUES ('$orcamentoID', '$chamadoID', 1, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
+
 	//echo "<br><br>".$sql.";";
 	mpress_query($sql);
 
-	$sql = "insert into chamados_follows (Workflow_ID, Descricao, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
-								values ('$chamadoID', '".$_SESSION['objeto']." aberto(a), referente ao orçamento $orcamentoID', 32, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
+	$sql = "INSERT INTO chamados_follows (Workflow_ID, Descricao, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID) VALUES ('$chamadoID', '".$_SESSION['objeto']." aberto(a), referente ao orçamento $orcamentoID', 32, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
+
 	mpress_query($sql);
 	//echo "<br><br>".$sql.";";
 
@@ -3643,15 +3710,103 @@ function gerarChamadosOrcamentos(){
 	}
 
 	foreach ($_POST['gerar-os'] as $propostaProdutoID) {
-		$sql = "INSERT INTO chamados_workflows_produtos (Workflow_ID, Produto_Variacao_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Cliente_Final_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
-														select '$chamadoID', Produto_Variacao_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Cliente_Final_ID, Situacao_ID, $dataHoraAtual, '".$dadosUserLogin['userID']."'
-														from orcamentos_propostas_produtos where Proposta_Produto_ID = '$propostaProdutoID'";
+		// $sql = "INSERT INTO chamados_workflows_produtos 
+		// 			(Workflow_ID, 
+		// 			Produto_Variacao_ID, 
+		// 			Quantidade, 
+		// 			Valor_Custo_Unitario, 
+		// 			Valor_Venda_Unitario, 
+		// 			Cobranca_Cliente, 
+		// 			Pagamento_Prestador, 
+		// 			Cliente_Final_ID, 
+		// 			Situacao_ID, 
+		// 			Data_Cadastro, 
+		// 			Usuario_Cadastro_ID)
+		// 												select '$chamadoID', 
+		// 												Produto_Variacao_ID, 
+		// 												Quantidade, 
+		// 												Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, 
+		// 												Pagamento_Prestador, 
+		// 												Cliente_Final_ID, 
+		// 												Situacao_ID, 
+		// 												$dataHoraAtual, 
+		// 												'".$dadosUserLogin['userID']."'
+		// 												from orcamentos_propostas_produtos where Proposta_Produto_ID = '$propostaProdutoID'";
+
+		/* 
+			Atualizando as queries para contornar possiveis erros de versão de Mysql
+		*/
+
+			//Procura pelos dados dos produtos adicionados na propostas
+		$tempSql = "SELECT 	Produto_Variacao_ID,
+							Quantidade,
+							Valor_Custo_Unitario,
+							Valor_Venda_Unitario,
+							Cobranca_Cliente,
+							Pagamento_Prestador,
+							Cliente_Final_ID,
+							Situacao_ID
+					FROM orcamentos_propostas_produtos
+					WHERE Proposta_Produto_ID = '$propostaProdutoID'";
+
+
+		$query = mpress_query($tempSql);
+
+		//$rs = mpress_fetch_array($query);
+
+		while($rs = mpress_fetch_array($query)){
+			$produtoVariacao 	= $rs['Produto_Variacao_ID'];
+			$quantidade 		= $rs['Quantidade'];
+			$valorCustoUnitario = $rs['Valor_Custo_Unitario'];
+			$valorVendaUnitario = $rs['Valor_Venda_Unitario'];
+			$cobrancaCliente 	= $rs['Cobranca_Cliente'];
+			$prestadorPrestador = $rs['Pagamento_Prestador'];
+			$clienteFinalId 	= $rs['Cliente_Final_ID'];
+			$situacaoId 		= $rs['Situacao_ID'];
+		}
+
+			//Salva as informações coletadas nos produtos das chamadas
+
+		$sql = "INSERT INTO chamados_workflows_produtos(
+					Workflow_ID, 
+					Produto_Variacao_ID, 
+					Quantidade,
+					Observacao_Produtos,
+					Valor_Custo_Unitario, 
+					Valor_Venda_Unitario, 
+					Cobranca_Cliente, 
+					Pagamento_Prestador, 
+					Cliente_Final_ID, 
+					Situacao_ID, 
+					Data_Cadastro, 
+					Usuario_Cadastro_ID
+				)
+				VALUES(
+					'$chamadoID',
+					'$produtoVariacao',
+					'$quantidade',
+					'',
+					'$valorCustoUnitario',
+					'$valorVendaUnitario',
+					'$cobrancaCliente',
+					'$prestadorPrestador',
+					'$clienteFinalId',
+					'$situacaoId',
+					$dataHoraAtual,
+					'".$dadosUserLogin['userID']."'
+				)";
+
+		//echo $sql;
+		//var_dump($_POST['gerar-os']);
+		//var_dump($sql);
+		//die();
+
 		mpress_query($sql);
 		//echo "<br><br>".$sql.";";
 		$chamadoProdutoID = mysql_insert_id();
-		$sql = "insert into orcamentos_produtos_chamados_produtos
+		$sql = "INSERT INTO orcamentos_produtos_chamados_produtos
 					(Proposta_Produto_ID, Chamado_Produto_ID, Chamado_ID, Orcamento_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID)
-				values ('$propostaProdutoID', '$chamadoProdutoID', '$chamadoID', '$orcamentoID', 1, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
+				VALUES ('$propostaProdutoID', '$chamadoProdutoID', '$chamadoID', '$orcamentoID', 1, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
 		mpress_query($sql);
 		//echo "<br><br>".$sql.";";
 	}
