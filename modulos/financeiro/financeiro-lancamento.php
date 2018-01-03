@@ -37,7 +37,7 @@ else{
 	if ($tipo==""){
 		$tipo = "44";
 	}
-	$cadastroContaIDde = $_GET['filtro-cadastro-conta'];
+	$cadastroContaIDde 		= $_GET['filtro-cadastro-conta'];
 	if ($cadastroContaIDde!=""){
 		$sql 		= "SELECT Cadastro_ID FROM cadastros_contas WHERE Cadastro_Conta_ID = '$cadastroContaIDde'";
 		$resultado 	= mpress_query($sql);
@@ -215,16 +215,16 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 			</div>
 		</div>
 	</div>
-<?php
+	<?php
 
-	if (($modulosGeral['igreja']) && (file_exists($caminhoFisico."/modulos/igreja/functions.php"))){
-		require_once($caminhoFisico."/modulos/igreja/functions.php");
-		echo "	<input type='hidden' id='modulo-igreja-ativo'>
-			 	<div id='div-igreja-membros'>";
-		carregarLancamentoMembros($cadastroIDde);
-		echo "	</div>";
-	}
-?>
+		if (($modulosGeral['igreja']) && (file_exists($caminhoFisico."/modulos/igreja/functions.php"))){
+			require_once($caminhoFisico."/modulos/igreja/functions.php");
+			echo "	<input type='hidden' id='modulo-igreja-ativo'>
+				 	<div id='div-igreja-membros'>";
+			carregarLancamentoMembros($cadastroIDde);
+			echo "	</div>";
+		}
+	?>
 	<div id='div-titulo'>
 
 		<!-- <p><?php //echo " ContaID: ".$contaID."  Titulo: ".$tituloID." Situação: ".$situacaoTitulos." Tipo: ".$tipo; ?></p> -->
@@ -233,13 +233,13 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 	</div>
 	<div class='titulo-container conjunto3 esconde' id='div-lancamentos-mes'></div>
 
-<?php
-	if ($modulosAtivos['produtos']){
-		echo "<div id='div-produtos' class='titulo-container conjunto2 esconde'>";
-		carregarProdutosConta($contaID);
-		echo "</div>";
-	}
-?>
+	<?php
+		if ($modulosAtivos['produtos']){
+			echo "<div id='div-produtos' class='titulo-container conjunto2 esconde'>";
+			carregarProdutosConta($contaID);
+			echo "</div>";
+		}
+	?>
 	<!-- INICIO Bloco Upload usando PLUPLOAD -->
 	<div id='div-documentos'></div>
 	<div id="container">

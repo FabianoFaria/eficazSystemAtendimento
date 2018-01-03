@@ -24,6 +24,10 @@
 				FROM orcamentos_workflows w
 				LEFT JOIN tipo s on s.Tipo_ID = w.Situacao_ID
 				WHERE Workflow_ID = '$workflowID'";
+
+		// echo $sql;
+		// die();
+
 		$query = mpress_query($sql);
 		if($rs = mpress_fetch_array($query)){
 			$cadastro 			= $rs['Cadastro'];
@@ -56,7 +60,8 @@
 					WHERE Workflow_ID = $workflowID
 					ORDER BY f.Follow_ID desc";
 
-			//echo $sql;
+			// echo $sql;
+			// die();
 			$query = mpress_query($sql);
 			$i=0;
 			while($rs = mpress_fetch_array($query)){
@@ -78,11 +83,11 @@
 			$dadosOrcamento = "N&ordm; $workflowID - $situacao";
 
 			if (($situacaoID=="112")||($situacaoID=="113")){
-				$dadosReabertura = "<input type='button' value='Re-Abrir Or&ccedil;amento' id='botao-reabrir-orcamento'  Style='width:115px;'/>";
-				$textoDescricao = "Descreva o motivo da re-abertura";
-				$condicaoSituacao = " and Tipo_ID = 111";
-				$escondeDadosFollows = "esconde";
-				$situacaoIDAux = "111";
+				$dadosReabertura 		= "<input type='button' value='Re-Abrir Or&ccedil;amento' id='botao-reabrir-orcamento'  Style='width:115px;'/>";
+				$textoDescricao 		= "Descreva o motivo da re-abertura";
+				$condicaoSituacao 		= " and Tipo_ID = 111";
+				$escondeDadosFollows 	= "esconde";
+				$situacaoIDAux 			= "111";
 
 			}
 			else{
@@ -265,10 +270,10 @@
 		//echo $sql;
 		$query = mpress_query($sql);
 		if($rs = mpress_fetch_array($query)){
-			$origemID = $rs['Origem'];
-			$dataPrevisao = substr(converteData($rs['Data_Previsao'],1),0,10);
-			$probabilidadeFechamento = $rs['Probabilidade_Fechamento'];
-			$expectativaValor = number_format($rs['Expectativa_Valor'], 2, ',', '.');
+			$origemID 					= $rs['Origem'];
+			$dataPrevisao 				= substr(converteData($rs['Data_Previsao'],1),0,10);
+			$probabilidadeFechamento 	= $rs['Probabilidade_Fechamento'];
+			$expectativaValor 			= number_format($rs['Expectativa_Valor'], 2, ',', '.');
 		}
 
 

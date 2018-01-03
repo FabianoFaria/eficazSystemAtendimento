@@ -476,19 +476,19 @@
 		$projetoID			= $_POST['projeto-id-chamado'];
 
 		if ($descricaoFollow=="")
-			$situacaoFollowID = $_POST['situacao-atual-chamado'];
+			$situacaoFollowID 	= $_POST['situacao-atual-chamado'];
 		else
-			$situacaoFollowID = $_POST['select-situacao-follow'];
+			$situacaoFollowID 	= $_POST['select-situacao-follow'];
 
-		$prioridadeID 		= $_POST['select-prioridade'];
-		$grupoResponsavel 	= $_POST['select-grupo-chamado'];
-		$usuarioResponsavel = $_POST['select-usuario-chamado'];
-		$tarefaInicio		= $_POST['select-tipo-tarefa-inicial'];
+		$prioridadeID 			= $_POST['select-prioridade'];
+		$grupoResponsavel 		= $_POST['select-grupo-chamado'];
+		$usuarioResponsavel 	= $_POST['select-usuario-chamado'];
+		$tarefaInicio			= $_POST['select-tipo-tarefa-inicial'];
 
-		$dataHoraAtual 		= retornaDataHora('','Y-m-d H:i:s');
-		$dataHoraAtual 		= "'".$dataHoraAtual."'";
-		$dataAbertura = "'".converteDataHora($_POST['data-abertura-chamado'])."'";
-		$dataLimite = "'".converteDataHora($_POST['data-limite'])."'";
+		$dataHoraAtual 			= retornaDataHora('','Y-m-d H:i:s');
+		$dataHoraAtual 			= "'".$dataHoraAtual."'";
+		$dataAbertura 			= "'".converteDataHora($_POST['data-abertura-chamado'])."'";
+		$dataLimite 			= "'".converteDataHora($_POST['data-limite'])."'";
 
 		if ($situacaoFollowID==34){
 			$dataHoraFinalizado = "'".converteDataHora($_POST['data-finalizado-chamado'])."'";
@@ -868,11 +868,11 @@ function carregarProdutoDetalhes($workflowID, $produtoVariacaoID, $tipo, $chaveE
 		/*********************************************************/
 		if ($chaveEstrangeira!=''){
 			if ($tipo=='chamado')
-				$sqlOrig = "select Valor_Custo_Unitario, Valor_Venda_Unitario from chamados_workflows_produtos where Workflow_Produto_ID = '$chaveEstrangeira'";
+				$sqlOrig 				= "select Valor_Custo_Unitario, Valor_Venda_Unitario from chamados_workflows_produtos where Workflow_Produto_ID = '$chaveEstrangeira'";
 			if ($tipo=='orcamento')
-				$sqlOrig = "select Valor_Custo_Unitario, Valor_Venda_Unitario from orcamentos_propostas_produtos where Proposta_Produto_ID = '$chaveEstrangeira'";
+				$sqlOrig 				= "select Valor_Custo_Unitario, Valor_Venda_Unitario from orcamentos_propostas_produtos where Proposta_Produto_ID = '$chaveEstrangeira'";
 			if ($sqlOrig!=''){
-				$resultadoOrig = mpress_query($sqlOrig);
+				$resultadoOrig 			= mpress_query($sqlOrig);
 				if ($rsOrig = mpress_fetch_array($resultadoOrig)){
 					$row['Valor_Custo'] = $rsOrig['Valor_Custo_Unitario'];
 					$row['Valor_Venda'] = $rsOrig['Valor_Venda_Unitario'];
@@ -1752,31 +1752,40 @@ function carregarProdutos($chaveID, $tipo){
 		}
 		if ($tipo=="orcamento"){
 			$complemento = "-".$chaveID;
-			$sql = "SELECT opp.Proposta_Produto_ID as Chave_Primaria_ID, pv.Produto_Variacao_ID, CONCAT(COALESCE(pd.Nome,''),' ', COALESCE(pv.Descricao,'')) AS Descricao_Produto,
+			$sql = "SELECT opp.Proposta_Produto_ID as Chave_Primaria_ID, 
+						pv.Produto_Variacao_ID, CONCAT(COALESCE(pd.Nome,''),
+						' ', COALESCE(pv.Descricao,'')) AS Descricao_Produto,
 						opp.Observacao_Produtos,
 						opp.Valor_Venda_Unitario, 
 						opp.Valor_Custo_Unitario, 
 						opp.Faturamento_Direto,
 						opp.Prestador_ID, re.Nome as Prestador,
-						opp.Cliente_Final_ID, cf.Nome as Cliente_Final, cf.Foto as Foto_Cliente_Final,
+						opp.Cliente_Final_ID, cf.Nome as Cliente_Final, 
+						cf.Foto as Foto_Cliente_Final,
 						opp.Quantidade as Quantidade, 
 						opp.Cobranca_Cliente, 
 						opp.Pagamento_Prestador,
-						opp.Data_Cadastro, cd.Nome as Autor, ma.Nome_Arquivo as Nome_Arquivo, tp.Descr_Tipo as Tipo, fc.Descr_Tipo as Forma_Cobranca, op.Proposta_ID as Proposta_ID,
-						pd.Produto_ID as Produto_ID, ow.Solicitante_ID as Solicitante_ID, op.Forma_Pagamento_ID as Forma_Pagamento_ID
-						 FROM orcamentos_propostas_produtos opp
+						opp.Data_Cadastro, cd.Nome as Autor, 
+						ma.Nome_Arquivo as Nome_Arquivo, 
+						tp.Descr_Tipo as Tipo, 
+						fc.Descr_Tipo as Forma_Cobranca, 
+						op.Proposta_ID as Proposta_ID,
+						pd.Produto_ID as Produto_ID, 
+						ow.Solicitante_ID as Solicitante_ID,
+						op.Forma_Pagamento_ID as Forma_Pagamento_ID
+					FROM orcamentos_propostas_produtos opp
 					INNER JOIN orcamentos_propostas op ON op.Proposta_ID = opp.Proposta_ID
 					INNER JOIN orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
 					INNER JOIN produtos_variacoes pv ON pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
 					INNER JOIN produtos_dados pd ON pd.Produto_ID = pv.Produto_ID
 					INNER JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
 					INNER JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
-					LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
+					LEFT JOIN modulos_anexos ma ON ma.Anexo_ID = pv.Imagem_ID
 					LEFT JOIN cadastros_dados cd ON cd.Cadastro_ID = opp.Usuario_Cadastro_ID
 					LEFT JOIN cadastros_dados re ON re.Cadastro_ID = opp.Prestador_ID
 					LEFT JOIN cadastros_dados cf ON cf.Cadastro_ID = opp.Cliente_Final_ID
 					WHERE opp.Proposta_ID = '$chaveID' AND opp.Situacao_ID = 1
-						ORDER BY $condOrder opp.Data_Cadastro DESC";
+					ORDER BY $condOrder opp.Data_Cadastro DESC";
 			//echo $sql;
 		}
 		if ($tipo=="chamado"){
@@ -2794,18 +2803,18 @@ function carregarEditarNomeProposta($propostaID,$nomeAtual,$valor){
 function carregarPropostasOrcamentos($workflowID, $propostaID){
 	global $modulosAtivos, $caminhoSistema, $configChamados;
 	if ($workflowID!=""){
-		$sql = "select op.Proposta_ID, op.Workflow_ID, op.Titulo, op.Data_Cadastro, op.Usuario_Cadastro_ID, u.Nome AS Usuario,
+		$sql = "SELECT op.Proposta_ID, op.Workflow_ID, op.Titulo, op.Data_Cadastro, op.Usuario_Cadastro_ID, u.Nome AS Usuario,
 					SUM(opp.Quantidade) as Quantidade_Total_Proposta, SUM(opp.Quantidade * opp.Valor_Venda_Unitario) as Valor_Total_Proposta,
 					count(opp.Proposta_Produto_ID) as Total_Itens_Proposta, op.Status_ID as Status_ID, upper(t.Descr_Tipo) as Status,
 					ow.Situacao_ID as Situacao_ID, coalesce(tp.Titulo_Tabela,'Tabela Padrão') as Tabela_Preco
-				from orcamentos_propostas op
+				FROM orcamentos_propostas op
 					inner join orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
 					left join produtos_tabelas_precos tp on tp.Tabela_Preco_ID = op.Tabela_Preco_ID
 					left join orcamentos_propostas_produtos opp on opp.Proposta_ID = op.Proposta_ID and opp.Situacao_ID = 1
 					left join cadastros_dados u ON u.Cadastro_ID = op.Usuario_Cadastro_ID
 					left join tipo t on t.Tipo_ID = op.Status_ID
 					where op.Workflow_ID = '$workflowID' and op.Situacao_ID = 1
-				group by op.Proposta_ID, op.Workflow_ID, op.Titulo, op.Data_Cadastro, op.Usuario_Cadastro_ID, u.Nome";
+				GROUP by op.Proposta_ID, op.Workflow_ID, op.Titulo, op.Data_Cadastro, op.Usuario_Cadastro_ID, u.Nome";
 		//echo $sql;
 		$resultado 	= mpress_query($sql);
 
@@ -3112,10 +3121,31 @@ function orcamentoProdutosPropostaSalvar(){
 					$statusProduto = 123;
 					if ($qtd>0){
 						mpress_query("INSERT INTO orcamentos_propostas_produtos
-									(Proposta_ID, Produto_Variacao_ID, Produto_Categoria_ID, Quantidade, Valor_Venda_Unitario,
-									Cobranca_Cliente, Pagamento_Prestador, Prestador_ID, Situacao_ID, Status_ID, Data_Cadastro, Usuario_Cadastro_ID)
-								VALUES ('$propostaID', '$produtoVariacaoID', '$produtoCategoriaID', '$qtd', '$vendaUnit',
-											1, 				0, 			0, 			1, '$statusProduto', '".$dataHoraAtual."', '".$dadosUserLogin['userID']."')");
+									(Proposta_ID, 
+									Produto_Variacao_ID, 
+									Produto_Categoria_ID, 
+									Quantidade, 
+									Valor_Venda_Unitario,
+									Cobranca_Cliente, 
+									Pagamento_Prestador, 
+									Prestador_ID, 
+									Situacao_ID, 
+									Status_ID, 
+									Data_Cadastro, 
+									Usuario_Cadastro_ID)
+								VALUES ('$propostaID', 
+								'$produtoVariacaoID', 
+								'$produtoCategoriaID', 
+								'$qtd', 
+								'$vendaUnit',
+								1, 				
+								0, 			
+								0, 			
+								1, 
+								'$statusProduto', 
+								'".$dataHoraAtual."', 
+								'".$dadosUserLogin['userID']."')"
+							);
 					}
 				}
 			}
@@ -3130,10 +3160,31 @@ function orcamentoProdutosPropostaSalvar(){
 				$statusProduto = "123";
 				if (($produtoVariacaoID!="") || ($vendaUnit>0) || ($dataEvento!="") || ($participantes!="")){
 					$sqlLocal = "INSERT INTO orcamentos_propostas_produtos
-								(Proposta_ID, Produto_Variacao_ID, Produto_Categoria_ID, Quantidade, Valor_Venda_Unitario,
-								Cobranca_Cliente, Pagamento_Prestador, Prestador_ID, Situacao_ID, Status_ID, Data_Cadastro, Usuario_Cadastro_ID)
-							VALUES ('$propostaID', '$produtoVariacaoID', '$produtoCategoriaID', '$qtd', '$vendaUnit',
-											1, 				0, 			0, 			1, '$statusProduto', '".$dataHoraAtual."', '".$dadosUserLogin['userID']."')";
+								(Proposta_ID, 
+								Produto_Variacao_ID, 
+								Produto_Categoria_ID, 
+								Quantidade, 
+								Valor_Venda_Unitario,
+								Cobranca_Cliente, 
+								Pagamento_Prestador,
+								Prestador_ID, 
+								Situacao_ID, 
+								Status_ID, 
+								Data_Cadastro, 
+								Usuario_Cadastro_ID)
+							VALUES ('$propostaID', 
+							'$produtoVariacaoID', 
+							'$produtoCategoriaID', 
+							'$qtd', 
+							'$vendaUnit',
+							1, 				
+							0, 			
+							0, 			
+							1, 
+							'$statusProduto', 
+							'".$dataHoraAtual."', 
+							'".$dadosUserLogin['userID']."')"
+							;
 					//echo $sqlLocal;
 					mpress_query($sqlLocal);
 					$propostaProdutoID = mpress_identity();
@@ -3274,12 +3325,12 @@ function enviarEmailAprovacaoOrcamentos($workflowID){
 		$dadosFormAux = unserialize($rs['Dados']);
 		$turno = $dadosFormAux['turno'];
 		unset($selTurno);
-		$selTurno[$dadosFormAux['turno']] = " selected ";
+		$selTurno[$dadosFormAux['turno']] 				= " selected ";
 
-		$dados[$propostaID][colunas][conteudo][$i][1] = "	<p style='text-align:left;'><b>".utf8_encode($rs['Colaborador'])."</b></p>";
-		$dados[$propostaID][colunas][conteudo][$i][2] = utf8_encode($rs['Codigo']);
-		$dados[$propostaID][colunas][conteudo][$i][3] = utf8_encode($rs['Produto']);
-		$dados[$propostaID][colunas][conteudo][$i][4] = "	<p style='text-align:right; margin-right:5px;'>R$ ".number_format($valorVenda, 2, ',', '.')."</p>
+		$dados[$propostaID][colunas][conteudo][$i][1] 	= "	<p style='text-align:left;'><b>".utf8_encode($rs['Colaborador'])."</b></p>";
+		$dados[$propostaID][colunas][conteudo][$i][2] 	= utf8_encode($rs['Codigo']);
+		$dados[$propostaID][colunas][conteudo][$i][3] 	= utf8_encode($rs['Produto']);
+		$dados[$propostaID][colunas][conteudo][$i][4] 	= "	<p style='text-align:right; margin-right:5px;'>R$ ".number_format($valorVenda, 2, ',', '.')."</p>
 															<input type='hidden' id='valor-produto-$propostaID-$i' class='valor-produto'  pos='$i' value='$valorVenda'/>";
 		$dados[$propostaID][colunas][classe][$i][1] = "tabela-fundo-escuro";
 
