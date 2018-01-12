@@ -1028,6 +1028,10 @@ function salvarProdutoChamado(){
 						(Workflow_ID, Produto_Variacao_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID, Observacao_Produtos)
 				values
 						('$workflowID', '$produtoVariacaoID', '$quantidadeProdutos', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."', '$produtoObservacao')";
+		var_dump($sql);
+
+		die();
+
 		$resultado = mpress_query($sql);
 
 		$sql = "select pd.Tipo_Produto as Tipo_Produto from produtos_dados pd inner join produtos_variacoes pv on pv.Produto_ID = pd.Produto_ID where pv.Produto_Variacao_ID = '$produtoVariacaoID'";
@@ -1823,10 +1827,10 @@ function carregarProdutos($chaveID, $tipo){
 							oc.Chamado_ID as Chamado_ID
 
 							FROM chamados_workflows_produtos cwp
-							INNER JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
-							INNER JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-							INNER JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
-							INNER JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
+							LEFT JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
+							LEFT JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
+							LEFT JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
+							LEFT JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
 							LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
 							LEFT JOIN cadastros_dados cd on cd.Cadastro_ID = cwp.Usuario_Cadastro_ID
 							LEFT JOIN cadastros_dados re ON re.Cadastro_ID = cwp.Prestador_ID
