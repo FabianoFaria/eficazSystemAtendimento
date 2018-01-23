@@ -103,8 +103,8 @@
 	}
 	else{
 		$descricaoBotao = "Abrir Or&ccedil;amento";
-		$classeEsconde = "esconde";
-		$dataAbertura = retornaDataHora('d','d/m/Y H:i');
+		$classeEsconde 	= "esconde";
+		$dataAbertura 	= retornaDataHora('d','d/m/Y H:i');
 		if ($_POST['cadastro-id']!="") $solicitanteID = $_POST['cadastro-id'];
 		//echo  $solicitanteID;
 		$representanteID 	 = $dadosUserLogin[userID];

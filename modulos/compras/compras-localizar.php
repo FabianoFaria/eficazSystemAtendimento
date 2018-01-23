@@ -112,7 +112,7 @@
 		$condicoes .= " and Data_Limite_Retorno between '$dataInicioLimite' and '$dataFimLimite' ";
 	}
 
-	$sql = "select c.Ordem_Compra_ID,
+	$sql = "SELECT c.Ordem_Compra_ID,
 				DATE_FORMAT(c.Data_Cadastro,'%d/%m/%Y') as Data_Cadastro,
 				DATE_FORMAT(Data_Limite_Retorno,'%d/%m/%Y') as Data_Limite_Retorno,
 				cd.Nome as Responsavel, sol.Nome as Solicitante,
@@ -135,8 +135,11 @@
 				$condicoes
 				group by Ordem_Compra_ID, c.Data_Cadastro, cd.Cadastro_ID, pm.Nota_Fiscal, cf.Situacao_ID, cocf.Ordem_Compra_ID, pd.Nome, pv.Descricao
 				order by c.Ordem_Compra_ID desc";
+
 	//echo $sql;
+
 	$resultado = mpress_query($sql);
+
 	while($row = mpress_fetch_array($resultado)){
 		if ($ordemCompraIDAnt!=$row[Ordem_Compra_ID]){
 			$i++;

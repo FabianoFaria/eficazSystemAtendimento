@@ -853,6 +853,9 @@
 		$dadospagina = get_page_content();
 		$tipoID = $_POST['tipo-id'];
 
+		// var_dump($_POST);
+		// die();
+
 		if ($tipoID!=''){
 			$rs = mpress_query("select Tipo_Auxiliar, Tipo_Auxiliar_Extra, Descr_Tipo from tipo where Tipo_ID = '$tipoID' order by Descr_Tipo");
 			if($row = mpress_fetch_array($rs)){
