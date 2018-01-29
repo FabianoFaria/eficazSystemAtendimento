@@ -239,7 +239,7 @@
 			if ($filtroTipoConta!=''){ $sqlCond .= " and fc.Tipo_ID = '$filtroTipoConta'";}
 		}
 
-		$sql = "select fc.Conta_ID as Conta_ID, fc.Codigo as Codigo, ft.Codigo as Codigo_Titulo, fc.Tipo_ID, tc.Descr_Tipo as Tipo, tcc.Descr_Tipo as Tipo_Conta,  fc.Valor_Total,
+		$sql = "SELECT fc.Conta_ID as Conta_ID, fc.Codigo as Codigo, ft.Codigo as Codigo_Titulo, fc.Tipo_ID, tc.Descr_Tipo as Tipo, tcc.Descr_Tipo as Tipo_Conta,  fc.Valor_Total,
 					ft.Titulo_ID, tfp.Descr_Tipo as Forma_Pagamento, ft.Situacao_Pagamento_ID,
 					cdd.Nome as Nome_De, cdd.Nome_Fantasia as Nome_Fantasia_De,
 					cdp.Nome as Nome_Para, cdp.Nome_Fantasia as Nome_Fantasia_Para,
@@ -279,9 +279,11 @@
 		while($rs = mpress_fetch_array($query)){
 			$i++;
 			$situacao 				="";
-			$situacaoPagamento 		= $rs[Situacao_Pagamento];
 			$valor 					= number_format($rs[Valor_Titulo], 2, ',', '.');
 			$dataVencimento 		= $rs[Data_Vencimento]; if ($dataVencimento=="00/00/0000"){$dataVencimento="A definir";}
+
+			$situacaoPagamento 		= $rs[Situacao_Pagamento];
+
 
 			if ($rs[Nome_De]==""){
 					$nomeDe = "N&atilde;o Informado";
@@ -329,6 +331,16 @@
 				$situacao = "<p class='mini-bola-cinza' Style='margin:0px;float:left;cursor:pointer;' title='Faturado Pendente de Preenchimento'>&nbsp;</p>"; $situacaoPagamento="Faturado Pendente"; $valor = number_format($rs[Valor_Total], 2, ',', '.');
 			}
 
+			if($situacaoPagamento == 'Pago'){
+				$fontColor = '#33AD5C;';
+			}else
+			if($situacaoPagamento == 'Aberto'){
+				$fontColor = '#606265';
+			}else
+			if($situacaoPagamento == 'Faturado Pendente'){
+				$fontColor = '#FF4D4D';
+			}
+
 
 			/******************************/
 			$c=1;
@@ -349,7 +361,7 @@
 				$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:1px 1px 0 1px;float:left;'>".$rs['Centro_Custo']."</p>";
 
 			$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:1px 1px 0 1px;float:left;'>".$rs['Observacao']."</p>";
-			$dados[colunas][conteudo][$i][$c++] = "$situacao<p Style='margin:1px 1px 0 1px;float:left;'>".($situacaoPagamento)."</p>";
+			$dados[colunas][conteudo][$i][$c++] = "$situacao<p Style='color:".$fontColor.";margin:1px 1px 0 1px;float:left;'>".($situacaoPagamento)."</p>";
 			$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:1px 1px 0 1px;float:right;'>".$valor."</p>";
 			$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:1px 1px 0 1px;float:left;'>".$rs[Forma_Pagamento]."</p>";
 
