@@ -105,34 +105,11 @@
 	}
 	function dadosMenuPrincipal($dadosMenu){
 		$dadospagina = get_page_content();
-		
 		for($k=1;$k<=count($dadosMenu[menu_principal]);$k++){
-
-			if($dadospagina[Slug_Modulo]==$dadosMenu[menu_principal][$k][slug]){
-				$classeAdd="interno-nivel-1-selecionado"; 
-			}else{
-				$classeAdd="interno-nivel-1";
-			}
-
-			//Notificação de Financeiro...
-			//ADICIONA UM CONTADOR DE DESPESA ATRASADAS QUE SERÁ EXIBIDO NO MENU QUANDO O SISTEMA FOR ACESSADO.
-			$notificacoesFin = '';
-
-			if($dadosMenu[menu_principal][$k][nome] == 'Financeiro'){
-
-				$totalContasVencidas 	= contasAtrasadas();
-
-				if($totalContasVencidas > 0){
-
-					$notificacoesFin 	= "<span style='width:10px;background-color:red;'> ".$totalContasVencidas."!</span>";
-				}
-
-			}
-
+			if($dadospagina[Slug_Modulo]==$dadosMenu[menu_principal][$k][slug]) $classeAdd="interno-nivel-1-selecionado"; else $classeAdd="interno-nivel-1";
 			$menuLvl01 .= "	<div id='".$dadosMenu[menu_principal][$k][slug]."|$k' class='menu-interno $classeAdd menu-".$dadosMenu[menu_principal][$k][slug]."' title='".$dadosMenu[menu_principal][$k][descricao]."'>
 								<p style='margin-top:32px;'>
 									<a href='#'>".$dadosMenu[menu_principal][$k][nome]."</a>
-									".$notificacoesFin."
 								</p>
 							</div>";
 		}
@@ -154,7 +131,6 @@
 					}else{
 						$classeAdd="interno-nivel-2";
 					}
-
 					$menuLvl2 .=	"<div class='$classeAdd menu-interno'  id='".$dadosMenu[menu_principal][$i][paginas][$j][slug]."-3' title='".$dadosMenu[menu_principal][$i][paginas][$j][descricao]."'>
 										<a href='#'>".$dadosMenu[menu_principal][$i][paginas][$j][nome]."</a>
 									</div>";
@@ -169,22 +145,9 @@
 						$classeAdd="interno-nivel-2";
 					}
 					if($dadosMenu[menu_principal][$i][paginas][$j][oculta_menu]!="1"){
-
-						//Notificação de Contas atrasadas...
-						//ADICIONA UM CONTADOR DE DESPESA ATRASADAS QUE SERÁ EXIBIDO NO MENU QUANDO O SISTEMA FOR ACESSADO.
-						$notificacoesFin = '';
-						if($dadosMenu[menu_principal][$i][paginas][$j][nome] == 'Contas'){
-							$totalContasVencidas 	= contasAtrasadas();
-
-							if($totalContasVencidas > 0){
-
-								$notificacoesFin 	= "<span style='width:10px;background-color:red;'> ".$totalContasVencidas."!</span>";
-							}
-						}
-
 						$menuLvl2 .= "	<a href='".$caminhoSistema."/".	$dadosMenu[menu_principal][$i][slug]."/".$dadosMenu[menu_principal][$i][paginas][$j][slug]."'>
 											<div class='$classeAdd menu-interno'  id='".$dadosMenu[menu_principal][$i][paginas][$j][slug]."-3'  title='".$dadosMenu[menu_principal][$i][paginas][$j][descricao]."'>
-												".$dadosMenu[menu_principal][$i][paginas][$j][nome]."".$notificacoesFin."
+												".$dadosMenu[menu_principal][$i][paginas][$j][nome]."
 											</div>
 										</a>";
 					}

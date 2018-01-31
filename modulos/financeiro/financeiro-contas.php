@@ -60,25 +60,8 @@
 
 
 ?>
-					<h2 style="margin-top:2px;">
-						Contas ou faturamentos para vencer: 
-						<?php 
-
-							$totaisContas = contasAtrasadas();
-
-							if($totaisContas > 0){
-
-								echo "<span style='color:red;'>".$totaisContas."</span>";
-							}else{
-
-								echo $totaisContas;
-							}
-						?>
-					</h2>
 					<div class='titulo-container conjunto1'>
-
 						<div class='titulo' style="min-height:25px">
-						
 							<p style="margin-top:2px;">
 							Filtros de Pesquisa
 							<?php
@@ -87,7 +70,6 @@
 
 							?>
 							</p>
-
 						</div>
 						<div class='conteudo-interno'>
 							<div style='float:left; width:100%'>
@@ -176,12 +158,7 @@
 									<div class='div-normal'>
 										<p><b>Tipo Conta</b></p>
 
-										<p>
-											<select name='localiza-tipo-conta' id='localiza-tipo-conta'>
-												<option></option>
-												<?php echo optionValueTipoConta($_POST['localiza-tipo-conta']);?>
-											</select>
-										</p>
+										<p><select name='localiza-tipo-conta' id='localiza-tipo-conta'><option></option><?php echo optionValueTipoConta($_POST['localiza-tipo-conta']);?></select></p>
 									</div>&nbsp;
 								</div>
 								<?php
@@ -292,9 +269,9 @@
 					".$sqlGroupBy."
 					order by ft.Data_Vencimento, fc.Tipo_ID";
 
-		// echo $sql;
+		//echo $sql;
 
-		// die();
+		//die();
 
 		$i=0;
 
