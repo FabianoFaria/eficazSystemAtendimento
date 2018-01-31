@@ -3818,5 +3818,22 @@ if(!function_exists('date_diff')) {
 
     return $diff;
   }
+
 }
+
+//Contador de contas que estão para vencer ou venceram
+
+  function contasAtrasadas() {
+
+  	$hoje 			= date('Y-m-d');
+
+  	$totalAtrasados = mpress_fetch_array(mpress_query("SELECT COUNT(fc.Conta_ID) as totalAtrasados
+  														FROM financeiro_contas fc
+  														INNER JOIN financeiro_titulos ft ON fc.Conta_ID = ft.Conta_ID
+  														WHERE fc.Conta_ID is not null AND ft.Data_Vencimento <= '".$hoje."' AND ft.Situacao_Pagamento_ID = '48'
+  														"));
+  	return $totalAtrasados[0];
+
+  }
+
 ?>
