@@ -214,7 +214,7 @@
 						and (fc.Tabela_Estrangeira = 'chamados')
 						and (case fc.Tipo_ID when 45 then cwp.Valor_Venda_Unitario when 44 then cwp.Valor_Custo_Unitario else 0 end) > 0
 						order by fc.Tipo_ID desc, cd2.Cadastro_ID";
-			echo $sql;
+			//echo $sql;
 			$i=0;
 			$query = mpress_query($sql);
 			while($rs = mpress_fetch_array($query)){

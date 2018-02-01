@@ -3007,7 +3007,7 @@ function carregarSituacaoProposta($propostaID){
 
 		echo "		<div style='float:left; width:20%;'>
 						<p align='left'>SITUA&Ccedil;&Atilde;O PROPOSTA: </p><p><b class='destaque'>$descricaoStatus</b></p>
-						<input type='hidden' id='formaPagamentoProposta' name='situacao-atual-proposta[$propostaID]' value='$statusID'/>
+						<input type='hidden' name='situacao-atual-proposta[$propostaID]' value='$statusID'/>
 					</div>";
 		echo "		<div style='float:left; width:80%'>";
 
