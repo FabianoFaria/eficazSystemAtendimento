@@ -1729,8 +1729,13 @@ $(document).ready(function(){
 
 
 	$(".botao-salvar-proposta-completo").live('click', function (){
-		acao = $(this).attr("tipo");
-		propostaID = $("#proposta-id").val();
+
+		acao 			= $(this).attr("tipo");
+		propostaID 		= $("#proposta-id").val();
+
+		//Efetua a verificação da forma de pagamento ante de aprovar a proposta.
+		tipoPagamento 	= $("#formaPagamentoProposta").val();
+
 		if (acao=="115"){
 			if(!($(".status-produto-"+propostaID).is(":checked"))){
 				alertify.alert("<b>Aviso</b>","É necessário selecionar os produtos e serviços para pré-seleção");
@@ -1750,6 +1755,13 @@ $(document).ready(function(){
 			alertify.alert("<b>Aviso</b>","A proposta deve possuir itens e valores para a ação desejada");
 			return false;
 		}
+
+		//VERIFICA SE FOI SELECIONADO ALGUMA FORMA DE PAGAMENTO
+		if(tipoPagamento=='114'){
+			alertify.alert("<b>Aviso</b>","É necessário selecionar alguma formar de pagamento!");
+				return false;
+		}
+
 		if ((acao=="118")||(acao=="119")||(acao=="121")||(acao=="122")){
 			if ((acao=="119")||(acao=="122"))
 				$("#texto-observacao-"+propostaID).html('Motivo:');
@@ -1973,7 +1985,19 @@ $(document).ready(function(){
 			carregarFormaPagamento();
 		});
 		$(".atualizar-dados-vencimento").live('click', function () {
-			salvarDadosVencimento('Vencimentos atualizados');
+
+			var propostaId 		= $("#proposta-id").val();
+			var situacaoTemp 	= $("#forma-pagamento-"+propostaId).val();
+
+			console.log(situacaoTemp);
+
+			if(situacaoTemp != ''){
+				salvarDadosVencimento('Vencimentos atualizados');
+			}else{
+				alertify.alert("<b>Aviso</b>","Selecione uma forma de pagamento válida.");
+				return false;
+			}
+
 		});
 	}
 });

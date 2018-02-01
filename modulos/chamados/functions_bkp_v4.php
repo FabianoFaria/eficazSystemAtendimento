@@ -1766,10 +1766,10 @@ function carregarProdutos($chaveID, $tipo){
 						opp.Prestador_ID, re.Nome as Prestador,
 						opp.Cliente_Final_ID, cf.Nome as Cliente_Final, 
 						cf.Foto as Foto_Cliente_Final,
-						opp.Quantidade as Quantidade,
-						opp.Cobranca_Cliente,
+						opp.Quantidade as Quantidade, 
+						opp.Cobranca_Cliente, 
 						opp.Pagamento_Prestador,
-						opp.Data_Cadastro, cd.Nome as Autor,
+						opp.Data_Cadastro, cd.Nome as Autor, 
 						ma.Nome_Arquivo as Nome_Arquivo, 
 						tp.Descr_Tipo as Tipo, 
 						fc.Descr_Tipo as Forma_Cobranca, 
@@ -1802,10 +1802,9 @@ function carregarProdutos($chaveID, $tipo){
 							DATE_FORMAT(cwp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
 							concat(coalesce(pd.Nome,''),
 							' ',coalesce(pv.Descricao,'')) as Descricao_Produto,
-							desp.Descricao_Produto as Decricao_produto_gasto,
 							 cd.Nome as Autor,
 							pv.Codigo as Codigo, 
-							cwp.Quantidade as Quantidade,
+							Quantidade as Quantidade,
 							cwp.Valor_Venda_Unitario, 
 							cwp.Valor_Custo_Unitario, 
 							cwp.Faturamento_Direto,
@@ -1830,7 +1829,6 @@ function carregarProdutos($chaveID, $tipo){
 							FROM chamados_workflows_produtos cwp
 							LEFT JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
 							LEFT JOIN produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-							LEFT JOIN despesas_atendimento desp ON desp.Despesa_ID_Relacionado = cwp.Workflow_Produto_ID
 							LEFT JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
 							LEFT JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
 							LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
@@ -1841,7 +1839,7 @@ function carregarProdutos($chaveID, $tipo){
 							LEFT JOIN orcamentos_chamados oc on oc.Chamado_ID = opcp.Chamado_ID
 							WHERE Workflow_ID = '$chaveID' and cwp.Situacao_ID = 1
 					ORDER BY $condOrder cwp.Data_Cadastro desc";
-			//echo $sql;
+			// echo $sql;
 		}
 
 		
@@ -1899,21 +1897,13 @@ function carregarProdutos($chaveID, $tipo){
 				$observacaoProd = "<p><b>Observa&ccedil;&atilde;o</b></p><p><textarea rows='4' cols='50' name='observacao-produto[]' class='descricao-produto' style='width:97%' readonly='readonly'>".$row[Observacao_Produtos]."</textarea></p>";
 			}
 
-			if(! empty($row[Decricao_produto_gasto])){
-
-				$prodDescricao = $row[Decricao_produto_gasto];
-
-			}else{	
-				$prodDescricao = $row[Descricao_Produto];
-			}
-
 			echo "	<div id='conteudo-produto-".$row['Chave_Primaria_ID']."'>
 						<fieldset style='margin-bottom:2px;'>
 							<legend><b>".$row['Tipo']."</b></legend>";
 			echo "			<div class='titulo-secundario' style='float:left; width:05%' align='center'>$imagemProduto</div>
 							<div class='titulo-secundario' style='float:left; width:40%'>
 								<p><b>Descri&ccedil;&atilde;o:</b></p>
-								<p><input type='text' name='descricao-produto[]' class='descricao-produto' value='".$prodDescricao."' style='width:97%' readonly='readonly'/></p>
+								<p><input type='text' name='descricao-produto[]' class='descricao-produto' value='".$row[Descricao_Produto]."' style='width:97%' readonly='readonly'/></p>
 								".$observacaoProd."
 							</div>
 							<div class='titulo-secundario' style='float:left; width:10%'>
@@ -2261,7 +2251,7 @@ function carregarProdutosOrcamentoCompleta($propostaID){
 
 		$sql = "SELECT Produto_Variacao_ID, Produto_Categoria_ID, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Status_ID
 					FROM orcamentos_propostas_produtos
-					WHERE Proposta_ID = '$propostaID' and Situacao_ID = 1";
+					where Proposta_ID = '$propostaID' and Situacao_ID = 1";
 		$resultado = mpress_query($sql);
 		while($rs = mpress_fetch_array($resultado)){
 			$valoresPreenchidos[$propostaID][$rs[Produto_Variacao_ID]][$rs[Produto_Categoria_ID]][Quantidade] = $rs[Quantidade];
@@ -3007,7 +2997,7 @@ function carregarSituacaoProposta($propostaID){
 
 		echo "		<div style='float:left; width:20%;'>
 						<p align='left'>SITUA&Ccedil;&Atilde;O PROPOSTA: </p><p><b class='destaque'>$descricaoStatus</b></p>
-						<input type='hidden' id='formaPagamentoProposta' name='situacao-atual-proposta[$propostaID]' value='$statusID'/>
+						<input type='hidden' name='situacao-atual-proposta[$propostaID]' value='$statusID'/>
 					</div>";
 		echo "		<div style='float:left; width:80%'>";
 
