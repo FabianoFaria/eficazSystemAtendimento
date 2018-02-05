@@ -1734,7 +1734,7 @@ $(document).ready(function(){
 		propostaID 		= $("#proposta-id").val();
 
 		//Efetua a verificação da forma de pagamento ante de aprovar a proposta.
-		tipoPagamento 	= $("#formaPagamentoProposta").val();
+		tipoFormaPagamentoAtual = $("#exibir-campos-forma-pagamento-"+propostaID).attr( 'value' );
 
 		if (acao=="115"){
 			if(!($(".status-produto-"+propostaID).is(":checked"))){
@@ -1757,9 +1757,9 @@ $(document).ready(function(){
 		}
 
 		//VERIFICA SE FOI SELECIONADO ALGUMA FORMA DE PAGAMENTO
-		if(tipoPagamento=='114'){
-			alertify.alert("<b>Aviso</b>","É necessário selecionar alguma formar de pagamento!");
-				return false;
+		if((tipoFormaPagamentoAtual =='') || (tipoFormaPagamentoAtual ==='0')){
+			alertify.alert("<b>Aviso</b>","É necessário selecionar alguma forma de pagamento! <br> <br> Selecione uma forma de pagamento e então clique no botão: <br>'SALVAR VENCIMENTOS'!");
+			return false;
 		}
 
 		if ((acao=="118")||(acao=="119")||(acao=="121")||(acao=="122")){
@@ -1989,10 +1989,9 @@ $(document).ready(function(){
 			var propostaId 		= $("#proposta-id").val();
 			var situacaoTemp 	= $("#forma-pagamento-"+propostaId).val();
 
-			console.log(situacaoTemp);
-
 			if(situacaoTemp != ''){
 				salvarDadosVencimento('Vencimentos atualizados');
+				location.reload();
 			}else{
 				alertify.alert("<b>Aviso</b>","Selecione uma forma de pagamento válida.");
 				return false;
@@ -2018,8 +2017,10 @@ function salvarDadosVencimento(mensagem){
 	caminho = caminhoScript+"/modulos/chamados/chamados-orcamento-salvar-vencimentos-proposta.php";
 	$.ajax({type: "POST",url: caminho, data: $("#proposta-id, .vencimentos").serialize(), dataType: "html", contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 		success: function(retorno){
-			if (mensagem!='')
+			if (mensagem!=''){
 				alertify.alert("<b>Aviso</b>",mensagem);
+			}
+
 		}
 	});
 }

@@ -2082,7 +2082,7 @@ function carregarProdutos($chaveID, $tipo){
 								<div class='titulo-secundario' style='float:left; width:100%; margin-top: 10px;'>
 									<p><select name='forma-pagamento[".$chaveID."]' id='forma-pagamento-".$chaveID."' class='forma-pagamento vencimentos'>".optionValueGrupo(72, $formaPagamentoID, "Selecione")."</select></p>
 								</div>
-								<div id='exibir-campos-forma-pagamento-".$chaveID."' class='titulo-secundario' style='float:left; width:100%; margin-top: 10px;'>".carregarFormaPagamentoOrcamento($chaveID, $formaPagamentoID, $totalGeral)."</div>
+								<div id='exibir-campos-forma-pagamento-".$chaveID."' class='titulo-secundario' style='float:left; width:100%; margin-top: 10px;' value='$formaPagamentoID'>".carregarFormaPagamentoOrcamento($chaveID, $formaPagamentoID, $totalGeral)."</div>
 								<div style='float:right; width:100%; margin-top: 10px;'>
 									<p align='right'><input type='button' class='atualizar-dados-vencimento' style='width:110px; height:30px; font-size:10px;' value='Salvar Vencimentos'/></p>
 								</div>
@@ -2771,11 +2771,11 @@ function salvarProdutoOrcamento(){
 	if ($faturamentoDireto == ""){ $faturamentoDireto = "0";}
 
 	if ($propostaProdutoID==""){
-		$sql = "insert into orcamentos_propostas_produtos (Proposta_ID, Produto_Variacao_ID, Descricao, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Cliente_Final_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID, Observacao_Produtos)
-												values ('$propostaID', '$produtoVariacaoID', '$descricao', '$quantidade', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', '$clienteFinalID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."', '$produtoObservacao')";
+		$sql = "INSERT INTO orcamentos_propostas_produtos (Proposta_ID, Produto_Variacao_ID, Descricao, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Cliente_Final_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID, Observacao_Produtos)
+												VALUES ('$propostaID', '$produtoVariacaoID', '$descricao', '$quantidade', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', '$clienteFinalID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."', '$produtoObservacao')";
 	}else{
-		$sql = "update orcamentos_propostas_produtos
-					set Produto_Variacao_ID = '$produtoVariacaoID',
+		$sql = "UPDATE orcamentos_propostas_produtos
+					SET Produto_Variacao_ID = '$produtoVariacaoID',
 						Descricao = '$descricao',
 						Quantidade = '$quantidade',
 						Valor_Custo_Unitario = '$valorCustoUnitario',
