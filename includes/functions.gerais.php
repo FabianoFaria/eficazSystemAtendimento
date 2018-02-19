@@ -2676,6 +2676,20 @@
 		return array('domingo' => $dom,'sabado' => $sab);
 	}
 
+	//CAUCULA A DIFERENÇA ENTRE O PAGAMENTO DOS FORNECEDORES E A DATA DO POSSIVEL FATURAMENTO
+
+	function retornarDiferencasDias($dataFaturamente,$dataPagamentoFornecedor){
+
+		$dataFtrm 		= implode("-", array_reverse(explode("/", $dataFaturamente)));
+		$dataPgmt 		= implode("-", array_reverse(explode("/", $dataPagamentoFornecedor)));
+
+		$dStart 	= new DateTime($dataFtrm);
+		$dEnd  		= new DateTime($dataPgmt);
+		$dDiff 		= $dStart->diff($dEnd);
+
+		return $dDiff;
+	}
+
 	function paginadorTabela($paginasTotais, $paginaAtual, $quantidadeRegistros, $dados, $idTabela, $largura, $colunas){
 		if($paginasTotais >= 2){
 			$_SESSION[idTabela] 			= $idTabela;
@@ -3459,14 +3473,14 @@ function salvarConfiguracoesGeraisModulos(){
 }
 
 function carregarConfiguracoesGeraisModulos($slug){
-	$sql = "select Descr_Tipo from tipo where Tipo_Grupo_ID = '52' and Tipo_Auxiliar = '$slug'";
+	$sql = "SELECT Descr_Tipo FROM tipo WHERE Tipo_Grupo_ID = '52' and Tipo_Auxiliar = '$slug'";
 	if($rs = mpress_fetch_array(mpress_query($sql)))
 		$array = unserialize($rs['Descr_Tipo']);
 
 	//abaixo gambi
 	if ($slug=='chamados'){
-		$sql = "select (select Oculta_Menu from modulos_paginas where slug = 'chamados-orcamento-localizar') as orcamentos,
-						(select Oculta_Menu from modulos_paginas where slug = 'chamados-localizar-chamado') as chamados";
+		$sql = "SELECT (SELECT Oculta_Menu FROM modulos_paginas WHERE slug = 'chamados-orcamento-localizar') AS orcamentos,
+						(SELECT Oculta_Menu FROM modulos_paginas WHERE slug = 'chamados-localizar-chamado') AS chamados";
 		$resultado = mpress_query($sql);
 		if($rs = mpress_fetch_array($resultado)){
 			$array['orcamentos'] .= $rs['orcamentos'];
@@ -3546,6 +3560,7 @@ function optionValueFrete($selecionado){
 	$sel[$selecionado] = " selected ";
 	$optionValue .= "	<option value='CIF' ".$sel['CIF'].">CIF - Custos do FORNECEDOR</option>";
 	$optionValue .= "	<option value='FOB' ".$sel['FOB'].">FOB - Custos do CLIENTE</option>";
+	$optionValue .= "	<option value='NOF' ".$sel['NOF'].">NOF - Custo Não existente</option>";
 	return $optionValue;
 }
 

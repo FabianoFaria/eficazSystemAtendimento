@@ -1397,8 +1397,21 @@ function incluirAlterarProdutoOrcamento(){
 	$("#select_produtos_chosen a").css('background-color', '').css('outline', '');
 	$("#quantidade-produtos").css('background-color', '').css('outline', '');
 	$("#valor-custo-unitario").css('background-color', '').css('outline', '');
+	$("#forma-pagamento-produto").css('background-color', '').css('outline', '');
 	if ($("#select-produtos").val()==""){ $("#select_produtos_chosen a").css('background-color', '#FFE4E4'); flag=1;}
 	if ($("#quantidade-produtos").val()==""){ $("#quantidade-produtos").css('background-color', '#FFE4E4'); flag=1;}
+	
+
+	//console.log(pagamentoPrestador);
+	if($('#checkbox-pagamento-prestador:checkbox:checked').length > 0){
+		// Validação da escolha de forma de pagamento do produto para fornecedores
+		if ($("#forma-pagamento-produto").val()==""){ 
+			$("#forma-pagamento-produto").css('background-color', '#FFE4E4'); 
+			flag=1;
+			alertify.alert("<b>Aviso</b>","Selecione uma forma de pagamento válida.");
+		}
+	}
+
 	if (flag==0){
 		$("#botao-incluir-produtos").hide();
 		$("#botao-cancelar-produtos").hide();
@@ -1409,6 +1422,8 @@ function incluirAlterarProdutoOrcamento(){
 				$(".botao-salvar-proposta-completo, .botao-exibir-produto, .btn-editar-produto-orcamento, .btn-excluir-produto-orcamento").show();
 			}
 		});
+	}else{
+		//console.log("Teste de validação" + flag);
 	}
 }
 

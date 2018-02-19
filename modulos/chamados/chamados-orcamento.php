@@ -1,12 +1,12 @@
 <?php
 	//include("functions.php");
 	global $modulosAtivos, $caminhoSistema, $dadosUserLogin;
-	$contEmpresas = verificaNumeroEmpresas();
-	$workflowID = $_POST["workflow-id"];
+	$contEmpresas 		= verificaNumeroEmpresas();
+	$workflowID 		= $_POST["workflow-id"];
 
 
-	$condicaoSituacao = " and Tipo_ID != 111 ";
-	$textoDescricao = "Descri&ccedil;&atilde;o";
+	$condicaoSituacao 	= " and Tipo_ID != 111 ";
+	$textoDescricao 	= "Descri&ccedil;&atilde;o";
 	if ($workflowID!=""){
 		$sql = "SELECT 
 					w.Empresa_ID, 
@@ -325,7 +325,11 @@
 				<div class='dados-follows-orcamento <?php echo $escondeDadosFollows;?>'>
 					<div class='titulo-secundario' style='width:100%;'>
 						<p><b><?php echo $textoDescricao; ?></b></p>
-						<p class='omega'><textarea id='descricao-follow' name='descricao-follow' class='dados-orc' style='height:60px;width:99.3%'></textarea></p>
+						<p class='omega'>
+							<textarea id='descricao-follow' name='descricao-follow' class='dados-orc' style='height:60px;width:99.3%'>
+								
+							</textarea>
+						</p>
 					</div>
 					<div class='titulo-secundario' style='width:50%;float:left;'>
 						<p><b>Situa&ccedil;&atilde;o</b></p>
