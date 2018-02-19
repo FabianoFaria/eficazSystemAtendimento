@@ -29,7 +29,8 @@
 		$mes 					= date("m");
 		$ano 					= date("Y");
 		$ultimo_dia 			= date("t", mktime(0,0,0,$mes,'01',$ano));
-		$dataFimVencimento 		= $ultimo_dia."/".date("m/Y");
+		$dataFimVencimento 		= $ultimo_dia."/".date("m/Y", strtotime("+1 month"));
+		//$dataFimVencimento 		= $ultimo_dia."/".date("m/Y");
 	}
 
 	$contEmpresas 				= verificaNumeroEmpresas();

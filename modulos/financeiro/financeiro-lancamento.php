@@ -4,10 +4,36 @@
 include("functions.php");
 global $caminhoFisico, $modulosAtivos, $modulosGeral, $configFinanceiro;
 
+
 $contaID = $_POST['localiza-conta-id'];
 if ($contaID==""){
 	$contaID = $_GET['localiza-conta-id'];
 }
+
+//var_dump($_GET, $configFinanceiro);
+
+/*
+	'produto-faturar' => 
+    array (size=1)
+      0 => string '876' (length=3)
+  'empresa-id' => string '1089' (length=4)
+  'tipo-id' => string '45' (length=2)
+  'cadastro-id' => string '12468' (length=5)
+  'modulo' => string 'orcamentos' (length=10)
+  'chave-estrangeira' => string '279' (length=3)
+
+
+  	cadastro-id	14906
+	chave-estrangeira	279
+	empresa-id	1089
+	modulo	orcamentos
+	produto-faturar[]	868
+	tipo	direto
+	tipo-id	44
+
+*/
+
+
 
 if ($contaID != ""){
 	$sql = "SELECT Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Cadastro_Conta_ID_de, Cadastro_Conta_ID_para, Tipo_Conta_ID, Observacao FROM financeiro_contas WHERE Conta_ID = $contaID";
@@ -113,7 +139,10 @@ if ($_GET['tipo']=='direto'){
 			$cadastroIDde 	= $_GET['cadastro-id'];
 			$cadastroIDpara = $_GET['prestador-id'];
 		}
+
 		$faturamentoDireto = "S";
+		$modulo 			= $_GET['modulo'];
+		$chaveEstrangeira 	= $_GET['chave-estrangeira'];
 	}
 	if ($_GET['modulo']=='orcamentos'){
 		// ENTRADA e SAIDA
@@ -121,7 +150,19 @@ if ($_GET['tipo']=='direto'){
 		$cadastroIDde 		= $_GET['empresa-id'];
 		$cadastroIDpara 	= $_GET['cadastro-id'];
 		$faturamentoDireto 	= "S";
+
+		$modulo 			= $_GET['modulo'];
+		$chaveEstrangeira 	= $_GET['chave-estrangeira'];
 	}
+}
+
+if(isset($_GET['produto-faturar'])){
+
+	$produtos = $_GET['produto-faturar'];
+
+}else{
+
+	$produtos = array();
 }
 
 /*
@@ -146,6 +187,22 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 }
 */
 
+// var_dump($contaID);
+// die();
+
+/*
+	'produto-faturar' => 
+    array (size=1)
+      0 => string '872' (length=3)
+  'empresa-id' => string '1089' (length=4)
+  'tipo-id' => string '44' (length=2)
+  'cadastro-id' => string '14452' (length=5)
+  'modulo' => string 'orcamentos' (length=10)
+  'chave-estrangeira' => string '278' (length=3)
+
+*/
+
+
 ?>
 <div id="container-geral">
 	<div id='div-retorno'></div>
@@ -156,6 +213,26 @@ if (($_GET['slug-pagina']=='financeiro-contas-transferencias') || (($contaID!=''
 	<input type="hidden" id="conta-id" name="conta-id" value="<?php echo $contaID;?>"/>
 	<input type="hidden" id="numero-empresas" name="numero-empresas" value="<?php echo $cont;?>"/>
 	<input type='hidden' id="situacao-titulos" name='situacao-titulos' value="<?php echo $situacaoTitulos;?>"/>
+
+	<input type="hidden" id="chave-estrangeira" name="chave-estrangeira" value="<?php echo $chaveEstrangeira;?>"/>
+	<input type="hidden" id="modulo" name="modulo" value="<?php echo $modulo;?>"/>
+
+	<?php
+
+		//ENVIA PARA A MODAL AS IDs DOS PRODUTOS QUE DEVERAM SER FATURADOS
+
+		$i = 0;
+		foreach ($_GET['produto-faturar'] as $produtoFaturar) {
+			
+
+
+			echo "<input type='hidden' id='produto-faturar-".$i."' name='produto-faturar[]' value='".$produtoFaturar."' />";
+
+			$i++;
+
+		}
+
+	?>
 
 	<input type="hidden" id="aux-forma-pagamento" name="aux-forma-pagamento" value=""/>
 	<input type="hidden" id="aux-data-vencimento" name="aux-data-vencimento" value=""/>

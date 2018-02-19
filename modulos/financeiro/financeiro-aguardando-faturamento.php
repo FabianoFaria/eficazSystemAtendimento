@@ -71,7 +71,7 @@
 										<select name="representante" id="representante" style='width:98.5%'>
 											<option value=''></option>
 												<?php
-													$grupos = mpress_query("select cd.Cadastro_ID, cd.Nome from cadastros_dados cd
+													$grupos = mpress_query("SELECT cd.Cadastro_ID, cd.Nome FROM cadastros_dados cd
 																				inner join modulos_acessos ma on ma.Modulo_Acesso_ID = cd.Grupo_ID
 																				where cd.Cadastro_ID > 0 and ma.Situacao_ID = 1 order by cd.Nome");
 													while($row = mpress_fetch_array($grupos)){

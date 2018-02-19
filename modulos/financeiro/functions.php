@@ -91,14 +91,14 @@
 						<td class='titulo-secundario coluna-titulo-vencimentos' style='width:11%'><p class='info-pagamento esconde'><b>Valor Pago</b></p></td>
 				</tr>";
 		if ($situacaoTitulos=='pendente'){
-			$valorTotal = str_replace(",",".",str_replace(".","",$_POST['valor-total']));
-			$qtdeParcelas = $_POST['qtde-parcelas'];
-			$titulo = $_POST['titulo-lancamento'];
-			$dataVencimento = retornaDataHora('d','d/m/Y');
-			$dataPago = $dataVencimento;
+			$valorTotal 		= str_replace(",",".",str_replace(".","",$_POST['valor-total']));
+			$qtdeParcelas 		= $_POST['qtde-parcelas'];
+			$titulo 			= $_POST['titulo-lancamento'];
+			$dataVencimento 	= retornaDataHora('d','d/m/Y');
+			$dataPago 			= $dataVencimento;
 
-			$parcela = ($valorTotal / $qtdeParcelas);
-			$parcelaAux = number_format(($valorTotal / $qtdeParcelas), 2, '.', '');
+			$parcela 			= ($valorTotal / $qtdeParcelas);
+			$parcelaAux 		= number_format(($valorTotal / $qtdeParcelas), 2, '.', '');
 			$situacaoVencimento = "48";
 
 			if ($_POST['tipo-pgto']=="v"){
@@ -163,7 +163,7 @@
 
 			/************************************************/
 
-			$sql = "select Titulo_ID, Forma_Pagamento_ID, coalesce(tfp.Descr_Tipo,'Não Informado') as Forma_Pagamento, coalesce(tsp.Descr_Tipo,'Não Informado') as Situacao_Pagamento, ft.Codigo, Valor_Titulo,
+			$sql = "SELECT Titulo_ID, Forma_Pagamento_ID, coalesce(tfp.Descr_Tipo,'Não Informado') as Forma_Pagamento, coalesce(tsp.Descr_Tipo,'Não Informado') as Situacao_Pagamento, ft.Codigo, Valor_Titulo,
 						DATE_FORMAT(Data_Vencimento, '%d/%m/%Y') as Data_Vencimento, DATE_FORMAT(Data_Vencimento, '%Y-%m-%d') as Data_Vencimento_Orig, Valor_Pago, DATE_FORMAT(Data_Pago, '%d/%m/%Y') as Data_Pago, Situacao_Pagamento_ID,
 						DATE_FORMAT(ft.Data_Alteracao, '%d/%m/%Y') as Data_Alteracao, ft.Usuario_Alteracao_ID, DATE_FORMAT(ft.Data_Cadastro, '%d/%m/%Y') as Data_Cadastro, ft.Usuario_Cadastro_ID,
 						IF (tsp.Tipo_ID = 48, DATEDIFF('".retornaDataHora('d','Y-m-d')."',DATE_FORMAT(ft.Data_Vencimento,'%Y-%m-%d')),'') as DiasAtraso, cda.Nome as Usuario_Alteracao, fc.Tipo_ID
@@ -187,28 +187,28 @@
 				}
 
 				$i++;
-				$codigoTitulo = $rs['Codigo'];
-				$tituloVencimentoID = $rs['Titulo_ID'];
-				$dataVencimento = $rs['Data_Vencimento'];
-				$dataPago = $rs['Data_Pago'];
-				$valorPago = number_format($rs['Valor_Pago'], 2, ',', '.');
-				$parcela = number_format($rs['Valor_Titulo'], 2, ',', '.');
-				$situacaoPagamentoID = $rs['Situacao_Pagamento_ID'];
-				$situacaoPagamento = $rs['Situacao_Pagamento'];
-				$formaPagamentoID = $rs['Forma_Pagamento_ID'];
-				$formaPagamento = $rs['Forma_Pagamento'];
-				$tipoID = $rs['Tipo_ID'];
+				$codigoTitulo 				= $rs['Codigo'];
+				$tituloVencimentoID 		= $rs['Titulo_ID'];
+				$dataVencimento 			= $rs['Data_Vencimento'];
+				$dataPago 					= $rs['Data_Pago'];
+				$valorPago 					= number_format($rs['Valor_Pago'], 2, ',', '.');
+				$parcela 					= number_format($rs['Valor_Titulo'], 2, ',', '.');
+				$situacaoPagamentoID 		= $rs['Situacao_Pagamento_ID'];
+				$situacaoPagamento 			= $rs['Situacao_Pagamento'];
+				$formaPagamentoID 			= $rs['Forma_Pagamento_ID'];
+				$formaPagamento 			= $rs['Forma_Pagamento'];
+				$tipoID 					= $rs['Tipo_ID'];
 
-				$campoFechado = "esconde";
-				$campoAberto = "";
+				$campoFechado 				= "esconde";
+				$campoAberto		 		= "";
 				if ($rs['Situacao_Pagamento_ID']=="49"){
-					$campoFechado = "";
-					$campoAberto = "esconde";
+					$campoFechado 		= "";
+					$campoAberto 		= "esconde";
 				}
 				else{
-					$campoFechado = "esconde";
-					$campoAberto = "";
-					$valorPago = $parcela;
+					$campoFechado 		= "esconde";
+					$campoAberto 		= "";
+					$valorPago 			= $parcela;
 				}
 				$boletoGerar = "";
 				$descricaoAcaoBoleto = "Gerar";
@@ -351,10 +351,15 @@
 	}
 
 	function carregarTitulos($contaID, $tituloID, $situacaoTitulos, $tipo){
+
 		global $configFinanceiro;
 		$escondeExcluir = "esconde";
 		if ($contaID != ""){
-			$sql = "SELECT Tipo_ID, Tipo_Conta_ID, Cadastro_ID_de, Cadastro_ID_para, Codigo, Valor_Total,
+			$sql = "SELECT Tipo_ID, 
+						Tipo_Conta_ID, 
+						Cadastro_ID_de, 
+						Cadastro_ID_para, 
+						Codigo, Valor_Total,
 						(SELECT COUNT(*) FROM financeiro_titulos WHERE Conta_ID = $contaID) as Qtde_Parcelas,
 						(SELECT COUNT(*) FROM financeiro_titulos ft2 WHERE ft2.Conta_ID = $contaID and ft2.Situacao_Pagamento_ID = 50) AS Qtde_Cancelados
 					FROM financeiro_contas WHERE Conta_ID = $contaID";
@@ -387,6 +392,8 @@
 			$escondeSalvarContinuar = "";
 			$qtdeParcelas 			= 1;
 			$checkedTipoPgtoV 		= "checked='checked'";
+
+			$formaPagamento 		= "";
 
 			/* FATURAMENTO DIRETO */
 			if ($_GET['tipo']=='direto'){
@@ -422,14 +429,21 @@
 					}
 					$idsProdutos = substr($idsProdutos,1);
 
+
+					// ADICIONADO A FORMA DE PAGAMENTO DO PRODUTO CASO O PRODUTO SEJA PARA PAGAR FORNECEDOR
 					$sql = "SELECT SUM(opp.Quantidade * opp.Valor_Venda_Unitario) as Valor_Total_Venda,
 									SUM(opp.Quantidade * opp.Valor_Custo_Unitario) as Valor_Total_Custo,
 									opp.Faturamento_Direto,
-								op.Proposta_ID as Proposta_ID
+									op.Proposta_ID as Proposta_ID,
+									opp.Pagamento_Prestador,
+									opp.Prestador_Forma_Pagamento_ID
 								FROM orcamentos_propostas_produtos opp
 								INNER JOIN orcamentos_propostas op on op.Proposta_ID = opp.Proposta_ID
 								WHERE opp.Proposta_Produto_ID in ($idsProdutos)
-								GROUP BY opp.Faturamento_Direto,op.Proposta_ID";
+								GROUP BY opp.Faturamento_Direto,op.Proposta_ID,opp.Pagamento_Prestador,opp.Prestador_Forma_Pagamento_ID";
+
+					//var_dump($sql);
+
 					//echo "-->".$_GET['tipo-id'];
 					/*
 						DEVIDO a diferença da verção dos bancos de dados,
@@ -455,52 +469,132 @@
 							}
 						}
 						$propostaID = $rs['Proposta_ID'];
+
+						$formaPagamento = $rs['Prestador_Forma_Pagamento_ID'];
 					}
 
-					// COM O ID DA PROPOSTA, BUSCA A FORMA DE PAGAMENTO PARA ALTERAR O VALOR FINAL
 
-					$sqlFomaPagamento = "SELECT op.Proposta_ID,
+					/*
+						TRECHO PARA VALIDAR SE O PRODUTO SERÁ FATURAMENTO OU PAGAMENTO A FORNECEDOR, ENTÃO SERÁ APLICADO O MODIFICADOR DE PREÇO FINAL.
+					*/
+
+					if($_GET['tipo-id'] == '44'){
+
+						/*
+							CASO O PRODUTO SEJA PARA PAGAMENTO DE FORNECEDOR, SERÁ NECESSARIO ALTERAR PARA A FORMA DE PAGAMENTO ESCOLHIDA PARA O PRODUTO.
+						*/
+
+						if(isset($formaPagamento)){
+
+							$sqlFomaPagamento = "SELECT Descr_Tipo as Forma_Cobranca,
+												Tipo_Auxiliar as Descricao
+											FROM tipo
+											WHERE tipo.Tipo_ID = $formaPagamento";
+
+						}else{
+
+							$sqlFomaPagamento = "SELECT op.Proposta_ID,
+											fc.Descr_Tipo as Forma_Cobranca,
+											fc.Tipo_Auxiliar as Descricao
+											FROM orcamentos_propostas op
+											INNER JOIN tipo fc ON fc.Tipo_ID = op.Forma_Pagamento_ID
+											WHERE Proposta_ID = '$propostaID'";
+						}
+
+
+						$formaPgmtRaw 	= mpress_query($sqlFomaPagamento);
+
+						$rst 			= mpress_fetch_array($formaPgmtRaw);
+
+						$descricao 		= unserialize($rst['Descricao']);
+
+
+						//CORRECAO DE PREÇOS COM A MODIFICAÇÂO ESPECIFICA
+
+						$valorModificar = ($valorTotal / 100) * $descricao['valor_modificado'];
+
+						if($descricao['tipo-bonus-disponivel'] == 'Desconto'){
+
+							$novoValor 		= $valorTotal - $valorModificar;
+
+							$valorTotal 	= $novoValor;
+
+						}else{
+
+							$novoValor 		= $valorTotal + $valorModificar;
+
+							$valorTotal 	= $novoValor;
+						}
+
+						// CALCULA A QUANTIDADE DE PARCELAS A SEREM COBRADAS.
+						$valorTotal = number_format($valorTotal, 2, ',', '.');
+						$faturamentoDireto = "S";
+
+						$qtdeParcelas = $descricao['quantidade-parcelas'];
+
+						// $sql = "SELECT count(*) as Quantidade FROM orcamentos_propostas_vencimentos WHERE Proposta_ID = '".$propostaID."' and Situacao_ID = 1";
+						// $resultado = mpress_query($sql);
+
+
+						// while ($rs = mpress_fetch_array($resultado)){
+						// 	$qtdeParcelas = $rs['Quantidade'];
+						// }
+
+					}else{
+
+						//CARREGA A FORMA DE PAGAMENTO DO ORÇAMENTO NORMALMENTE
+
+						// COM O ID DA PROPOSTA, BUSCA A FORMA DE PAGAMENTO PARA ALTERAR O VALOR FINAL
+
+						$sqlFomaPagamento = "SELECT op.Proposta_ID,
 											fc.Descr_Tipo as Forma_Cobranca,
 											fc.Tipo_Auxiliar as Descricao
 											FROM orcamentos_propostas op
 											INNER JOIN tipo fc ON fc.Tipo_ID = op.Forma_Pagamento_ID
 											WHERE Proposta_ID = '$propostaID'";
 
-					$formaPgmtRaw 	= mpress_query($sqlFomaPagamento);
 
-					$rst 			= mpress_fetch_array($formaPgmtRaw);
 
-					//echo "teste de forma pagamento ".$rst['Forma_Cobranca']; Descricao
+						$formaPgmtRaw 	= mpress_query($sqlFomaPagamento);
 
-					$descricao 		= unserialize($rst['Descricao']);
+						$rst 			= mpress_fetch_array($formaPgmtRaw);
 
-					//var_dump($descricao[''], ['valor_modificado']);
-					//echo "Tipo desconto ".$descricao['tipo-bonus-disponivel']." desconto ".$descricao['valor_modificado'];
-					$valorModificar = ($valorTotal / 100) * $descricao['valor_modificado'];
+						//echo "teste de forma pagamento ".$rst['Forma_Cobranca']; Descricao
 
-					if($descricao['tipo-bonus-disponivel'] == 'Desconto'){
+						$descricao 		= unserialize($rst['Descricao']);
 
-						$novoValor 		= $valorTotal - $valorModificar;
+						//var_dump($descricao[''], ['valor_modificado']);
+						//echo "Tipo desconto ".$descricao['tipo-bonus-disponivel']." desconto ".$descricao['valor_modificado'];
 
-						$valorTotal 	= $novoValor;
+						$valorModificar = ($valorTotal / 100) * $descricao['valor_modificado'];
 
-					}else{
+						if($descricao['tipo-bonus-disponivel'] == 'Desconto'){
 
-						$novoValor 		= $valorTotal + $valorModificar;
+							$novoValor 		= $valorTotal - $valorModificar;
 
-						$valorTotal 	= $novoValor;
+							$valorTotal 	= $novoValor;
+
+						}else{
+
+							$novoValor 		= $valorTotal + $valorModificar;
+
+							$valorTotal 	= $novoValor;
+						}
+
+
+						// CALCULA A QUANTIDADE DE PARCELAS A SEREM COBRADAS.
+						$valorTotal 		= number_format($valorTotal, 2, ',', '.');
+						$faturamentoDireto 	= "S";
+
+						$sql = "SELECT count(*) as Quantidade FROM orcamentos_propostas_vencimentos WHERE Proposta_ID = '".$propostaID."' and Situacao_ID = 1";
+						$resultado = mpress_query($sql);
+						while ($rs = mpress_fetch_array($resultado)){
+							$qtdeParcelas = $rs['Quantidade'];
+						}
+
 					}
 
 
-
-					$valorTotal = number_format($valorTotal, 2, ',', '.');
-					$faturamentoDireto = "S";
-
-					$sql = "SELECT count(*) as Quantidade FROM orcamentos_propostas_vencimentos WHERE Proposta_ID = '".$propostaID."' and Situacao_ID = 1";
-					$resultado = mpress_query($sql);
-					while ($rs = mpress_fetch_array($resultado)){
-						$qtdeParcelas = $rs['Quantidade'];
-					}
 				}
 				if ($qtdeParcelas==0) {
 					$qtdeParcelas = 1;
@@ -709,7 +803,89 @@
 
 	function salvarConta(){
 		//echo $_POST["acao"];
-		//exit();
+
+		/*
+			C:\wamp64\www\sistemaEficaz\modulos\financeiro\functions.php:806:
+array (size=43)
+  'slug-pagina' => string 'financeiro-lancamento' (length=21)
+  'texto-geral' => string '' (length=0)
+  'tipo-cadastro' => string '' (length=0)
+  'localiza-titulo-id' => string '' (length=0)
+  'localiza-conta-id' => string '' (length=0)
+  'conta-id' => string '' (length=0)
+  'numero-empresas' => string '1' (length=1)
+  'situacao-titulos' => string 'pendente' (length=8)
+  'aux-forma-pagamento' => string '' (length=0)
+  'aux-data-vencimento' => string '' (length=0)
+  'aux-data-pago' => string '' (length=0)
+  'aux-situacao-vencimento' => string '' (length=0)
+  'workflow-id' => string '' (length=0)
+  'ordem-compra-id' => string '' (length=0)
+  'cadastroID' => string '' (length=0)
+  'tipo-conta-id' => string '45' (length=2)
+  'faturamento-direto' => string 'S' (length=1)
+  'lancamento-fancybox' => string '1' (length=1)
+  'lancamento-salvo' => string '' (length=0)
+  'radio-tipo-grupo-27' => string '45' (length=2)
+  'hidden-tipo-transacao' => string '45' (length=2)
+  'cadastro-conta-id-de' => string '1' (length=1)
+  'cadastro-id-de' => string '1089' (length=4)
+  'lancamento-tipo-conta' => 
+    array (size=1)
+      0 => string '1387' (length=4)
+  'lancamento-centro-custo' => 
+    array (size=1)
+      0 => string '' (length=0)
+  'numero-opcoes' => string '1' (length=1)
+  'cadastro-id-para' => string '12468' (length=5)
+  'texto-cadastro-localiza-cadastro-id-para' => string 'CTO TERESINA' (length=12)
+  'cadastro-conta-id-para-transf' => string '' (length=0)
+  'cadastro-id-para-transf' => string '' (length=0)
+  'observacao' => string '' (length=0)
+  'tipo-pgto' => string 'v' (length=1)
+  'valor-total' => string '0,01' (length=4)
+  'qtde-parcelas' => string '1' (length=1)
+  'configCob' => 
+    array (size=8)
+      'aplicar-juros' => string 'checked' (length=7)
+      'percentual-juros-multa' => string '5,00' (length=4)
+      'percentual-juros-mensal-simples' => string '0,00' (length=4)
+      'percentual-juros-mensal-composto' => string '' (length=0)
+      'aplicar-cobranca-honorarios' => string 'checked' (length=7)
+      'percentual-honorarios' => string '5,00' (length=4)
+      'aplicar-correcao-monetaria' => string 'checked' (length=7)
+      'indice-correcao' => string 'inpc' (length=4)
+  'titulo-vencimento' => 
+    array (size=1)
+      0 => string '' (length=0)
+  'codigo-vencimento' => 
+    array (size=1)
+      0 => string '' (length=0)
+  'forma-pagamento' => 
+    array (size=1)
+      0 => string '47' (length=2)
+  'data-vencimento' => 
+    array (size=1)
+      0 => string '09/02/2018' (length=10)
+  'valor-vencimento' => 
+    array (size=1)
+      0 => string '0,01' (length=4)
+  'situacao-vencimento' => 
+    array (size=1)
+      0 => string '48' (length=2)
+  'data-pago' => 
+    array (size=1)
+      0 => string '09/02/2018' (length=10)
+  'valor-pago' => 
+    array (size=1)
+      0 => string '0,01' (length=4)
+
+		*/
+
+
+		// var_dump($_POST);
+		// exit();
+
 		global $dadosUserLogin, $configFinanceiro;
 
 		$situacaoTitulos 	= $_POST['situacao-titulos'];
@@ -721,6 +897,22 @@
 		$qtdeParcelas 		= $_POST['qtde-parcelas'];
 		$titulo 			= $_POST['titulo-lancamento'];
 		$tipoID 			= $_POST['radio-tipo-grupo-27'];
+
+
+		// $modulo 			= $_POST['modulo'];
+		// $chaveEstrangeira  	= $_POST['chave-estrangeira'];
+
+		if(isset($_POST['modulo'])){
+			$modulo 			= $_POST['modulo'];
+		}else{
+			$modulo 			= '';
+		}
+
+		if(isset($_POST['chave-estrangeira'])){
+			$chaveEstrangeira  	= $_POST['chave-estrangeira'];
+		}else{
+			$chaveEstrangeira  	= '0';
+		}
 			
 		// print_r($_POST['situacao-titulos']);
 
@@ -754,9 +946,9 @@
 			$cadastroIDpara = 0;
 		}
 
-		//var_dump($_POST);
+		// var_dump($_POST);
 
-		//die();
+		// die();
 
 		/* SE TRANSFERENCIA */
 		if ($tipoID==46){
@@ -780,8 +972,8 @@
 		if ($situacaoTitulos=='pendente'){
 			if ($contaID!=""){
 				//$tipoID = $_POST['hidden-tipo-transacao'];
-				mpress_query("update financeiro_contas set Tipo_ID = '$tipoID', Tipo_Conta_ID = '$tipoContaID', Centro_Custo_ID = '$centroCustoID', Cadastro_ID_para = '$cadastroIDpara', Valor_Total = '$valorTotal' where Conta_ID = '$contaID'");
-				mpress_query("delete from financeiro_titulos where Conta_ID = '$contaID'");
+				mpress_query("UPDATE financeiro_contas SET Tipo_ID = '$tipoID', Tipo_Conta_ID = '$tipoContaID', Centro_Custo_ID = '$centroCustoID', Cadastro_ID_para = '$cadastroIDpara', Valor_Total = '$valorTotal' WHERE Conta_ID = '$contaID'");
+				mpress_query("DELETE FROM financeiro_titulos WHERE Conta_ID = '$contaID'");
 			}
 			else{
 				$sql = "INSERT INTO financeiro_contas (Tipo_ID, 
@@ -806,8 +998,8 @@
 					'$cadastroContaIDde', 
 					'$cadastroContaIDpara', 
 					'$titulo', 
-					'',
-					'0', 
+					'$modulo',
+					'$chaveEstrangeira', 
 					'$valorTotal', 
 					'$observacao', 
 					$dataHoraAtual,
@@ -821,22 +1013,106 @@
 				$contaID = mysql_insert_id();
 
 				if ($_POST['faturamento-direto']=='S'){
+
+
+
 					$i = 0;
-					foreach ($_POST['financeiro-produto-id'] as $financeiroProdutoID){
-						$tabelaEstrangeira 			= $_POST['tabela-estrangeira'][$i];
-						$chaveEstrangeira 			= $_POST['chave-estrangeira'][$i];
-						$chaveEstrangeiraProduto 	= $_POST['chave-estrangeira-produto'][$i];
-						$produtoVariacaoID 			= $_POST['produto-variacao-id'][$i];
-						$descricaoProduto 			= $_POST['descricao-produto'][$i];
-						$quantidadeProduto 			= formataValorBD($_POST['quantidade-produto'][$i]);
-						$valorUnitarioProduto 		= formataValorBD($_POST['valor-unitario-produto'][$i]);
-						$produtoReferenciaID 		= $_POST['produto-referencia-id'][$i];
-						$sql 						= "INSERT INTO financeiro_produtos (Produto_Referencia_ID, Conta_ID, Tabela_Estrangeira, Chave_Estrangeira, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro, Produto_Variacao_ID, Produto_Descricao, Quantidade, Valor_Unitario, Info_NFE)
-														VALUES ('$chaveEstrangeiraProduto', '$contaID', '$tabelaEstrangeira', '$chaveEstrangeira', 1,'".$dadosUserLogin['userID']."', $dataHoraAtual, '$produtoVariacaoID', '$descricaoProduto', '$quantidadeProduto', '$valorUnitarioProduto', '')";
+					//foreach ($_POST['financeiro-produto-id'] as $financeiroProdutoID){
+					foreach ($_POST['produto-faturar'] as $financeiroProdutoID){
+						// $tabelaEstrangeira 			= $_POST['tabela-estrangeira'][$i];
+						// $chaveEstrangeira 			= $_POST['chave-estrangeira'][$i];
+						// $chaveEstrangeiraProduto 	= $_POST['chave-estrangeira-produto'][$i];
+						// $produtoVariacaoID 			= $_POST['produto-variacao-id'][$i];
+						// $descricaoProduto 			= $_POST['descricao-produto'][$i];
+						// $quantidadeProduto 			= formataValorBD($_POST['quantidade-produto'][$i]);
+						// $valorUnitarioProduto 		= formataValorBD($_POST['valor-unitario-produto'][$i]);
+						// $produtoReferenciaID 		= $_POST['produto-referencia-id'][$i];
+
+						$sqlProduct 				= "SELECT Produto_Variacao_ID,
+														Descricao,
+														Quantidade,
+														Valor_Custo_Unitario,
+														Valor_Venda_Unitario
+														FROM orcamentos_propostas_produtos
+														WHERE Proposta_Produto_ID = '$financeiroProdutoID'";
+
+						// echo($sqlProduct);
+
+						// die();
+
+						$resultadoProduto = mpress_query($sqlProduct);
+
+						if ($rs = mpress_fetch_array($resultadoProduto)){
+
+							$produtoVariacao 	= $rs[Produto_Variacao_ID];
+							$descricao 			= $rs[Descricao];
+							$quantidade 		= $rs[Quantidade];
+							$valorCusto 		= $rs[Valor_Custo_Unitario];
+							$valorVenda 		= $rs[Valor_Venda_Unitario];
+						}else{
+							$produtoVariacao 	= 0;
+							$descricao 			= 0;
+							$quantidade 		= 0;
+							$valorCusto 		= 0;
+							$valorVenda 		= 0;
+						}
+
+						$tabelaEstrangeira 			= $modulo;
+						$chaveEstrangeira 			= $chaveEstrangeira;
+						$chaveEstrangeiraProduto 	= $financeiroProdutoID;
+
+						$produtoVariacaoID 			= $produtoVariacao;
+						$descricaoProduto 			= $descricao;
+						// $quantidadeProduto 			= formataValorBD($quantidade);
+						$quantidadeProduto 			= $quantidade;
+
+						
+						
+						if($tipoID==44){
+
+							//$valorUnitarioProduto 		= formataValorBD($valorCusto);
+							$valorUnitarioProduto 		= $valorCusto;
+
+						}elseif($tipoID==45){
+
+							//$valorUnitarioProduto 		= formataValorBD($valorVenda);
+							$valorUnitarioProduto 		= $valorVenda;
+						}
+
+
+						$produtoReferenciaID 		= 0;
+
+
+						$sql 						= "INSERT INTO financeiro_produtos (Produto_Referencia_ID,
+														Conta_ID, 
+														Tabela_Estrangeira, 
+														Chave_Estrangeira, 
+														Situacao_ID, 
+														Usuario_Cadastro_ID, 
+														Data_Cadastro, 
+														Produto_Variacao_ID, 
+														Produto_Descricao, 
+														Quantidade, 
+														Valor_Unitario,
+														Info_NFE)
+														VALUES ('$chaveEstrangeiraProduto', 
+														'$contaID', 
+														'$tabelaEstrangeira', 
+														'$chaveEstrangeira', 
+														1,
+														'".$dadosUserLogin['userID']."', 
+														$dataHoraAtual, 
+														'$produtoVariacaoID', 
+														'$descricaoProduto', 
+														'$quantidadeProduto', 
+														'$valorUnitarioProduto', 
+														'')";
 						mpress_query($sql);
 						$i++;
+
 					}
 				}
+
 			}
 			for ($i=0; $i < count($_POST["titulo-vencimento"]); $i++){
 				//$tituloVencimento = $_POST['titulo-vencimento'][$i];
@@ -853,14 +1129,14 @@
 					$valorPago 			= "0"; $dataPago = "NULL";
 				}
 				if($formaPagamento=='') $formaPagamento = 0;
-				$sql = "insert into financeiro_titulos (Conta_ID, Forma_Pagamento_ID, Codigo, Valor_Titulo, Data_Vencimento, Valor_Pago, Data_Pago, Situacao_Pagamento_ID, Observacao, Data_Cadastro, Data_Alteracao, Usuario_Cadastro_ID, Usuario_Alteracao_ID)
-										   values ('$contaID', '$formaPagamento', '$codigoVencimento', '$valorVencimento', $dataVencimento, '$valorPago', $dataPago, '$situacaoVencimento', '', $dataHoraAtual, $dataHoraAtual,'".$dadosUserLogin['userID']."','".$dadosUserLogin['userID']."')";
+				$sql = "INSERT INTO financeiro_titulos (Conta_ID, Forma_Pagamento_ID, Codigo, Valor_Titulo, Data_Vencimento, Valor_Pago, Data_Pago, Situacao_Pagamento_ID, Observacao, Data_Cadastro, Data_Alteracao, Usuario_Cadastro_ID, Usuario_Alteracao_ID)
+										   VALUES ('$contaID', '$formaPagamento', '$codigoVencimento', '$valorVencimento', $dataVencimento, '$valorPago', $dataPago, '$situacaoVencimento', '', $dataHoraAtual, $dataHoraAtual,'".$dadosUserLogin['userID']."','".$dadosUserLogin['userID']."')";
 				mpress_query($sql);
 				$tituloVencimento = mysql_insert_id();
 				if ($tipoID==45){
 					if ($codigoVencimento==""){
 						$codigoVencimento 	= $tituloVencimento;
-						$sql 				= "update financeiro_titulos set Codigo = '$codigoVencimento' where Titulo_ID = $tituloVencimento";
+						$sql 				= "UPDATE financeiro_titulos SET Codigo = '$codigoVencimento' WHERE Titulo_ID = $tituloVencimento";
 						mpress_query($sql);
 					}
 				}
@@ -890,7 +1166,7 @@
 		else{
 			/* POSTERIORMENTE DESCONTINUAR O IF ACIMA */
 
-			mpress_query("update financeiro_contas set Tipo_ID = '$tipoID',
+			mpress_query("UPDATE financeiro_contas SET Tipo_ID = '$tipoID',
 														Tipo_Conta_ID = '$tipoContaID',
 														Centro_Custo_ID = '$centroCustoID',
 														Cadastro_ID_de = '$cadastroIDde',
@@ -899,7 +1175,7 @@
 														Cadastro_Conta_ID_para = '$cadastroContaIDpara',
 														Valor_Total = '$valorTotal',
 														Observacao = '$observacao'
-														where Conta_ID = $contaID");
+														WHERE Conta_ID = $contaID");
 			for ($i=0; $i < count($_POST["titulo-vencimento"]); $i++){
 				$tituloID = $_POST['titulo-id'][$i];
 				$codigoVencimento = $_POST['codigo-vencimento'][$i];
@@ -916,7 +1192,7 @@
 					$valorPago= "0";
 					$dataPago = "NULL";
 				}
-				$sql = "update financeiro_titulos set Forma_Pagamento_ID = '$formaPagamento',
+				$sql = "UPDATE financeiro_titulos SET Forma_Pagamento_ID = '$formaPagamento',
 														Codigo = '$codigoVencimento',
 														Valor_Titulo = '$valorVencimento',
 														Data_Vencimento = $dataVencimento,
@@ -926,7 +1202,7 @@
 														Observacao = '',
 														Data_Alteracao =  $dataHoraAtual,
 														Usuario_Alteracao_ID = '".$dadosUserLogin['userID']."'
-														where Titulo_ID = $tituloID";
+														WHERE Titulo_ID = $tituloID";
 				mpress_query($sql);
 
 				/**/
@@ -986,7 +1262,7 @@
 		//if ($_POST['faturamento-direto']=='S')
 		//	echo "direto";
 		//else
-		echo $contaID;
+		//echo $contaID;
 	}
 
 
@@ -1613,8 +1889,11 @@
 	function carregarProdutosConta($contaID){
 		global $dadosUserLogin, $modulosAtivos, $caminhoSistema, $caminhoFisico;
 		$exibirOpcoesAtualizacaoProduto = "esconde";
+
+		//echo $contaID;
+
 		//if ($contaID=="") $contaID = $_POST['localiza-conta-id'];
-		$query = mpress_query("SELECT Cadastro_ID_de, Tipo_ID from financeiro_contas where Conta_ID = '$contaID'");
+		$query = mpress_query("SELECT Cadastro_ID_de, Tipo_ID FROM financeiro_contas WHERE Conta_ID = '$contaID'");
 		if($row = mpress_fetch_array($query)){
 			$empresaID = $row[Cadastro_ID_de];
 			$tipoID = $row[Tipo_ID];
@@ -1722,35 +2001,40 @@
 			}
 			$condWorkflowProdutoID = substr($produtoPropostaFaturarIDs, 0, -1);
 			$sql = "SELECT 0 AS Financeiro_Produto_ID, 
-					0 as Conta_ID, 
-					'orcamentos' as Tabela_Estrangeira, 
-					op.Workflow_ID as Referencia_ID,
-					pp.Produto_Variacao_ID as Produto_Variacao_ID, 
-					opp.Quantidade as Quantidade, 
-					opp.Valor_Venda_Unitario as Valor_Produto, 
-					opp.Valor_Custo_Unitario as Valor_Custo,
+					0 AS Conta_ID, 
+					'orcamentos' AS Tabela_Estrangeira, 
+					op.Workflow_ID AS Referencia_ID,
+					pp.Produto_Variacao_ID AS Produto_Variacao_ID, 
+					opp.Quantidade AS Quantidade, 
+					opp.Valor_Venda_Unitario AS Valor_Produto, 
+					opp.Valor_Custo_Unitario AS Valor_Custo,
 					concat(pd.Nome,
-					' ', pv.Descricao) as Produto,
-					'' as Origem,
-					'' as Tipo_Conta_ID,
-					pv.Produto_Variacao_ID as Produto_Variacao_ID, 
+					' ', pv.Descricao) AS Produto,
+					'' AS Origem,
+					'' AS Tipo_Conta_ID,
+					pv.Produto_Variacao_ID AS Produto_Variacao_ID, 
 					tp.Descr_Tipo AS Tipo, pd.Tipo_Produto AS Tipo_Produto,
 					fc.Descr_Tipo AS Forma_Cobranca, 
-					concat(pd.Nome,' ', pv.Descricao) as Produto_Descricao,	
-					opp.Proposta_Produto_ID as Chave_Estrangeira_Produto,
-					opp.Faturamento_Direto
-					from orcamentos_propostas_produtos opp
-					inner join orcamentos_propostas op on op.Proposta_ID = opp.Proposta_ID
+					concat(pd.Nome,' ', pv.Descricao) AS Produto_Descricao,	
+					opp.Proposta_Produto_ID AS Chave_Estrangeira_Produto,
+					opp.Faturamento_Direto,
+					opp.Prestador_Forma_Pagamento_ID,
+					fppf.Descr_Tipo AS Forma_Cobranca_Produto_Prestador,
+					fppf.Tipo_Auxiliar AS Descricao_Pagamento_Prestador
+					FROM orcamentos_propostas_produtos opp
+					INNER JOIN orcamentos_propostas op ON op.Proposta_ID = opp.Proposta_ID
 					INNER JOIN tipo fc ON fc.Tipo_ID = op.Forma_Pagamento_ID
-					inner join produtos_variacoes pv ON pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
-					inner join produtos_dados pd ON pd.Produto_ID = pv.Produto_ID
-					inner join tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
-					where opp.Situacao_ID = 1
-						and opp.Proposta_Produto_ID in (".$condWorkflowProdutoID.")";
+					INNER JOIN produtos_variacoes pv ON pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
+					INNER JOIN produtos_dados pd ON pd.Produto_ID = pv.Produto_ID
+					INNER JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
+					LEFT JOIN  tipo fppf ON fppf.Tipo_ID = opp.Forma_Pagamento_ID
+					WHERE opp.Situacao_ID = 1
+						AND opp.Proposta_Produto_ID IN (".$condWorkflowProdutoID.")";
 			//echo $sql;
 			$query = mpress_query($sql);
 
-			// ADICIONADO NO SELECT O MODO DE PAGAMENTO DO ORÇAMENTO
+			// ADICIONADO NO SELECT O MODO DE PAGAMENTO DO ORÇAMENTO *
+			// ADICIONADO NO SELECT O MODO DE PAGAMENTO DO PRODUTO, ESSENCIAL PARA PAGAMENTOS PARA FORNECEDORES
 		}
 		// FATURAMENTO ENVIO PARA FATURAMENTO
 		else{
@@ -2738,26 +3022,33 @@
 
 	function cancelarFaturarProdutos(){
 		global $dadosUserLogin;
-		$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
+		$dataHoraAtual 		= "'".retornaDataHora('','Y-m-d H:i:s')."'";
 
-		$tipoID = $_POST['tipo-id'];
-		$cadastroIDde = $_POST['empresa-id'];
-		$cadastroIDpara = $_POST['cadastro-id'];
-		$tabelaEstrangeira = $_POST['modulo'];
-		$chaveEstrangeira = $_POST['chave-estrangeira'];
+		$tipoID 			= $_POST['tipo-id'];
+		$cadastroIDde 		= $_POST['empresa-id'];
+		$cadastroIDpara 	= $_POST['cadastro-id'];
+		$tabelaEstrangeira 	= $_POST['modulo'];
+		$chaveEstrangeira 	= $_POST['chave-estrangeira'];
 
-		$sql = "insert into financeiro_contas (Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Tabela_Estrangeira, Chave_Estrangeira, Valor_Total, Observacao, Data_Cadastro, Usuario_Cadastro_ID)
-									values ('$tipoID', '$cadastroIDde', '$cadastroIDpara', '$tabelaEstrangeira', '$chaveEstrangeira', 0, 'Cancelamento de Faturamento de Itens', $dataHoraAtual,'".$dadosUserLogin['userID']."')";
-		//echo "<br>".$sql;
+		$sql = "INSERT INTO financeiro_contas (Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Tabela_Estrangeira, Chave_Estrangeira, Valor_Total, Observacao, Data_Cadastro, Usuario_Cadastro_ID)
+									VALUES ('$tipoID', '$cadastroIDde', '$cadastroIDpara', '$tabelaEstrangeira', '$chaveEstrangeira', 0, 'Cancelamento de Faturamento de Itens', $dataHoraAtual,'".$dadosUserLogin['userID']."')";
+		echo "<br>".$sql;
+
+		// die();
+
+		//var_dump($_POST['produto-cancelar']);
+
 		mpress_query($sql);
 		$contaID = mpress_identity();
 
 		foreach($_POST['produto-cancelar'] as $chaveEstrangeiraProduto){
 			$sql = "INSERT INTO financeiro_produtos (Produto_Referencia_ID, Conta_ID, Tabela_Estrangeira, Chave_Estrangeira, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro)
 											VALUES ('$chaveEstrangeiraProduto', '$contaID', '$tabelaEstrangeira', '$chaveEstrangeira', 2,'".$dadosUserLogin['userID']."', $dataHoraAtual)";
-			//echo "<br>".$sql;
+			echo "<br>".$sql;
 			mpress_query($sql);
 		}
+
+		//die();
 	}
 
 	function carregarProdutosFaturar($id, $tabelaEstrangeira){
@@ -2784,7 +3075,7 @@
 			pv.Codigo as Codigo_Variacao,
 			DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
 			concat(coalesce(pd.Nome,''),
-			' ',coalesce(pv.Descricao,'')) as Descricao_Produto, 
+			' ',coalesce(pv.Descricao,'')) as Descricao_Produto,
 			cd.Nome as Nome,
 			(opp.Quantidade * opp.Valor_Venda_Unitario) as Valor_Produto_Total, 
 			pd.Tipo_Produto as Tipo_Produto, 
@@ -2795,21 +3086,24 @@
 			tfp.Tipo_Auxiliar as Forma_auxiliar,
 			tfp.Descr_tipo as Forma_Pagamento,
 			o.Solicitante_ID as Faturar_Para_De_ID,
+			opp.Prestador_Forma_Pagamento_ID,
+			tpfp.Descr_tipo as Forma_Pagamento_Prestador,
 			(SELECT count(*) 
 				FROM financeiro_produtos fp
-				inner join financeiro_contas fc on fp.Conta_ID = fc.Conta_ID and fc.Tipo_ID = 45
-				where fp.Tabela_Estrangeira = 'orcamentos' and fp.Produto_Referencia_ID = opp.Proposta_Produto_ID
+				INNER JOIN financeiro_contas fc on fp.Conta_ID = fc.Conta_ID and fc.Tipo_ID = 45
+				WHERE fp.Tabela_Estrangeira = 'orcamentos' and fp.Produto_Referencia_ID = opp.Proposta_Produto_ID
 				and fp.Situacao_ID IN (1,2)) as Faturado
 			FROM orcamentos_propostas_produtos opp
 			
-			inner join orcamentos_propostas op on op.Proposta_ID = opp.Proposta_ID
-			inner join orcamentos_workflows o on o.Workflow_ID = op.Workflow_ID
-			inner join produtos_variacoes pv on pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
-			inner join produtos_dados pd on pd.Produto_ID = pv.Produto_ID
-			inner join cadastros_dados cd on cd.Cadastro_ID = opp.Usuario_Cadastro_ID
-			inner join cadastros_dados cli on cli.Cadastro_ID = o.Solicitante_ID
-			inner join cadastros_dados emp on emp.Cadastro_ID = o.Empresa_ID
-			left join tipo tfp on tfp.Tipo_ID = op.Forma_Pagamento_ID
+			inner join orcamentos_propostas op 	on op.Proposta_ID = opp.Proposta_ID
+			inner join orcamentos_workflows o 	on o.Workflow_ID = op.Workflow_ID
+			inner join produtos_variacoes pv 	on pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
+			inner join produtos_dados pd 		on pd.Produto_ID = pv.Produto_ID
+			inner join cadastros_dados cd 		on cd.Cadastro_ID = opp.Usuario_Cadastro_ID
+			inner join cadastros_dados cli 		on cli.Cadastro_ID = o.Solicitante_ID
+			inner join cadastros_dados emp 		on emp.Cadastro_ID = o.Empresa_ID
+			left join tipo tfp 					on tfp.Tipo_ID = op.Forma_Pagamento_ID
+			left join tipo tpfp on tpfp.Tipo_ID = opp.Prestador_Forma_Pagamento_ID
 			where opp.Situacao_ID = 1
 			and op.Situacao_ID = 1
 			and op.Status_ID = 141
@@ -2817,6 +3111,7 @@
 			and opp.Faturamento_Direto = 0
 			".$sqlCond."
 			".$sqlHaving."
+		
 		union all
 		/* a pagar */
 		SELECT  emp.Cadastro_ID, 
@@ -2843,6 +3138,8 @@
 		tfp.Tipo_Auxiliar as Forma_auxiliar,
 		tfp.Descr_tipo,
 		opp.Prestador_ID,
+		opp.Prestador_Forma_Pagamento_ID,
+		tpfp.Descr_tipo as Forma_Pagamento_Prestador,
 		(select count(*) 
 			from financeiro_produtos fp
 			inner join financeiro_contas fc on fp.Conta_ID = fc.Conta_ID and fc.Tipo_ID = 44
@@ -2858,6 +3155,7 @@
 		inner join cadastros_dados cli on cli.Cadastro_ID = opp.Prestador_ID
 		inner join cadastros_dados emp on emp.Cadastro_ID = o.Empresa_ID
 		left join tipo tfp on tfp.Tipo_ID = op.Forma_Pagamento_ID
+		left join tipo tpfp on tpfp.Tipo_ID = opp.Prestador_Forma_Pagamento_ID
 		where opp.Situacao_ID = 1
 		and op.Situacao_ID = 1
 		and op.Status_ID = 141
@@ -2865,6 +3163,7 @@
 		and opp.Faturamento_Direto = 0
 							".$sqlCond."
 							".$sqlHaving."
+		
 		union all
 		/* faturamento direto */
 		SELECT emp.Cadastro_ID, 
@@ -2892,6 +3191,8 @@
 		tfp.Tipo_Auxiliar as Forma_auxiliar,
 		tfp.Descr_tipo,
 		opp.Prestador_ID,
+		opp.Prestador_Forma_Pagamento_ID,
+		tpfp.Descr_tipo as Forma_Pagamento_Prestador,
 		(select count(*) from financeiro_produtos fp
 			inner join financeiro_contas fc on fp.Conta_ID = fc.Conta_ID and fc.Tipo_ID = 45
 			where fp.Tabela_Estrangeira = 'orcamentos' and fp.Produto_Referencia_ID = opp.Proposta_Produto_ID
@@ -2906,6 +3207,7 @@
 		inner join cadastros_dados cli on cli.Cadastro_ID = opp.Prestador_ID
 		inner join cadastros_dados emp on emp.Cadastro_ID = o.Empresa_ID
 		left join tipo tfp on tfp.Tipo_ID = op.Forma_Pagamento_ID
+		left join tipo tpfp on tpfp.Tipo_ID = opp.Prestador_Forma_Pagamento_ID
 		where opp.Situacao_ID = 1
 		and op.Situacao_ID = 1
 		and op.Status_ID = 141
@@ -2916,6 +3218,7 @@
 							".$sqlCond."
 							".$sqlHaving."
 		order by Tipo_ID, Faturar_Para_De_ID, ID_Ref, Proposta_ID, Data_Ordena desc";
+		
 		//echo $sql;
 		$colAux = 6;
 		if ($contEmpresas==1) $colAux--;
@@ -2946,12 +3249,22 @@
 				$formaPagamentoIDAnt 					= "";
 			}
 			if (($rs['Cadastro_ID']!=$cadastroIDAnt) || ($rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt)){
+
+				$pagamentoFornecedor = '';
+
+				//VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA.
+				if($rs['Prestador_Forma_Pagamento_ID'] != 0){
+					$pagamentoFornecedor = $rs['Forma_Pagamento_Prestador'];
+				}else{
+					$pagamentoFornecedor = $rs['Forma_Pagamento'];
+				}
+
 				$indice++;
 				$i++;
 				$dados[colunas][classe][$i] 		= 'tabela-fundo-escuro-titulo';
 				$dados[colunas][colspan][$i][1] 	= $colAux;
 				$dados[colunas][conteudo][$i][1] 	= "<p Style='margin:2px 5px 0 2px;'>".$rs['Nome_Para']."</p>
-													<p Style='margin:2px 5px 0 2px;'>".$rs['Forma_Pagamento']."</p>
+													<p Style='margin:2px 5px 0 2px;'>".$pagamentoFornecedor."</p>
 													<p Style='margin:2px 5px 0 2px; text-align:right;'>
 														<input type='button' value='' class='esconde botao-faturar-cancelar botao-faturar-cancelar-".$indice."' origem='$tabelaEstrangeira' tipo-id='".$rs['Tipo_ID']."' empresa-id='".$rs['Empresa_ID']."' cadastro-id='".$rs['Cadastro_ID']."' chave-estrangeira='".$rs['ID_Ref']."' style='float:right;height:24px;font-size:10px;margin-top:-3px;width:120px;'>
 													</p>";
@@ -2986,9 +3299,62 @@
 			// $dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($rs['Valor_Produto_Total'], 2, ',', '.')."</p>";
 			
 
-			/* VERIFICA SE EXISTE ALGUM DESCONTO ATRELADO A FORMA DE PAGAMENTO */
+			/* VALIDA SE O PRODUTO É PARA FATURAR OU PAGAR FORNECEDOR */
 
-			if(!empty($dadosFP['tipo-bonus-disponivel'])){
+			if($rs['Tipo_ID'] == '44'){ // PRODUTO É PARA PAGAR FORNECEDOR
+
+				$modoPagamento = '';
+
+				if($rs['Prestador_Forma_Pagamento_ID'] > 0){
+
+					$modoPagamento = $rs['Prestador_Forma_Pagamento_ID'];
+
+				}else{
+
+					$modoPagamento = $rs['Forma_Pagamento_ID'];
+				}
+
+				// CARREGA A FORMA DE PAGAMENTO
+				$sqlFomaPagamento = "SELECT Descr_Tipo as Forma_Cobranca,
+												Tipo_Auxiliar as Descricao
+											FROM tipo
+											WHERE tipo.Tipo_ID = $modoPagamento";
+
+				if(!empty($sqlFomaPagamento)){
+
+					$formaPgmtRaw 	= mpress_query($sqlFomaPagamento);
+
+					$rst 			= mpress_fetch_array($formaPgmtRaw);
+
+					$descricao 		= unserialize($rst['Descricao']);
+
+
+					$valorMod = ($rs['Valor_Produto_Total'] / 100) * $descricao['valor_modificado'];
+
+					if($descricao['tipo-bonus-disponivel'] == 'Desconto'){
+
+						$valorVencimentoMod = $rs['Valor_Produto_Total'] - $valorMod;
+
+					}else{
+						$valorVencimentoMod = $rs['Valor_Produto_Total'] + $valorMod;
+					}
+
+					//$valorVencimento = $valorVencimentoMod / $dadosFP['quantidade-parcelas'];
+					$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($valorVencimentoMod, 2, ',', '.')."</p>";
+
+
+				}else{
+
+					//$valorVencimento = $valorTotalProposta / $dadosFP['quantidade-parcelas'];
+					$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($rs['Valor_Produto_Total'], 2, ',', '.')."</p>";
+
+				}
+
+			}else{ // PRODUTO PARA FATURAR
+
+				/* VERIFICA SE EXISTE ALGUM DESCONTO ATRELADO A FORMA DE PAGAMENTO */
+
+				if(!empty($dadosFP['tipo-bonus-disponivel'])){
 
 					$valorMod = ($rs['Valor_Produto_Total'] / 100) * $dadosFP['valor_modificado'];
 
@@ -3001,12 +3367,14 @@
 					}
 
 					//$valorVencimento = $valorVencimentoMod / $dadosFP['quantidade-parcelas'];
-				$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($valorVencimentoMod, 2, ',', '.')."</p>";
+					$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($valorVencimentoMod, 2, ',', '.')."</p>";
 
-			}else{
+				}else{
 
-				//$valorVencimento = $valorTotalProposta / $dadosFP['quantidade-parcelas'];
-				$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($rs['Valor_Produto_Total'], 2, ',', '.')."</p>";
+					//$valorVencimento = $valorTotalProposta / $dadosFP['quantidade-parcelas'];
+					$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($rs['Valor_Produto_Total'], 2, ',', '.')."</p>";
+
+				}
 
 			}
 
@@ -3024,6 +3392,14 @@
 			$tipoIDAnt 				= $rs['Tipo_ID'];
 			$cadastroIDAnt 			= $rs['Cadastro_ID'];
 			$formaPagamentoIDAnt 	= $rs['Forma_Pagamento_ID'];
+
+			//VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA.
+			if($rs['Prestador_Forma_Pagamento_ID'] != 0){
+				$formaPagamentoIDAnt = $rs['Prestador_Forma_Pagamento_ID'];
+			}else{
+				$formaPagamentoIDAnt = $rs['Forma_Pagamento_ID'];
+			}
+
 		}
 		$largura = "100%";
 		$colunas = $c - 1;
