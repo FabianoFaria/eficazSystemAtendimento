@@ -3554,13 +3554,12 @@ function valorPorExtenso($valor=0) {
 }
 
 
-
 function optionValueFrete($selecionado){
 	$optionValue = "";
 	$sel[$selecionado] = " selected ";
-	$optionValue .= "	<option value='CIF' ".$sel['CIF'].">CIF - Custos do FORNECEDOR</option>";
-	$optionValue .= "	<option value='FOB' ".$sel['FOB'].">FOB - Custos do CLIENTE</option>";
-	$optionValue .= "	<option value='NOF' ".$sel['NOF'].">NOF - Custo Não existente</option>";
+	$optionValue .= "	<option value='CIF' ".$sel['CIF'].">CIF - Custos do FORNECEDOR </option>";
+	$optionValue .= "	<option value='FOB' ".$sel['FOB'].">FOB - Custos do CLIENTE </option>";
+	$optionValue .= "	<option value='N' ".$sel['N']."> Custo Não existente </option>";
 	return $optionValue;
 }
 
@@ -3586,7 +3585,9 @@ function optionValueContas($selecionados, $condicoes){
 /***********************************/
 
 function montarFormularioDinamico($formularioID, $tabelaEstrangeiraFormulario, $chaveEstrangeiraFormulario, $modoExibicao = "completo"){
+
 	/* VERIFICA SE FORMULARIO DINAMICO JA FOI RESPONDIDO */
+	
 	if (($tabelaEstrangeiraFormulario!="") && ($chaveEstrangeiraFormulario != "")){
 		$sql = "SELECT Resposta_ID, Formulario_ID, Chave_Estrangeira, Tabela_Estrangeira, Respostas, Situacao_ID, Usuario_Cadastro_ID, Data_Cadastro
 					FROM formularios_respostas
