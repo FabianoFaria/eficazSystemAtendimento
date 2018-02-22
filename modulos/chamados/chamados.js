@@ -1619,6 +1619,8 @@ $(document).ready(function(){
 
 	});
 
+
+	// EFETUA APLICAÇÃO DOS VALORES DE FRETE AOS VALORES TOTAIS DA PROPOSTAS.
 	$(".flag-frete").live('change blur click keyup', function () {
 		propostaID = $('#proposta-id').val();
 		tipoFrete = $('#tipo-frete-'+propostaID).val();
@@ -1649,6 +1651,8 @@ $(document).ready(function(){
 		$(".atualizar-dados-frete").show();
 	});
 
+
+	// EFETUA VERIFICAÇÃO DO TIPO DE FRETE QUE ESTÁ SENDO ESCOLHIDO PARA DETERMINADA PROPOSTA
 	$(".tipo-frete").live('change', function () {
 		if ($(this).val()!='CIF'){
 			$('.exibe-valores-frete').hide();
@@ -1805,18 +1809,45 @@ $(document).ready(function(){
 					if (acao=="141"){
 						carregarOrcamentosChamados('esconde');
 						carregarFinanceiro();
+
+
 						//$('#menu-superior-4').click();
+
+						//console.log(retorno);
+
 					}
-				}
-				else{
+				}else{
 					$("#div-aux-aguarde").hide().html("");
 					$(".botao-salvar-proposta-completo").show();
 					$("#bloco-proposta-"+propostaID).html(retorno).show();
 					$("#div-propostas-"+propostaID).delay("fast").fadeIn();
 				}
+
+				// verificacaoAprovacaoProposta();
 			}
 		});
 	});
+
+	/* Trecho para validar a aprovação ou não de proposta */
+	// $(document).ready(function(){
+
+	// 	// var resultadoAprovacao = document.getElementById('resultadoProposta').value;
+
+		
+	// });
+
+// function verificacaoAprovacaoProposta(){
+
+// 	var resultadoAprovacao = $("#resultadoProposta").val();
+
+// 	//var resultadoAprovacao = document.getElementById('resultadoProposta').attr('value');
+
+// 	console.log("Aqui jás o resultado da aprovaçao: -"+resultadoAprovacao+"- !");
+
+
+// }
+
+
 
 	$(".incluir-prestador-produto").live('click', function (){
 		produtoID = $("#select-produtos").find(":selected").attr("produto-id");

@@ -1749,6 +1749,7 @@ function enviarEmailOrcamentoProposta($workflowID, $propostaID, $situacaoID, $ob
 
 /* aqui revolucao*/
 function carregarProdutos($chaveID, $tipo){
+
 	if ($chaveID !=""){
 		global $modulosAtivos, $caminhoSistema, $caminhoFisico, $dadosUserLogin, $configChamados;
 		if ($configChamados['agrupar-produtos']=="agrupar-por-cliente"){
@@ -1829,7 +1830,8 @@ function carregarProdutos($chaveID, $tipo){
 											INNER JOIN financeiro_contas fc2 on fc2.Conta_ID = fp2.Conta_ID
 											WHERE fp2.Tabela_Estrangeira = 'chamados' and fp2.Produto_Referencia_ID = cwp.Workflow_Produto_ID   and fc2.Tipo_ID = '44' and fp2.Situacao_ID = 1) as A_Receber,
 
-							oc.Chamado_ID as Chamado_ID
+							oc.Chamado_ID as Chamado_ID,
+							tpf.Descr_Tipo as Forma_Pagamento_Fornecedor
 
 							FROM chamados_workflows_produtos cwp
 							LEFT JOIN produtos_variacoes pv on pv.Produto_Variacao_ID = cwp.Produto_Variacao_ID
@@ -1837,15 +1839,20 @@ function carregarProdutos($chaveID, $tipo){
 							LEFT JOIN despesas_atendimento desp ON desp.Despesa_ID_Relacionado = cwp.Workflow_Produto_ID
 							LEFT JOIN tipo fc ON fc.Tipo_ID = pv.Forma_Cobranca_ID
 							LEFT JOIN tipo tp ON tp.Tipo_ID = pd.Tipo_Produto
+
+							LEFT JOIN orcamentos_produtos_chamados_produtos opcp on opcp.Chamado_ID = cwp.Workflow_ID and opcp.Chamado_Produto_ID = cwp.Workflow_Produto_ID
+							LEFT JOIN orcamentos_propostas_produtos opp ON opp.Proposta_Produto_ID = opcp.Proposta_Produto_ID
+							LEFT JOIN tipo tpf ON tpf.Tipo_ID = opp.Prestador_Forma_Pagamento_ID
 							LEFT JOIN modulos_anexos ma on ma.Anexo_ID = pv.Imagem_ID
 							LEFT JOIN cadastros_dados cd on cd.Cadastro_ID = cwp.Usuario_Cadastro_ID
-							LEFT JOIN cadastros_dados re ON re.Cadastro_ID = cwp.Prestador_ID
+							LEFT JOIN cadastros_dados re ON re.Cadastro_ID = cwp.Prestador_ID OR re.Cadastro_ID = opp.Prestador_ID
 							LEFT JOIN cadastros_dados cf ON cf.Cadastro_ID = cwp.Cliente_Final_ID
-							LEFT JOIN orcamentos_produtos_chamados_produtos opcp on opcp.Chamado_ID = cwp.Workflow_ID and opcp.Chamado_Produto_ID = cwp.Workflow_Produto_ID
 							LEFT JOIN orcamentos_chamados oc on oc.Chamado_ID = opcp.Chamado_ID
 							WHERE Workflow_ID = '$chaveID' and cwp.Situacao_ID = 1
 					ORDER BY $condOrder cwp.Data_Cadastro desc";
-			//echo $sql;
+			
+			// echo $sql;
+			// die();
 		}
 
 		
@@ -2247,19 +2254,24 @@ function salvarOrcamentoPropostaFrete(){
 	global $dadosUserLogin;
 	$dataHoraAtual = "'".retornaDataHora('','Y-m-d H:i:s')."'";
 
-	$propostaID = $_POST['proposta-id'];
-	$tipofrete = $_POST['tipo-frete'][$propostaID];
-	$valorFrete = formataValorBD($_POST['valor-frete'][$propostaID]);
-	$valorSeguro = formataValorBD($_POST['valor-seguro'][$propostaID]);
-	$enderecoEntregaID = formataValorBD($_POST['endereco-entrega'][$propostaID]);
-	$formaEnvioID = formataValorBD($_POST['forma-envio'][$propostaID]);
-	$sql = "update orcamentos_propostas_envios set Situacao_ID = 2 where Proposta_ID = '$propostaID' and Situacao_ID = 1";
+	$propostaID 		= $_POST['proposta-id'];
+	$tipofrete 			= $_POST['tipo-frete'][$propostaID];
+	$valorFrete 		= formataValorBD($_POST['valor-frete'][$propostaID]);
+	$valorSeguro 		= formataValorBD($_POST['valor-seguro'][$propostaID]);
+	$enderecoEntregaID 	= formataValorBD($_POST['endereco-entrega'][$propostaID]);
+	$formaEnvioID 		= formataValorBD($_POST['forma-envio'][$propostaID]);
+	$sql 				= "UPDATE orcamentos_propostas_envios SET Situacao_ID = 2 WHERE Proposta_ID = '$propostaID' AND Situacao_ID = 1";
 	mpress_query($sql);
 
+
+	/*
+		SALVA A FORMA DE FRETE ESCOLHIDA PARA A PROPOSTA
+	*/
 	$sql = "INSERT INTO orcamentos_propostas_envios (Proposta_ID, Tipo_Frete, Forma_Envio_ID, Endereco_Entrega_ID, Valor_Frete, Valor_Seguro, Data_Cadastro, Usuario_Cadastro_ID, Situacao_ID)
 											VALUES ('$propostaID', '$tipofrete', '$formaEnvioID', '$enderecoEntregaID', '$valorFrete', '$valorSeguro',".$dataHoraAtual.", '".$_SESSION['dadosUserLogin']['userID']."', 1)";
 
 	mpress_query($sql);
+	
 }
 
 
@@ -3207,6 +3219,11 @@ function carregarSituacaoProposta($propostaID){
 	*/
 }
 
+
+/*
+	FUNÇÃO FOI MODIFICADO PARA QUE POSSA RETORNAR A VARIAVEL PARA CONFIRMAR OU NÃO A APROVAÇÃO DA PROPOSTA.
+*/
+
 function orcamentoProdutosPropostaSalvar(){
 	global $dadosUserLogin, $configChamados;
 	$propostaID = $_POST['proposta-id'];
@@ -3217,14 +3234,11 @@ function orcamentoProdutosPropostaSalvar(){
 	if ($rs = mpress_fetch_array($resultado)){
 		$situacaoAtualID = $rs['Status_ID'];
 	}
-	$dataHoraAtual = retornaDataHora('','Y-m-d H:i:s');
+	$dataHoraAtual 		= retornaDataHora('','Y-m-d H:i:s');
 
 
-	// $aprovacaoProposta = verificarCondicoesPropostas($propostaID);	
-
-	// var_dump($aprovacaoProposta);
-
-	// die();
+	//VARIAVEL CRIADA PARA ARMAZENAR O RESULTADO DA APROVAÇÃO DA PROPOSTA.
+	$resultadoProposta 	= '';
 
 	//Salvar proposta ou enviar para recebimento
 	if (($acao=="114")||($acao=="115")||($acao=="back114")||($acao=="117")||($acao=="118")||($acao=="119")||($acao=="120")||($acao=="121")||($acao=="122")||($acao=="141")){
@@ -3394,10 +3408,15 @@ function orcamentoProdutosPropostaSalvar(){
 
 				mpress_query("UPDATE orcamentos_propostas SET Status_ID = '141' WHERE Proposta_ID = '$propostaID'");
 
+				$resultadoProposta 	= 1;
+
 			}else{
 				$situacaoAtualID = "114";
 
 				$descricaoAux = "Proposta não foi atualizada.</br> A data de pagamento dos fornecedores devem ser de pelo meno 5 dias depois da data de faturamento.";
+
+
+				$resultadoProposta 	= 0;
 
 			}
 
@@ -3420,6 +3439,8 @@ function orcamentoProdutosPropostaSalvar(){
 			enviarEmailOrcamentoProposta($workflowID, $propostaID, $acao, $descricaoAux, $emailsEnviar);
 		}
 	}
+
+	//return $resultadoProposta;
 }
 
 function enviarEmailAprovacaoOrcamentos($workflowID){

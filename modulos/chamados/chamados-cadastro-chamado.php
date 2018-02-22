@@ -45,7 +45,6 @@ if ($workflowID!=""){
 				LEFT JOIN tipo t on t.Tipo_ID = cf.Situacao_ID
 				WHERE Workflow_ID = $workflowID
 				ORDER BY cf.Follow_ID desc";
-		// echo $sql;
 
 		$query = mpress_query($sql);
 		$i=0;

@@ -802,89 +802,6 @@
 
 
 	function salvarConta(){
-		//echo $_POST["acao"];
-
-		/*
-			C:\wamp64\www\sistemaEficaz\modulos\financeiro\functions.php:806:
-array (size=43)
-  'slug-pagina' => string 'financeiro-lancamento' (length=21)
-  'texto-geral' => string '' (length=0)
-  'tipo-cadastro' => string '' (length=0)
-  'localiza-titulo-id' => string '' (length=0)
-  'localiza-conta-id' => string '' (length=0)
-  'conta-id' => string '' (length=0)
-  'numero-empresas' => string '1' (length=1)
-  'situacao-titulos' => string 'pendente' (length=8)
-  'aux-forma-pagamento' => string '' (length=0)
-  'aux-data-vencimento' => string '' (length=0)
-  'aux-data-pago' => string '' (length=0)
-  'aux-situacao-vencimento' => string '' (length=0)
-  'workflow-id' => string '' (length=0)
-  'ordem-compra-id' => string '' (length=0)
-  'cadastroID' => string '' (length=0)
-  'tipo-conta-id' => string '45' (length=2)
-  'faturamento-direto' => string 'S' (length=1)
-  'lancamento-fancybox' => string '1' (length=1)
-  'lancamento-salvo' => string '' (length=0)
-  'radio-tipo-grupo-27' => string '45' (length=2)
-  'hidden-tipo-transacao' => string '45' (length=2)
-  'cadastro-conta-id-de' => string '1' (length=1)
-  'cadastro-id-de' => string '1089' (length=4)
-  'lancamento-tipo-conta' => 
-    array (size=1)
-      0 => string '1387' (length=4)
-  'lancamento-centro-custo' => 
-    array (size=1)
-      0 => string '' (length=0)
-  'numero-opcoes' => string '1' (length=1)
-  'cadastro-id-para' => string '12468' (length=5)
-  'texto-cadastro-localiza-cadastro-id-para' => string 'CTO TERESINA' (length=12)
-  'cadastro-conta-id-para-transf' => string '' (length=0)
-  'cadastro-id-para-transf' => string '' (length=0)
-  'observacao' => string '' (length=0)
-  'tipo-pgto' => string 'v' (length=1)
-  'valor-total' => string '0,01' (length=4)
-  'qtde-parcelas' => string '1' (length=1)
-  'configCob' => 
-    array (size=8)
-      'aplicar-juros' => string 'checked' (length=7)
-      'percentual-juros-multa' => string '5,00' (length=4)
-      'percentual-juros-mensal-simples' => string '0,00' (length=4)
-      'percentual-juros-mensal-composto' => string '' (length=0)
-      'aplicar-cobranca-honorarios' => string 'checked' (length=7)
-      'percentual-honorarios' => string '5,00' (length=4)
-      'aplicar-correcao-monetaria' => string 'checked' (length=7)
-      'indice-correcao' => string 'inpc' (length=4)
-  'titulo-vencimento' => 
-    array (size=1)
-      0 => string '' (length=0)
-  'codigo-vencimento' => 
-    array (size=1)
-      0 => string '' (length=0)
-  'forma-pagamento' => 
-    array (size=1)
-      0 => string '47' (length=2)
-  'data-vencimento' => 
-    array (size=1)
-      0 => string '09/02/2018' (length=10)
-  'valor-vencimento' => 
-    array (size=1)
-      0 => string '0,01' (length=4)
-  'situacao-vencimento' => 
-    array (size=1)
-      0 => string '48' (length=2)
-  'data-pago' => 
-    array (size=1)
-      0 => string '09/02/2018' (length=10)
-  'valor-pago' => 
-    array (size=1)
-      0 => string '0,01' (length=4)
-
-		*/
-
-
-		// var_dump($_POST);
-		// exit();
 
 		global $dadosUserLogin, $configFinanceiro;
 
@@ -913,10 +830,6 @@ array (size=43)
 		}else{
 			$chaveEstrangeira  	= '0';
 		}
-			
-		// print_r($_POST['situacao-titulos']);
-
-		// die();
 
 		if($_POST['lancamento-tipo-conta'][0] != ''){
 			$tipoContaID 	= $_POST['lancamento-tipo-conta'][0];
@@ -932,11 +845,6 @@ array (size=43)
 
 		$observacao 		= utf8_decode($_POST['observacao']);
 
-
-		//echo "teste de cadastro para: ".$_POST['cadastro-id-para'];
-
-		//die();
-
 		$cadastroIDde 		= $_POST['cadastro-id-de'];
 		$cadastroContaIDde 	= $_POST['cadastro-conta-id-de'];
 
@@ -945,10 +853,6 @@ array (size=43)
 		}else{
 			$cadastroIDpara = 0;
 		}
-
-		// var_dump($_POST);
-
-		// die();
 
 		/* SE TRANSFERENCIA */
 		if ($tipoID==46){
@@ -1015,8 +919,13 @@ array (size=43)
 				if ($_POST['faturamento-direto']=='S'){
 
 
-
 					$i = 0;
+
+					/*
+						A Versão original efetuava a busca do produto através de informações no _POST, mas como não estava funcionando de acordo com o esperado, foi alterado para buscar os detalhes do produtos através de consulta ao BD.
+
+					*/
+
 					//foreach ($_POST['financeiro-produto-id'] as $financeiroProdutoID){
 					foreach ($_POST['produto-faturar'] as $financeiroProdutoID){
 						// $tabelaEstrangeira 			= $_POST['tabela-estrangeira'][$i];
@@ -1654,6 +1563,11 @@ array (size=43)
 					inner join tipo f on f.Tipo_ID = pv.Forma_Cobranca_ID
 					WHERE pd.Situacao_ID = 1 AND pv.Situacao_ID = 1 AND pd.Produto_ID > 0 AND pv.Produto_Variacao_ID > 0
 				ORDER BY Descricao_Produto";
+
+
+		var_dump($sql);
+		die();
+		
 		$selectProdutos = "<select id='select-produtos' name='select-produtos' class='required' Style='width:98.5%' data-placeholder='Selecione'>
 								<option value='' produto-id=''>Selecione</option>";
 		$resultado = mpress_query($sql);
