@@ -413,6 +413,7 @@
 
 	function carregarFinanceiro($workflowID, $tabelaEstrangeira){
 		global $dadosUserLogin, $modulosAtivos, $caminhoFisico;
+
 		if (!function_exists("carregarProdutosFaturar"))
 			require_once($caminhoFisico."/modulos/financeiro/functions.php");
 
@@ -2875,7 +2876,38 @@ function salvarProdutoOrcamento(){
 	if ($faturamentoDireto == ""){ $faturamentoDireto = "0";}
 
 	if ($propostaProdutoID==""){
-		$sql = "INSERT INTO orcamentos_propostas_produtos (Proposta_ID, Produto_Variacao_ID, Descricao, Quantidade, Valor_Custo_Unitario, Valor_Venda_Unitario, Cobranca_Cliente, Pagamento_Prestador, Faturamento_Direto, Prestador_ID, Cliente_Final_ID, Situacao_ID, Data_Cadastro, Usuario_Cadastro_ID, Observacao_Produtos,  Prestador_Forma_Pagamento_ID) VALUES ('$propostaID', '$produtoVariacaoID', '$descricao', '$quantidade', '$valorCustoUnitario', '$valorVendaUnitario', '$cobranca', '$pagamento', '$faturamentoDireto', '$prestadorID', '$clienteFinalID', 1, '$dataHoraAtual', '".$dadosUserLogin['userID']."', '$produtoObservacao', '$formaPrestadorPagmt')";
+		$sql = "INSERT INTO orcamentos_propostas_produtos (Proposta_ID, 
+		Produto_Variacao_ID, 
+		Descricao, 
+		Quantidade, 
+		Valor_Custo_Unitario, 
+		Valor_Venda_Unitario, 
+		Cobranca_Cliente, 
+		Pagamento_Prestador, 
+		Faturamento_Direto, 
+		Prestador_ID, 
+		Cliente_Final_ID, 
+		Situacao_ID, 
+		Data_Cadastro, 
+		Usuario_Cadastro_ID, 
+		Observacao_Produtos,  
+		Prestador_Forma_Pagamento_ID) 
+		VALUES ('$propostaID', 
+		'$produtoVariacaoID', 
+		'$descricao', 
+		'$quantidade', 
+		'$valorCustoUnitario', 
+		'$valorVendaUnitario', 
+		'$cobranca', 
+		'$pagamento', 
+		'$faturamentoDireto', 
+		'$prestadorID', 
+		'$clienteFinalID', 
+		1, 
+		'$dataHoraAtual', 
+		'".$dadosUserLogin['userID']."', 
+		'$produtoObservacao', 
+		'$formaPrestadorPagmt')";
 	}else{
 		$sql = "UPDATE orcamentos_propostas_produtos
 					SET Produto_Variacao_ID = '$produtoVariacaoID',
@@ -2937,12 +2969,12 @@ function carregarPropostasOrcamentos($workflowID, $propostaID){
 					ow.Situacao_ID as Situacao_ID, 
 					coalesce(tp.Titulo_Tabela,'Tabela Padrão') as Tabela_Preco
 				FROM orcamentos_propostas op
-					INNER JOIN orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
-					LEFT JOIN produtos_tabelas_precos tp on tp.Tabela_Preco_ID = op.Tabela_Preco_ID
-					LEFT JOIN orcamentos_propostas_produtos opp on opp.Proposta_ID = op.Proposta_ID AND opp.Situacao_ID = 1
-					LEFT JOIN cadastros_dados u ON u.Cadastro_ID = op.Usuario_Cadastro_ID
-					LEFT JOIN tipo t on t.Tipo_ID = op.Status_ID
-					WHERE op.Workflow_ID = '$workflowID' AND op.Situacao_ID = 1
+				INNER JOIN orcamentos_workflows ow on ow.Workflow_ID = op.Workflow_ID
+				LEFT JOIN produtos_tabelas_precos tp on tp.Tabela_Preco_ID = op.Tabela_Preco_ID
+				LEFT JOIN orcamentos_propostas_produtos opp on opp.Proposta_ID = op.Proposta_ID AND opp.Situacao_ID = 1
+				LEFT JOIN cadastros_dados u ON u.Cadastro_ID = op.Usuario_Cadastro_ID
+				LEFT JOIN tipo t on t.Tipo_ID = op.Status_ID
+				WHERE op.Workflow_ID = '$workflowID' AND op.Situacao_ID = 1
 				GROUP BY op.Proposta_ID, op.Workflow_ID, op.Titulo, op.Data_Cadastro, op.Usuario_Cadastro_ID, u.Nome";
 		//echo $sql;
 		$resultado 	= mpress_query($sql);
@@ -3398,7 +3430,6 @@ function orcamentoProdutosPropostaSalvar(){
 				$descricaoAux = "Proposta Aprovada e Finalizada";
 				$situacaoAtualID = "141";
 
-
 				// CASO FINALIZADO - ATUALIZANDO AS OUTRAS PROPOSTAS PARA RECUSADAS SE CONFIGURADO PARA ATUALIZAR
 				if ($configChamados['cancelar-propostas']=='1'){
 					mpress_query("UPDATE orcamentos_propostas SET Status_ID = '122' WHERE Workflow_ID = '$workflowID' AND Proposta_ID <> '$propostaID'");
@@ -3408,13 +3439,25 @@ function orcamentoProdutosPropostaSalvar(){
 
 				mpress_query("UPDATE orcamentos_propostas SET Status_ID = '141' WHERE Proposta_ID = '$propostaID'");
 
+				/* 
+					ATUALIZAR OS PRODUTOS DAS PROPOSTAS PARA UM STATUS ESPECIFICO
+					UTILIZADO O CÓDIGO DE STATUS '123' PARA "Item enviado para confirmação"
+				*/
+
+				$sqlStatusProdutos = "UPDATE orcamentos_propostas_produtos
+									  SET  Status_ID  = '123'
+									  WHERE Proposta_ID = '$propostaID'";	
+
+
+				mpress_query($sqlStatusProdutos);
+
+
 				$resultadoProposta 	= 1;
 
 			}else{
 				$situacaoAtualID = "114";
 
 				$descricaoAux = "Proposta não foi atualizada.</br> A data de pagamento dos fornecedores devem ser de pelo meno 5 dias depois da data de faturamento.";
-
 
 				$resultadoProposta 	= 0;
 

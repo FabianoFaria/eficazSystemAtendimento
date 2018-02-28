@@ -779,7 +779,7 @@ $(document).ready(function(){
 							if($(this).attr('checked')){
 								if ((fornecedorIDAnt!="") && (fornecedorIDAnt!=($(this).attr('fornecedor-id')))){
 									flagFornDif = true;
-					botao-faturar-cancelar			}
+								}
 								fornecedorIDAnt = $(this).attr('fornecedor-id');
 							}
 						});

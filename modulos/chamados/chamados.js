@@ -1222,7 +1222,12 @@ $(document).ready(function(){
 		}
 		/**/
 
-		$(".botao-faturar-cancelar").live('click', function () {
+		/*
+			EVENTO ALTERNATIVO PARA ATUALIZAÇÃO DOS STATUS DOS PRODUTOS PARA PERMITIR O FATURAMENTO
+		*/
+
+		$(".botao-faturar-cancelar").live('click', function(){
+
 			if ($(this).attr('origem')=='orcamentos'){
 				dados = $('#frmDefault .prod-faturar:checked, #frmDefault .prod-cancelar:checked').serialize();
 				dados += "&empresa-id=" + $(this).attr('empresa-id');
@@ -1231,23 +1236,25 @@ $(document).ready(function(){
 				dados += "&modulo="+$(this).attr('origem');
 				dados += "&chave-estrangeira="+$(this).attr('chave-estrangeira');
 				if ($(this).val()=='Faturar'){
-					caminho = caminhoScript+"/financeiro/financeiro-lancamento?tipo=direto&"+dados;
-					$.fancybox.open({
-						href : caminho,
-						type : 'iframe',
-						width: '90%',
-						padding : 2,
-						helpers: {
-							overlay: {
-								locked: false
-							}
+
+					console.log('Teste de alteração de botão!!!');
+
+					alertify.confirm('Aviso', "Tem certeza que deseja enviar esses itens para o financeiro?",
+						function(){
+							caminho = caminhoScript+"/modulos/financeiro/financeiro-confirmar-produtos-fatura.php";
+							$.ajax({type: "POST",url: caminho, data: dados, dataType: "html", contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+								success: function(retorno){
+									//console.log(retorno);
+									location.reload(true);
+								}
+							});
 						},
-						afterClose:function(){
-							carregarFinanceiro();
-						}
-					});
-				}
-				if ($(this).val()=='Cancelar'){
+						function(){}).set('labels', {ok:'Sim', cancel:'Cancelar'}
+					);
+
+
+
+				}if ($(this).val()=='Cancelar'){
 					alertify.confirm('Aviso', "Tem certeza que deseja cancelar o faturamento destes itens?",
 					function(){
 						caminho = caminhoScript+"/modulos/financeiro/financeiro-cancelar-produtos-fatura.php";
@@ -1262,9 +1269,11 @@ $(document).ready(function(){
 					);
 				}
 			}
+
 		});
 
-		/**/
+
+		
 
 	$(".botao-faturar-entrada, .botao-faturar-saida").live('click', function () {
 		/*
@@ -1752,7 +1761,7 @@ $(document).ready(function(){
 		acao 			= $(this).attr("tipo");
 		propostaID 		= $("#proposta-id").val();
 
-		//Efetua a verificação da forma de pagamento ante de aprovar a proposta.
+		//EFETUA A VERIFICAÇÃO DA FORMA DE PAGAMENTO ANTE DE APROVAR A PROPOSTA.
 		tipoFormaPagamentoAtual = $("#exibir-campos-forma-pagamento-"+propostaID).attr( 'value' );
 
 		if (acao=="115"){
@@ -1809,7 +1818,6 @@ $(document).ready(function(){
 					if (acao=="141"){
 						carregarOrcamentosChamados('esconde');
 						carregarFinanceiro();
-
 
 						//$('#menu-superior-4').click();
 

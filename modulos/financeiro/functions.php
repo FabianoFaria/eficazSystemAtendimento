@@ -43,7 +43,7 @@
 			$sqlCond .= " and ft.Data_Vencimento between '$dataInicioVencimento' and '$dataFimVencimento' ";
 		}
 
-		$sql = "select coalesce(tc.Descr_Tipo, 'Nao Informado') as Tipo_Conta, sum(ft.Valor_Pago) as Valor_Pago, sum(ft.Valor_Titulo) as Valor_Titulo
+		$sql = "SELECT coalesce(tc.Descr_Tipo, 'Nao Informado') as Tipo_Conta, sum(ft.Valor_Pago) as Valor_Pago, sum(ft.Valor_Titulo) as Valor_Titulo
 									from financeiro_contas fc
 									inner join financeiro_titulos ft on fc.Conta_ID = ft.Conta_ID
 									inner join cadastros_dados cd on fc.Cadastro_ID_de = cd.Cadastro_ID
@@ -2946,7 +2946,7 @@
 
 		$sql = "INSERT INTO financeiro_contas (Tipo_ID, Cadastro_ID_de, Cadastro_ID_para, Tabela_Estrangeira, Chave_Estrangeira, Valor_Total, Observacao, Data_Cadastro, Usuario_Cadastro_ID)
 									VALUES ('$tipoID', '$cadastroIDde', '$cadastroIDpara', '$tabelaEstrangeira', '$chaveEstrangeira', 0, 'Cancelamento de Faturamento de Itens', $dataHoraAtual,'".$dadosUserLogin['userID']."')";
-		echo "<br>".$sql;
+		//echo "<br>".$sql;
 
 		// die();
 
@@ -2966,16 +2966,31 @@
 	}
 
 	function carregarProdutosFaturar($id, $tabelaEstrangeira){
+
+		// var_dump($_POST);
+		// var_dump($_GET);
+
+		// die();
+
 		if ($id==''){
 			$sqlHaving .= " having Faturado = 0";
 			$orcamentoID = $_POST['localiza-orcamento-id'];
-			if ($orcamentoID!=''){ $sqlCond .= " and o.Workflow_ID = '$orcamentoID'";}
+			if ($orcamentoID!=''){ 
+				$sqlCond .= " and o.Workflow_ID = '$orcamentoID'";
+			}
+
+			// IRÁ ADICIONAR OS PRODUTOS COM O SEGUINTE Status_ID:
+			$extraCond = " opp.Status_ID = '137' ";
 		}
 		else{
 			$sqlCond .= " and o.Workflow_ID = '$id'";
+
+			// IRÁ ADICIONAR A CONDIÇÃO PARA UMA BUSCA DETALHADA DOS PRODUTOS DENTRO DE UMA DETERMINADA PROPOSTA
+			$extraCond = " opp.Status_ID = '123' or opp.Status_ID = '137' or opp.Status_ID = '1385' or opp.Status_ID = '1387'";
 		}
 
-		/* a receber */
+
+		/* A RECEBER */
 		$sql = "
 			SELECT emp.Cadastro_ID as Empresa_ID, 
 			emp.Nome as Nome_De, 
@@ -2995,6 +3010,7 @@
 			pd.Tipo_Produto as Tipo_Produto, 
 			opp.Data_Cadastro as Data_Ordena, 
 			opp.Faturamento_Direto,
+			opp.Status_ID,
 			o.Workflow_ID as ID_Ref, 
 			op.Forma_Pagamento_ID,
 			tfp.Tipo_Auxiliar as Forma_auxiliar,
@@ -3009,8 +3025,8 @@
 				and fp.Situacao_ID IN (1,2)) as Faturado
 			FROM orcamentos_propostas_produtos opp
 			
-			inner join orcamentos_propostas op 	on op.Proposta_ID = opp.Proposta_ID
-			inner join orcamentos_workflows o 	on o.Workflow_ID = op.Workflow_ID
+			INNER JOIN orcamentos_propostas op 	on op.Proposta_ID = opp.Proposta_ID
+			INNER JOIN orcamentos_workflows o 	on o.Workflow_ID = op.Workflow_ID
 			inner join produtos_variacoes pv 	on pv.Produto_Variacao_ID = opp.Produto_Variacao_ID
 			inner join produtos_dados pd 		on pd.Produto_ID = pv.Produto_ID
 			inner join cadastros_dados cd 		on cd.Cadastro_ID = opp.Usuario_Cadastro_ID
@@ -3021,8 +3037,10 @@
 			where opp.Situacao_ID = 1
 			and op.Situacao_ID = 1
 			and op.Status_ID = 141
-			and (opp.Valor_Venda_Unitario * opp.Quantidade) > 0 and opp.Cobranca_Cliente = 1
+			and (opp.Valor_Venda_Unitario * opp.Quantidade) > 0 
+			and opp.Cobranca_Cliente = 1
 			and opp.Faturamento_Direto = 0
+			and (".$extraCond." or opp.Status_ID = '1387')
 			".$sqlCond."
 			".$sqlHaving."
 		
@@ -3047,6 +3065,7 @@
 		pd.Tipo_Produto, 
 		opp.Data_Cadastro as Data_Ordena, 
 		opp.Faturamento_Direto,
+		opp.Status_ID,
 		o.Workflow_ID, 
 		op.Forma_Pagamento_ID,
 		tfp.Tipo_Auxiliar as Forma_auxiliar,
@@ -3075,7 +3094,8 @@
 		and op.Status_ID = 141
 		and (opp.Valor_Custo_Unitario * opp.Quantidade) > 0 and opp.Pagamento_Prestador = 1
 		and opp.Faturamento_Direto = 0
-							".$sqlCond."
+		and (".$extraCond." or opp.Status_ID = '1385')
+							".$sqlCond." 
 							".$sqlHaving."
 		
 		union all
@@ -3100,6 +3120,7 @@
 		pd.Tipo_Produto, 
 		opp.Data_Cadastro, 
 		opp.Faturamento_Direto,
+		opp.Status_ID,
 		o.Workflow_ID as ID_Ref, 
 		op.Forma_Pagamento_ID,
 		tfp.Tipo_Auxiliar as Forma_auxiliar,
@@ -3129,11 +3150,13 @@
 		and opp.Cobranca_Cliente = 1
 		and opp.Pagamento_Prestador = 1
 		and opp.Faturamento_Direto = 1
+		and (".$extraCond." or opp.Status_ID = '1387')
 							".$sqlCond."
 							".$sqlHaving."
 		order by Tipo_ID, Faturar_Para_De_ID, ID_Ref, Proposta_ID, Data_Ordena desc";
 		
 		//echo $sql;
+
 		$colAux = 6;
 		if ($contEmpresas==1) $colAux--;
 
@@ -3162,12 +3185,21 @@
 				$cadastroIDAnt 							= "";
 				$formaPagamentoIDAnt 					= "";
 			}
-			if (($rs['Cadastro_ID']!=$cadastroIDAnt) || ($rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt)){
+
+
+			if (($rs['Cadastro_ID']!=$cadastroIDAnt) || ($rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt && $rs['Tipo_ID']=="44")){
+
+				/*
+					CONDIÇÃO '$rs['Tipo_ID']=="44"' PARA AGRUPAR OS PRODUTOS COM MESMA FORMA DE PAGAMENTO PARA OS PRODUTOS PARA FATURAR
+				*/
 
 				$pagamentoFornecedor = '';
 
-				//VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA.
-				if($rs['Prestador_Forma_Pagamento_ID'] != 0){
+				/*
+					VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA, CASO O PRODUTO SEJA PARA PAGAMENTO DE FORNECEDOR.
+				*/
+
+				if($rs['Prestador_Forma_Pagamento_ID'] != 0 && $rs['Tipo_ID']=="44"){
 					$pagamentoFornecedor = $rs['Forma_Pagamento_Prestador'];
 				}else{
 					$pagamentoFornecedor = $rs['Forma_Pagamento'];
@@ -3210,6 +3242,7 @@
 			}
 			$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;' class='link link-orcamento' workflow-id='$rs[ID_Ref]'>".$rs['ID_Ref']."</p>";
 			$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:left;'>".$rs['Descricao_Produto']." ".$faturamentoDireto."</p>";
+
 			// $dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>R$ ".number_format($rs['Valor_Produto_Total'], 2, ',', '.')."</p>";
 			
 
@@ -3292,17 +3325,76 @@
 
 			}
 
+			if($rs['Faturado']==0){
+
+				// VERIFICA ESTÁ SENDO EXIBIDA NA TELA DE FINANCEIRO
+				if($id!=''){
+
+					// TRECHO PARA EXIBIR A OPÇÃO CORRETA PARA DETERMINADO TIPO DE OPERAÇÃO FINANCEIRA, SEJA NA TELA DE ORÇAMENTO OU SEJA NA TELA DE FINANCEIRO
+					switch ($rs['Status_ID']) {
+						case '137':
+							$dados[colunas][colspan][$i][$c] 	= 2;
+							$dados[colunas][conteudo][$i][$c] 	= "<center style='font-weight: bold;'><i>* Enviado para financeiro</i></center>";
+							$c++;
+						break;
+
+						case '1385':
+
+							if($rs['Tipo_ID'] == '44'){
+
+								$dados[colunas][colspan][$i][$c] 	= 2;
+								$dados[colunas][conteudo][$i][$c] 	= "<center style='font-weight: bold;'><i>* Enviado para pagamento</i></center>";
+								$c++;
+
+							}else{
+								$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-faturar prod-faturar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."'  name='produto-faturar[]'></center>";
+								$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-cancelar prod-cancelar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."' name='produto-cancelar[]'></center>";
+							}
+
+							
+						break;
+
+						case '1387':
+							
+
+							if($rs['Tipo_ID'] == '45'){
+
+								$dados[colunas][colspan][$i][$c] 	= 2;
+								$dados[colunas][conteudo][$i][$c] 	= "<center style='font-weight: bold;'><i>* Enviado para faturar</i></center>";
+								$c++;
+
+							}else{
+								$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-faturar prod-faturar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."'  name='produto-faturar[]'></center>";
+								$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-cancelar prod-cancelar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."' name='produto-cancelar[]'></center>";
+							}
+
+						break;
+						
+						default:
+							
+							//PRODUTO ESTÁ AGUARDANDO ENVIO PARA O FINANCEIRO
+
+							$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-faturar prod-faturar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."'  name='produto-faturar[]'></center>";
+							$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-cancelar prod-cancelar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."' name='produto-cancelar[]'></center>";
+
+						break;
+					}
 
 
-			if ($rs['Faturado']==0){
-				$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-faturar prod-faturar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."'  name='produto-faturar[]'></center>";
-				$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-cancelar prod-cancelar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."' name='produto-cancelar[]'></center>";
-			}
-			else{
+				}else{
+
+					$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-faturar prod-faturar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."'  name='produto-faturar[]'></center>";
+					$dados[colunas][conteudo][$i][$c++] = "<center><input type='checkbox' class='prod-cancelar prod-cancelar-".$indice." prod-tipo-".$rs['Tipo_ID']."' value='".$rs['Workflow_Produto_ID']."' indice='$indice' tipo-id='".$rs['Tipo_ID']."' name='produto-cancelar[]'></center>";
+				}
+
+			}else{
+
 				$dados[colunas][colspan][$i][$c] 	= 2;
 				$dados[colunas][conteudo][$i][$c] 	= "<center style='font-weight: bold;'><i>* Faturado</i></center>";
 				$c++;
 			}
+
+
 			$tipoIDAnt 				= $rs['Tipo_ID'];
 			$cadastroIDAnt 			= $rs['Cadastro_ID'];
 			$formaPagamentoIDAnt 	= $rs['Forma_Pagamento_ID'];
@@ -3341,5 +3433,79 @@
 		$retorno['dados'] 			= $dados;
 		$retorno['linhas'] 			= $linhas;
 		return $retorno;
+	}
+
+
+	/*
+		FUNÇÃO CRIADA PARA ATUALIZAR OS STATUS DOS PRODUTOS QUE FORAM SELECIONADOS PARA FATURAMENTO
+	*/
+
+	function confirmarFaturarProdutos(){
+
+		// var_dump($_POST);
+
+		/*
+			LISTAS DE STATUS PARA OS PRODUTOS
+
+			123  - Item esperando confirmação para ir ao Financeiro
+			1385 - Item aprovado apenas para pagamento
+			1387 - Item aprovado apenas para faturamento
+			137  - Item aprovado tanto para faturar e para pagar o fornecedor
+
+		*/
+
+		foreach($_POST['produto-faturar'] as $chaveEstrangeiraProduto){
+
+
+			/*
+				VERIFCA QUAL A SITUAÇÂO DO PRODUTO E QUAL O CORRETO STATUS A SER APLICADO
+			*/
+
+			$statusProduto = "SELECT Status_ID FROM orcamentos_propostas_produtos WHERE Proposta_Produto_ID = '$chaveEstrangeiraProduto'";
+
+			$resultado 		= mpress_query($statusProduto);
+			$rst 			= mpress_fetch_array($resultado);
+			$statusProduto 	= $rst[0];
+
+			if($_POST['tipo-id'] == 44){
+
+				// MARCAR O PRODUTO PARA PAGAMENTO
+
+				if($statusProduto == '123'){
+
+					$sqlFaturarProduto = "UPDATE orcamentos_propostas_produtos
+									SET Status_ID  = '1385'
+									WHERE Proposta_Produto_ID = '$chaveEstrangeiraProduto'";
+
+				}else{
+
+					$sqlFaturarProduto = "UPDATE orcamentos_propostas_produtos
+									SET Status_ID  = '137'
+									WHERE Proposta_Produto_ID = '$chaveEstrangeiraProduto'";
+
+				}
+
+			}elseif($_POST['tipo-id'] == 45){
+
+				// MARCAR O PRODUTO PARA FATURAMENTO
+
+				if($statusProduto == '123'){
+
+					$sqlFaturarProduto = "UPDATE orcamentos_propostas_produtos
+									SET Status_ID  = '1387'
+									WHERE Proposta_Produto_ID = '$chaveEstrangeiraProduto'";
+
+				}else{
+
+					$sqlFaturarProduto = "UPDATE orcamentos_propostas_produtos
+									SET Status_ID  = '137'
+									WHERE Proposta_Produto_ID = '$chaveEstrangeiraProduto'";
+
+				}
+			}
+
+			mpress_query($sqlFaturarProduto);
+		}
+
 	}
 ?>
