@@ -4453,14 +4453,14 @@ function verificarCondicoesPropostas($proposta){
 				$numeroDias 				= retornarDiferencasDias($dataVencimento, $dataPagmFornecedor);
 
 				//VERIFICA SE A DATA DE PAGAR A PRIMEIRA PARTE DO FORNACEDOR NÃO É ANTES DA DATA DE RECEBIMENTO
-				if($numeroDias->invert > 0){
+				if($numeroDias['negativo'] == true){
 
 					$propostaViavel = false;
 
 				}else{
 
 					//VERIFICA A DIFERENÇA MINIMA DE 5 DIAS ENTRE A DATA DE FATURAMENTO DOS SERVIÇOS E O PAGAMENTO DE FORNECEDOR
-					if($numeroDias->days <= 5){
+					if($numeroDias['dias'] <= 5){
 
 						$propostaViavel = false;
 

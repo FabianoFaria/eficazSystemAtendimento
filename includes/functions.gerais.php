@@ -2683,9 +2683,11 @@
 		$dataFtrm 		= implode("-", array_reverse(explode("/", $dataFaturamente)));
 		$dataPgmt 		= implode("-", array_reverse(explode("/", $dataPagamentoFornecedor)));
 
-		$dStart 	= new DateTime($dataFtrm);
-		$dEnd  		= new DateTime($dataPgmt);
-		$dDiff 		= $dStart->diff($dEnd);
+		// $dStart 	= new DateTime($dataFtrm);
+		// $dEnd  		= new DateTime($dataPgmt);
+		//$dDiff 		= $dStart->date_diff($dEnd);
+
+		$dDiff 			= GetDateDiffFromNow($dataFtrm, $dataPgmt);
 
 		return $dDiff;
 	}
@@ -3835,6 +3837,29 @@ if(!function_exists('date_diff')) {
     return $diff;
   }
 
+}
+
+function GetDateDiffFromNow($date1, $date2) 
+{
+	$unixOriginalDate = strtotime($date1);
+	$unixNowDate = strtotime($date2);
+	$difference = $unixNowDate - $unixOriginalDate ;
+	$days = (int)($difference / 86400);
+	$hours = (int)($difference / 3600);
+	$minutes = (int)($difference / 60);
+	$seconds = $difference;
+	$atrasado = false;
+
+	if($days < 0){
+
+		$atrasado = true;
+	}
+
+	$tempoDecorrido = $arrayName = array('dias' => $days, 
+										  'negativo' => $atrasado);
+
+
+	return $tempoDecorrido;
 }
 
 //Contador de contas que estão para vencer ou venceram
