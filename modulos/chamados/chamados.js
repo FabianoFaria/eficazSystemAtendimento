@@ -1237,7 +1237,7 @@ $(document).ready(function(){
 				dados += "&chave-estrangeira="+$(this).attr('chave-estrangeira');
 				if ($(this).val()=='Faturar'){
 
-					console.log('Teste de alteração de botão!!!');
+					//console.log('Teste de alteração de botão!!!');
 
 					alertify.confirm('Aviso', "Tem certeza que deseja enviar esses itens para o financeiro?",
 						function(){

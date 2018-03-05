@@ -1445,6 +1445,31 @@ function orcamentoSalvar(){
 		$dataHoraFinalizado = "NULL";
 
 	if (($workflowID=="")||($workflowID=="0")){
+
+		//QUERY PARA RECUPERAÇÃO DE ID DE CLIENTE PARA O QUAL DEVE SER EFETUADO A COBRANÇA DO ORÇAMENTO.
+
+		$sqlClienteVinculado = "SELECT cv.Cadastro_ID
+								FROM cadastros_vinculos cv
+								WHERE cv.Cadastro_Filho_ID = '$solicitanteID'";
+
+		$resultado = mpress_query($sqlClienteVinculado);
+
+		if($row = mpress_fetch_array($resultado)){
+
+			//var_dump($row);
+			$idClienteFaturar = $row[0];
+
+			/*
+				array (size=2)
+				  0 => string '1024' (length=4)
+				  'Cadastro_ID' => string '1024' (length=4)
+
+			*/
+		}else{
+
+			$idClienteFaturar = '';
+		}
+
 		//$sql = "Insert Into orcamentos_workflows (Empresa_ID, Solicitante_ID, Representante_ID, Situacao_ID, Codigo, Titulo, Data_Abertura, Data_Finalizado, Data_Cadastro, Usuario_Cadastro_ID)
 										  //Values ('$empresaID', '$solicitanteID', '$representanteID', '$situacaoID', '$codigo', '$titulo', $dataAbertura, $dataHoraFinalizado, $dataHoraAtual, '".$dadosUserLogin['userID']."')";
 		//QUERY ATUALIZADA PARA SALVAR O ORÇAMENTO COM A ID DE ORIGEM E DO POSSIVEL PARCEIRO.
@@ -1460,7 +1485,8 @@ function orcamentoSalvar(){
 					Data_Cadastro,
 					Usuario_Cadastro_ID,
 					Origem_ID,
-					Parceiro_ID
+					Parceiro_ID,
+					Cadastro_Faturamento_ID
 				)VALUES(
 					'$empresaID',
 					'$solicitanteID',
@@ -1473,7 +1499,8 @@ function orcamentoSalvar(){
 					$dataHoraAtual,
 					'".$dadosUserLogin['userID']."',
 					'$origemOrcamento',
-					'$identificacaoParceiro'
+					'$identificacaoParceiro',
+					'$idClienteFaturar'
 				)";
 
 		//var_dump($_POST['situacao-origem-workflow'], $sql);
@@ -4460,7 +4487,7 @@ function verificarCondicoesPropostas($proposta){
 				}else{
 
 					//VERIFICA A DIFERENÇA MINIMA DE 5 DIAS ENTRE A DATA DE FATURAMENTO DOS SERVIÇOS E O PAGAMENTO DE FORNECEDOR
-					if($numeroDias['dias'] <= 5){
+					if($numeroDias['dias'] < 5){
 
 						$propostaViavel = false;
 
