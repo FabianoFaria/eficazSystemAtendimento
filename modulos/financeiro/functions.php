@@ -3002,7 +3002,7 @@
 			opp.Proposta_Produto_ID as Workflow_Produto_ID, 
 			pv.Produto_Variacao_ID as Produto_Variacao_ID, 
 			pv.Codigo as Codigo_Variacao,
-			DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro, 
+			DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i') as Data_Cadastro,
 			concat(coalesce(pd.Nome,''),
 			' ',coalesce(pv.Descricao,'')) as Descricao_Produto,
 			cd.Nome as Nome,
@@ -3057,7 +3057,7 @@
 		opp.Proposta_Produto_ID, 
 		pv.Produto_Variacao_ID, 
 		pv.Codigo,
-		DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i'), 
+		DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i'),
 		concat(coalesce(pd.Nome,''),
 		' ',coalesce(pv.Descricao,'')), 
 		cd.Nome,
@@ -3111,7 +3111,7 @@
 		opp.Proposta_Produto_ID, 
 		pv.Produto_Variacao_ID, 
 		pv.Codigo as Codigo_Variacao,
-		DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i'), 
+		DATE_FORMAT(opp.Data_Cadastro, '%d/%m/%Y %H:%i'),
 		concat(coalesce(pd.Nome,''),
 		' ', 
 		coalesce(pv.Descricao,'')), 
@@ -3170,63 +3170,95 @@
 			$dadosFP = unserialize($rs['Forma_auxiliar']);
 
 			$linhas++;
+
+
 			if ($rs['Tipo_ID']!=$tipoIDAnt){
 				$i++;
+
+
 				if ($rs['Tipo_ID']=="44"){
 					$descricaoConta = "<font style='color:red !important;'><b>".$rs['Tipo']." PARA</b></font>";
 				}
+
 				if ($rs['Tipo_ID']=="45"){
 					$descricaoConta = "<font style='color:blue !important;'><b>".$rs['Tipo']." DE</b></font>";
 				}
+
+
 				$dados['colunas']['colspan'][$i][1] 	= $colAux;
 				$dados['colunas']['classe'][$i] 		= 'destaque-tabela';
 				$dados['colunas']['conteudo'][$i][1] 	= "<p Style='margin:2px 5px 0 2px;'>".$descricaoConta."</p>";
 				$dados['colunas']['extras'][$i][1] 		= "align='center' height='25'";
 				$cadastroIDAnt 							= "";
 				$formaPagamentoIDAnt 					= "";
+
+				$propostaNome 							= "";
 			}
 
 
-			if (($rs['Cadastro_ID']!=$cadastroIDAnt) || ($rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt && $rs['Tipo_ID']=="44")){
+			/*
+				CONDIÇÃO PARA AGRUPAR OS PRODUTOS COM MESMA FORMA DE PAGAMENTO PARA OS PRODUTOS PARA FATURAR OU PAGAR PARA O FORNECEDOR
+			*/
 
-				/*
-					CONDIÇÃO '$rs['Tipo_ID']=="44"' PARA AGRUPAR OS PRODUTOS COM MESMA FORMA DE PAGAMENTO PARA OS PRODUTOS PARA FATURAR
-				*/
+			if (($rs['Cadastro_ID']!=$cadastroIDAnt) || ($rs['Tipo_ID']==$tipoIDAnt)){
+
+				// $rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt &&
+
+				
 
 				$pagamentoFornecedor = '';
 
 				/*
-					VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA, CASO O PRODUTO SEJA PARA PAGAMENTO DE FORNECEDOR.
+					IRÁ EFETUAR A DISCRIMINAÇÃO DOS PRODUTOS DE ACORDO COM A PROPOSTA A QUE PERTENCEM
 				*/
+				if( $rs['Titulo_Proposta']!=$propostaNome ){
+				//if( $rs['Forma_Pagamento_ID']!=$formaPagamentoIDAnt ){
 
-				if($rs['Prestador_Forma_Pagamento_ID'] != 0 && $rs['Tipo_ID']=="44"){
-					$pagamentoFornecedor = $rs['Forma_Pagamento_Prestador'];
-				}else{
-					$pagamentoFornecedor = $rs['Forma_Pagamento'];
+					/*
+						VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA, CASO O PRODUTO SEJA PARA PAGAMENTO DE FORNECEDOR.
+					*/
+					if($rs['Prestador_Forma_Pagamento_ID'] != 0 && $rs['Tipo_ID']=="44"){
+						$pagamentoFornecedor = $rs['Forma_Pagamento_Prestador'];
+					}else{
+						$pagamentoFornecedor = $rs['Forma_Pagamento'];
+					}
+
+
+					$indice++;
+					$i++;
+					$dados[colunas][classe][$i] 		= 'tabela-fundo-escuro-titulo';
+					$dados[colunas][colspan][$i][1] 	= $colAux;
+					$dados[colunas][conteudo][$i][1] 	= "<p Style='margin:2px 5px 0 2px;'>".$rs['Nome_Para']."</p>
+						<p Style='margin:2px 5px 0 2px;'>".$rs['Titulo_Proposta']."</p>
+														<p Style='margin:2px 5px 0 2px;'>".$pagamentoFornecedor."</p>
+														<p Style='margin:2px 5px 0 2px; text-align:right;'>
+															<input type='button' value='' class='esconde botao-faturar-cancelar botao-faturar-cancelar-".$indice."' origem='$tabelaEstrangeira' tipo-id='".$rs['Tipo_ID']."' empresa-id='".$rs['Empresa_ID']."' cadastro-id='".$rs['Cadastro_ID']."' chave-estrangeira='".$rs['ID_Ref']."' style='float:right;height:24px;font-size:10px;margin-top:-3px;width:120px;'>
+														</p>";
+					$dados[colunas][extras][$i][1] 		= " align='center' height='25' ";
+					$c = 1;
+					$i++;
+
+
+					$dados[colunas][classe][$i] 		= "tabela-fundo-escuro-titulo";
+					if ($contEmpresas>1){
+						$dados[colunas][conteudo][$i][$c++] = "Empresa";
+					}
+					$dados[colunas][conteudo][$i][$c++] = "Or&ccedil;amento ID";
+					$dados[colunas][conteudo][$i][$c++] = "Produto / Servi&ccedil;o";
+					$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:2px 5px 0 5px;float:right;'>Valor</p>";
+
+
+
+					// $dados[colunas][conteudo][$i][$c++] = "<p Style='margin:2px 5px 0 5px;float:right;'>Data altera&ccedil;&atilde;o</p>";
+
+					$dados[colunas][conteudo][$i][$c++] = "<center><img src='$caminhoSistema/images/geral/disponivel.png' class='sel-todas-faturar' indice='$indice' tipo-id='".$rs['Tipo_ID']."' style='cursor:pointer' title='Aceitar Todas'></center>";
+					$dados[colunas][conteudo][$i][$c++] = "<center><img src='$caminhoSistema/images/geral/indisponivel.png' class='sel-todas-cancelar' indice='$indice' tipo-id='".$rs['Tipo_ID']."' style='cursor:pointer' title='Negar Todas'></center>";
+
 				}
 
-				$indice++;
-				$i++;
-				$dados[colunas][classe][$i] 		= 'tabela-fundo-escuro-titulo';
-				$dados[colunas][colspan][$i][1] 	= $colAux;
-				$dados[colunas][conteudo][$i][1] 	= "<p Style='margin:2px 5px 0 2px;'>".$rs['Nome_Para']."</p>
-													<p Style='margin:2px 5px 0 2px;'>".$pagamentoFornecedor."</p>
-													<p Style='margin:2px 5px 0 2px; text-align:right;'>
-														<input type='button' value='' class='esconde botao-faturar-cancelar botao-faturar-cancelar-".$indice."' origem='$tabelaEstrangeira' tipo-id='".$rs['Tipo_ID']."' empresa-id='".$rs['Empresa_ID']."' cadastro-id='".$rs['Cadastro_ID']."' chave-estrangeira='".$rs['ID_Ref']."' style='float:right;height:24px;font-size:10px;margin-top:-3px;width:120px;'>
-													</p>";
-				$dados[colunas][extras][$i][1] 		= " align='center' height='25' ";
-				$c = 1;
-				$i++;
-				$dados[colunas][classe][$i] 		= "tabela-fundo-escuro-titulo";
-				if ($contEmpresas>1){
-					$dados[colunas][conteudo][$i][$c++] = "Empresa";
-				}
-				$dados[colunas][conteudo][$i][$c++] = "Or&ccedil;amento ID";
-				$dados[colunas][conteudo][$i][$c++] = "Produto / Servi&ccedil;o";
-				$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:2px 5px 0 5px;float:right;'>Valor</p>";
-				$dados[colunas][conteudo][$i][$c++] = "<center><img src='$caminhoSistema/images/geral/disponivel.png' class='sel-todas-faturar' indice='$indice' tipo-id='".$rs['Tipo_ID']."' style='cursor:pointer' title='Aceitar Todas'></center>";
-				$dados[colunas][conteudo][$i][$c++] = "<center><img src='$caminhoSistema/images/geral/indisponivel.png' class='sel-todas-cancelar' indice='$indice' tipo-id='".$rs['Tipo_ID']."' style='cursor:pointer' title='Negar Todas'></center>";
+
 			}
+
 			$c = 1;
 			$i++;
 			if($rs['Faturamento_Direto']=='1'){ 
@@ -3235,11 +3267,14 @@
 				$faturamentoDireto 		= "";
 			}
 
+
+
 			$dados[colunas][classe][$i] = "tabela-fundo-claro";
 
 			if ($contEmpresas>1){
 				$dados[colunas][conteudo][$i][$c++] = "<p Style='margin:2px 5px 0 2px;float:left;'>".$nomeDe."</p>";
 			}
+
 			$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;' class='link link-orcamento' workflow-id='$rs[ID_Ref]'>".$rs['ID_Ref']."</p>";
 			$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:left;'>".$rs['Descricao_Produto']." ".$faturamentoDireto."</p>";
 
@@ -3297,6 +3332,7 @@
 
 				}
 
+
 			}else{ // PRODUTO PARA FATURAR
 
 				/* VERIFICA SE EXISTE ALGUM DESCONTO ATRELADO A FORMA DE PAGAMENTO */
@@ -3324,6 +3360,18 @@
 				}
 
 			}
+
+			// EXIBE DATA DA ÚLTIMA ATUALIZAÇÃO DO PRODUTO
+
+			// if(isset($rs['Data_Alteracao'])){
+
+			// 	$dataTemp = implode("/", array_reverse(explode("-", $rs['Data_Alteracao'])));
+
+			// 	$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'>".$dataTemp."</p>";
+
+			// }else{
+			// 	$dados[colunas][conteudo][$i][$c++] 	= "<p Style='margin:2px 5px 0 2px;float:right;'> N/A</p>";
+			// }
 
 			if($rs['Faturado']==0){
 
@@ -3399,14 +3447,18 @@
 			$cadastroIDAnt 			= $rs['Cadastro_ID'];
 			$formaPagamentoIDAnt 	= $rs['Forma_Pagamento_ID'];
 
+			$propostaNome 			= $rs['Titulo_Proposta'];
+
 			//VERIFICA SE O PRODUTO TEM UMA FORMA DE PAGAMENTO ESPECIFICA.
-			if($rs['Prestador_Forma_Pagamento_ID'] != 0){
+			if($rs['Prestador_Forma_Pagamento_ID'] != 0 && $rs['Tipo_ID'] == '44'){
 				$formaPagamentoIDAnt = $rs['Prestador_Forma_Pagamento_ID'];
 			}else{
 				$formaPagamentoIDAnt = $rs['Forma_Pagamento_ID'];
 			}
 
 		}
+
+
 		$largura = "100%";
 		$colunas = $c - 1;
 		$c = 1;
@@ -3442,8 +3494,6 @@
 
 	function confirmarFaturarProdutos(){
 
-		// var_dump($_POST);
-
 		/*
 			LISTAS DE STATUS PARA OS PRODUTOS
 
@@ -3466,6 +3516,8 @@
 			$resultado 		= mpress_query($statusProduto);
 			$rst 			= mpress_fetch_array($resultado);
 			$statusProduto 	= $rst[0];
+
+			$dataAtual 		= date('Y-m-d H:i:s');
 
 			if($_POST['tipo-id'] == 44){
 
@@ -3503,6 +3555,8 @@
 
 				}
 			}
+
+			var_dump($sqlFaturarProduto);
 
 			mpress_query($sqlFaturarProduto);
 		}
